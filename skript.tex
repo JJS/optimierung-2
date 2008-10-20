@@ -1,0 +1,134 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{picins}
+\title{Algebra 1 Mitschrift}
+
+
+\author{JJS}
+
+\definecolor{secback}{rgb}{0.75,0.75,0.75}
+\definecolor{headerback}{rgb}{0.8,0.8,0.8}
+
+
+%\renewcommand{\section}[1]{\refstepcounter{section}\setcounter{header}{0}\addcontentsline{toc}{section}{\thesection. #1}$\!$\vspace{0.3cm}\newline\vspace{0.01cm}\noindent\colorbox{secback}{\parbox{177.9mm}{\begin{LARGE}\textsc{\thesection. #1}\label{sec:\thepart\thesection}\end{LARGE}}}\vspace{0.3cm}\\}
+%
+%\newcommand{\header}[2]{\refstepcounter{header}$\!$\vspace{0.3cm}\newline\vspace{0.01cm}\noindent\colorbox{headerback}{\parbox{177.9mm}{\textbf{\theheader) #1} #2}}\vspace{0.3cm}\\}
+%
+%\newcommand{\headera}[2]{$\!$\vspace{0.3cm}\\\noindent\textbf{#1} #2\vspace{0.05cm}\hrule\vspace{0.3cm}\noindent}
+%
+%\usepackage[nohead,nofoot,lmargin=1.5cm,rmargin=1.5cm,tmargin=1.5cm,bmargin=1.5cm,headsep=0.5cm,headheight=12.4pt, foot=0.75cm]{geometry}
+%\renewcommand{\footrulewidth}{0.4pt}
+%\newcounter{header}
+
+
+\usepackage[nohead,nofoot,lmargin=1.5cm,rmargin=1.5cm,tmargin=1.5cm,bmargin=1.5cm,headsep=0.5cm,headheight=12.4pt, foot=0.75cm]{geometry}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%git
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Seite \thepage}
+\lhead{Optimierung 1 Mitschrift}
+\lfoot{WS 08/09}
+\cfoot{Jan Sommer}
+\rfoot{sommerj@in.tum.de}
+\setcounter{section}{-1}
+\newcounter{def}
+\setcounter{section}{4}
+\begin{document}
+%\maketitle
+%\pagebreak
+\hfill\textbf{14.10.2008}
+\section*{Wiederholung}
+\subsection*{Lineare Programme}
+\[\max c^Tx\qquad,\qquad Ax\leq b\]
+\subsection*{Polyeder}
+Polyeder ist zulässiger Bereich eines LP
+\begin{itemize}
+\item $\mathcal H$-Darstellung (\textit{half-spaces}): $P=\left\{x\in\mathbb R^n\::\:Ax\leq b\right\}$
+\item $\mathcal V$-Darstellung (\textit{vertex}): $P=conv(V)+pos(S)$ ($V$, $S$ endlich)
+\end{itemize}
+\subsection*{Kegel}
+\begin{itemize}
+\item $N_P(x^*)=\left\{c\in\mathbb R^n\::\:\max_{x\in P}c^Tx=c^Tx^*\right\}$
+\item $S_P(x^*)=\bigcap_{c\in N_P(x^*)}H^{\leq}_{(c,0)}$
+\item $S_P(B)=\left\{x\in\mathbb R^n\::\:A_Bx\leq0\right\}$
+\end{itemize}
+\subsection*{Simplexalgorithmus}
+\begin{itemize}
+\item Starte bei beliebiger Ecke
+\item Bestimme Kanten von $S_P(B)$
+\item Bestimme Verbesserungskante ($-A_B^{-1}$)
+\item Laufe Verbesserungskante entlang zur nächsten Ecke
+\item[$\Rightarrow$] endliche, exponentielle worst case Laufzeit
+\end{itemize}
+\subsection*{Dualität}
+Primales Problem (P):
+\[\max c^Tx\qquad,\qquad Ax\leq b\]
+Duales Problem (D):
+\[\min b^Ty\qquad,\qquad A^Ty=c\:,\:y\geq0\]
+Primale Nebenbedingung $\leftrightarrow$ duale Variablen
+\subsection*{Komplementarität}
+$x^*$ ist optimal für (P) genau dann, wenn $x^*$ zulässig ist und wenn es ein dual zulässiges $y^*$ gibt mit
+\begin{itemize}
+\item für alle $i$ mit $a_i^Tx^*<\beta_i$ $\Rightarrow$ $\eta^*_i=0$ oder
+\item $c^Tx^*=b^Ty^*$ (starker Dualitätssatz)
+\end{itemize}
+Für zulässige $x$ und $y$ gilt (schwacher Dualitätssatz):
+\[c^Tx^*\leq b^Ty^*\]
+\hfill\textbf{17.10.2008}
+\section{Diskrete Strukturen}
+\subsection{Graphen}
+\subsubsection{Beispiel: Straßenkreuzung}
+\begin{itemize}
+\item Kürzester Weg
+\item Straßenreinigung
+\item TSP\\[1ex]
+$\vdots$
+\end{itemize}
+\subsubsection{Bezeichung}
+Sei $X$ eine Menge. Dann bezeichnet $2^X$ die \textit{Potenzmenge} von $X$. Für $k\in\mathbb N$ sei
+\[\binom Xk:=\left\{S\in2^X\::\:\vert S\vert=k\right\}\]
+Menge der $k$-elementigen Teilmengen von $X$.
+\subsubsection{Definition}
+Seien $V$, $E$ endliche Mengen mit $V\cap E=\emptyset$ und $\nu:E\rightarrow\binom V1\cup\binom V2\cup V^2$. Dann heißt $G:=(V,E,\nu)$ \textit{allgemeiner Graph}. Elemente von $V$: \textit{Knoten}, Elemente von $E$: \textit{Kanten}.\\[1ex]
+Sei $e\in E$, dann existiert ein $v\in V$ mit $\nu(e)\in\left\{\{v\},(v,v)\right\}$, so heißt $e$ \textit{Schlinge}. Ist $\nu(e)\in\binom V1\cup\binom V2$, so heißt $e$ \textit{ungerichtet}.Ist $\nu(e)\in V^2$, so heißt $e$ \textit{gerichtet}. Gilt $\nu(e)=(v,w)$, so heißen $v$ \textit{Anfangs-} und $w$ \textit{Endknoten} von $e$.\\[1ex]
+Der allgemeine Graph $G$ heißt \textit{schlingenfrei}, wenn $E$ keine Schlinge enthält. Sind alle Kanten ungerichtet bzw. gerichtet, dann heißt $G$ \textit{ungerichtet} bzw. \textit{gerichtet}.\\[1ex]
+Allgemeine schlingenfreie ungerichtete Graphen heißen \textit{Multigraphen}. Analog \textit{gerichtete Multigraphen}.\\[1ex]
+Ist $\nu$ injektiv und gibt es keine $e_1,e_2\in E$ und $v\in V$ mit  $\nu(e_1)=\{v\}$, $\nu(e_2)=(v,v)$, so heißt $G$ \textit{schlicht} (\textit{einfach}).\\[1ex]
+Sind $G(V,E,\nu)$ allgemeiner Graph, $\Phi:E\rightarrow\mathbb R$, so heißt $(G;\Phi)$ \textit{gewichteter} allgemeiner Graph. Für $e\in E$ heißt $\Phi(e)$ \textit{Gewicht} (Kosten, Länge, Kapazität $\dots$) von $e$.
+ \subsubsection{Beispiel}
+$V=\{v_1,v_2,v_3,v_4\}$, $E=\{e_1,\dots,e_8\}$ mit $V\cap E=\emptyset$, $v:E\rightarrow\binom V1\cup\binom V2\cup V^2$ definiert durch
+\begin{align*}
+\nu(e_1)&:=\{v_1\}\\
+\nu(e_2)&:=(v_1,v_2)\\
+\nu(e_3)&:=(v_2,v_1)\\
+\nu(e_4)&:=\{v_1,v_4\}\\
+\nu(e_5)&:=(v_1,v_3)\\
+\nu(e_6)&:=\{v_3,v_4\}\\
+\nu(e_7)&:=\{v_3,v_4\}\\
+\nu(e_8)&:=(v_3,v_4)\\
+\end{align*}
+\paragraph*{Graphische Darstellung}
+ringdingdong
+\subsubsection{Bezeichnung}
+Seien $X$ eine nichtleere endliche Menge, $k:=\vert X\vert$. Jede Bijektion $\tau:\{1,\dots,k\}\rightarrow X$ heißt \textit{Ordnung} (\textit{Reihenfolge}) auf $X$. Ist $\tau$ Reihenfolge auf $X$, so setzt man oft $x_i:=\tau(I)$ und schreibt $x=\{x_0,\dots,x_k\}$. Umgekehrt $\tau(i)=x_i$ legt Reiehenfolge fest.
+\subsubsection{Definition}
+Seien $G=(V,E,\nu)$ allgemeiner Graph, $n=\vert V\vert$, $m=\vert E\vert$, $m,n\geq1$
+\begin{enumerate}[a)]
+\item Seien $\tau_V,\tau_E$ Reihenfolgen auf $V$ bzw. $E$, dh. $V=\{v_1,\dots,v_n\}$, $E=\{e_1,\dots,e_m\}$. Ferner sei die $n\times m$-Matrix $S_G:=S_G(\tau_V,\tau_E):=\left(\sigma_{ij}\right)_{\underset{j=1,\dots,m}{i=1,\dots, n}}$ definiert durch
+\[\sigma_{ij}:=\begin{cases}1&\text{falls }e_j\text{ ungerichtet und }v_i\in\nu(e_j)\\
+-1&\text{falls }e_j\text{ gerichtet und }v_i\text{ Anfangsknoten von }e_j\\
++1&\text{falls }e_j\text{ gerichtet und }v_i\text{ Endknoten von }e_j\\
+0&\text{sonst}\end{cases}\]
+$S_G$ heißt (\textit{Knoten-Kanten}) \textit{Inzidenzmatrix} von $G$. Der $j$-te Spaltenvektor von $S_G$ heißt \textit{Inzidenzvektor} von $e_j$.
+\end{enumerate}
+\end{document}
