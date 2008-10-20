@@ -8,6 +8,7 @@
 \usepackage{xcolor}
 \usepackage{tikz}
 \usepackage{enumerate}
+\usetikzlibrary{arrows}
 \title{Algebra 1 Mitschrift}
 
 
@@ -117,7 +118,24 @@ $V=\{v_1,v_2,v_3,v_4\}$, $E=\{e_1,\dots,e_8\}$ mit $V\cap E=\emptyset$, $v:E\rig
 \nu(e_8)&:=(v_3,v_4)\\
 \end{align*}
 \paragraph*{Graphische Darstellung}
-ringdingdong
+\begin{center}
+\begin{tikzpicture}[>=stealth']
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{edge}=[draw,-]
+\tikzstyle{arrow}=[edge,->]
+\tikzstyle{every loop}=[]
+\foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,0)/v_3},{(0,3)/v_4}}
+  \node[vertex] (\name) at \pos {$\name$};
+\path[edge,loop above] (v_1) to (v_1) node [midway] {$e_1$};
+\path[arrow,bend left] (v_1) to (v_2) node [midway,right] {$e_2$};
+\path[arrow,bend left] (v_2) to (v_1) node [midway,left] {$e_3$};
+\path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
+\path[arrow] (v_1) to (v_3) node[midway, right] {$e_5$};
+\path[edge,bend left] (v_3) to (v_4) node[midway,left] {$e_6$};
+\path[edge,bend left] (v_4) to (v_3) node[midway,right] {$e_7$};
+\path[arrow] (v_3) to (v_4) node[midway,fill=white] {$e_8$};
+\end{tikzpicture}
+\end{center}
 \subsubsection{Bezeichnung}
 Seien $X$ eine nichtleere endliche Menge, $k:=\vert X\vert$. Jede Bijektion $\tau:\{1,\dots,k\}\rightarrow X$ heiﬂt \textit{Ordnung} (\textit{Reihenfolge}) auf $X$. Ist $\tau$ Reihenfolge auf $X$, so setzt man oft $x_i:=\tau(I)$ und schreibt $x=\{x_0,\dots,x_k\}$. Umgekehrt $\tau(i)=x_i$ legt Reiehenfolge fest.
 \subsubsection{Definition}
