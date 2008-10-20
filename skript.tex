@@ -100,7 +100,7 @@ Sei $X$ eine Menge. Dann bezeichnet $2^X$ die \textit{Potenzmenge} von $X$. F¸r 
 Menge der $k$-elementigen Teilmengen von $X$.
 \subsubsection{Definition}
 Seien $V$, $E$ endliche Mengen mit $V\cap E=\emptyset$ und $\nu:E\rightarrow\binom V1\cup\binom V2\cup V^2$. Dann heiﬂt $G:=(V,E,\nu)$ \textit{allgemeiner Graph}. Elemente von $V$: \textit{Knoten}, Elemente von $E$: \textit{Kanten}.\\[1ex]
-Sei $e\in E$, dann existiert ein $v\in V$ mit $\nu(e)\in\left\{\{v\},(v,v)\right\}$, so heiﬂt $e$ \textit{Schlinge}. Ist $\nu(e)\in\binom V1\cup\binom V2$, so heiﬂt $e$ \textit{ungerichtet}.Ist $\nu(e)\in V^2$, so heiﬂt $e$ \textit{gerichtet}. Gilt $\nu(e)=(v,w)$, so heiﬂen $v$ \textit{Anfangs-} und $w$ \textit{Endknoten} von $e$.\\[1ex]
+Sei $e\in E$. Existiert ein $v\in V$ mit $\nu(e)\in\left\{\{v\},(v,v)\right\}$, so heiﬂt $e$ \textit{Schlinge}. Ist $\nu(e)\in\binom V1\cup\binom V2$, so heiﬂt $e$ \textit{ungerichtet}. Ist $\nu(e)\in V^2$, so heiﬂt $e$ \textit{gerichtet}. Gilt $\nu(e)=(v,w)$, so heiﬂt $v$ \textit{Anfangs-} und $w$ \textit{Endknoten} von $e$.\\[1ex]
 Der allgemeine Graph $G$ heiﬂt \textit{schlingenfrei}, wenn $E$ keine Schlinge enth‰lt. Sind alle Kanten ungerichtet bzw. gerichtet, dann heiﬂt $G$ \textit{ungerichtet} bzw. \textit{gerichtet}.\\[1ex]
 Allgemeine schlingenfreie ungerichtete Graphen heiﬂen \textit{Multigraphen}. Analog \textit{gerichtete Multigraphen}.\\[1ex]
 Ist $\nu$ injektiv und gibt es keine $e_1,e_2\in E$ und $v\in V$ mit  $\nu(e_1)=\{v\}$, $\nu(e_2)=(v,v)$, so heiﬂt $G$ \textit{schlicht} (\textit{einfach}).\\[1ex]
@@ -137,7 +137,7 @@ $V=\{v_1,v_2,v_3,v_4\}$, $E=\{e_1,\dots,e_8\}$ mit $V\cap E=\emptyset$, $v:E\rig
 \end{tikzpicture}
 \end{center}
 \subsubsection{Bezeichnung}
-Seien $X$ eine nichtleere endliche Menge, $k:=\vert X\vert$. Jede Bijektion $\tau:\{1,\dots,k\}\rightarrow X$ heiﬂt \textit{Ordnung} (\textit{Reihenfolge}) auf $X$. Ist $\tau$ Reihenfolge auf $X$, so setzt man oft $x_i:=\tau(I)$ und schreibt $x=\{x_0,\dots,x_k\}$. Umgekehrt $\tau(i)=x_i$ legt Reiehenfolge fest.
+Seien $X$ eine nichtleere endliche Menge, $k:=\vert X\vert$. Jede Bijektion $\tau:\{1,\dots,k\}\rightarrow X$ heiﬂt \textit{Ordnung} (\textit{Reihenfolge}) auf $X$. Ist $\tau$ Reihenfolge auf $X$, so setzt man oft $x_i:=\tau(i)$ und schreibt $x=\{x_0,\dots,x_k\}$. Umgekehrt $\tau(i)=x_i$ legt Reiehenfolge fest.
 \subsubsection{Definition}
 Seien $G=(V,E,\nu)$ allgemeiner Graph, $n=\vert V\vert$, $m=\vert E\vert$, $m,n\geq1$
 \begin{enumerate}[a)]
