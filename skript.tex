@@ -147,5 +147,101 @@ Seien $G=(V,E,\nu)$ allgemeiner Graph, $n=\vert V\vert$, $m=\vert E\vert$, $m,n\
 +1&\text{falls }e_j\text{ gerichtet und }v_i\text{ Endknoten von }e_j\\
 0&\text{sonst}\end{cases}\]
 $S_G$ heiﬂt (\textit{Knoten-Kanten}) \textit{Inzidenzmatrix} von $G$. Der $j$-te Spaltenvektor von $S_G$ heiﬂt \textit{Inzidenzvektor} von $e_j$.
+\item Seien $G_i=(V_i,E_i,\nu_i)$ $i=1,2$ allgemeine Graphen\hfill\textbf{21.10.2008}
+\[n:=\vert V_1\vert=\vert V_2\vert\:,\quad\vert E_1\vert=\vert E_2\vert\:,\quad n,m\geq1\]
+Dann heiﬂen $G_1$, $G_2$ \textit{isomorph}, falls Reihenfolgen $\tau_{V_i}$ auf $V_i$ und $\tau_{E_i}$ auf $E_i$ existieren, ($i=1,2$), so dass
+\[S_{G_1}\left(\tau_{V_1},\tau_{E_1}\right)=S_{G_2}\left(\tau_{V_2},\tau_{E_2}\right)\]
 \end{enumerate}
+\subsubsection{Beispiel}
+Gegeben ist allgemeiner Graph aus \textit{(5.14)}:
+\begin{center}
+\begin{tikzpicture}[>=stealth']
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{edge}=[draw,-]
+\tikzstyle{arrow}=[edge,->]
+\tikzstyle{every loop}=[]
+\foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,0)/v_3},{(0,3)/v_4}}
+  \node[vertex] (\name) at \pos {$\name$};
+\path[edge,loop above] (v_1) to (v_1) node [midway] {$e_1$};
+\path[arrow,bend left] (v_1) to (v_2) node [midway,right] {$e_2$};
+\path[arrow,bend left] (v_2) to (v_1) node [midway,left] {$e_3$};
+\path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
+\path[arrow] (v_1) to (v_3) node[midway, right] {$e_5$};
+\path[edge,bend left] (v_3) to (v_4) node[midway,left] {$e_6$};
+\path[edge,bend left] (v_4) to (v_3) node[midway,right] {$e_7$};
+\path[arrow] (v_3) to (v_4) node[midway,fill=white] {$e_8$};
+\end{tikzpicture}
+\end{center}
+\[S_G=\left(\begin{array}{cccccccc}1&-1&1&1&-1&0&0&0\\0&1&-1&0&0&0&0&0\\0&0&0&0&1&1&1&-1\\0&0&0&1&0&1&1&1\end{array}\right)\]
+\subsubsection{Definition}
+$G=(V,E,\nu)$ allgemeiner Graph. Abbildungen $deg_G(v)$, $deg_{\text{in}\:G}(v)$, $deg_{\text{aus}\:G}(v)$: $V\rightarrow\mathbb N_0$ seien f¸r $v\in V$ definiert durch
+\begin{align*}
+deg_G(v)&:=2\left\vert\left\{e\in E\::\:\nu(e)=\{v\}\right\}\right\vert+\left\vert\left\{e\in E\::\:\exists w\in V\setminus\{v\}\::\:\nu(e)=\{v,w\}\right\}\right\vert\\
+deg_{\text{in}\:G(v)}&:=\left\vert\left\{e\in E\::\:\nu(e)=\{v\}\vee\exists\left(w\in V\setminus\{v\}\right)\::\:\nu(e)=(w,v)\right\}\right\vert\\
+deg_{\text{aus}\:G(v)}&:=\left\vert\left\{e\in E\::\:\nu(e)=\{v\}\vee\exists\left(w\in V\setminus\{v\}\right)\::\:\nu(e)=(v,w)\right\}\right\vert\\
+\end{align*}
+heiﬂen \textit{Grad}, \textit{Ingrad}, \textit{Ausgrad} (\textit{Valenz}). Knoten mit In-aus-Grad =0 heiﬂen \textit{isoliert}.
+\subsubsection{Definition}
+$G=(V,E,\nu)$ allgemeiner Graph, $p\in\mathbb N$. Ein \textit{Kantenzug} der \textit{kombinatorischen L‰nge} $p$ in $G$ ist Sequenz
+\[\left(v_0,e_1,v_1,e_2,\dots,e_p,v_p\right)\]
+von (alternierend) Knoten $v_0,\dots,v_p$, Kanten $e_1,\dots,e_p$, so dass f¸r $k=1,\dots,p$ gilt
+\[\nu(e_k)\in\begin{cases}\left\{\{v\},(v,v)\right\}&\text{falls }v_{k-1}=v_k=v\\\left\{\{v_{k-1},v_k\},(v_{k-11},v_k)\right\}&\text{falls }v_{k-1}\neq v_k\end{cases}\]
+(Oft k¸rzer $(e_1,\dots,e_p)$, manchmal -wenn eindeutig- $(v_0,\dots,v_p)$)\\[1ex]
+Seien $v,w\in V$. $w$ heiﬂt \textit{von $v$ aus erreichbar}, wenn $v=w$, oder wenn es einen Kantenzug $\left(v_0,e_1,\dots,e_p,v_p\right)$ in $G$ gibt mit $v_0=v$ und $v_p=w$.\\[1ex]
+Sei $W:=\left(v_0,e_1,\dots,e_p,v_p\right)$ Kantenzug. $W$ heiﬂt \textit{einfach}, wenn $e_1,\dots,e_p$ paarweise verschieden sind und $(v_0-v_p)$-\textit{Weg}, wenn Knoten $v_0,\dots,v_p$ paarweise verschieden sind.\\[1ex]
+$W$ \textit{geschlossen} wenn $v_0=v_p$ ist, \textit{Kreis} wenn $(v_0,e_1,\dots,e_{p-1},v_{p-1})$ Weg ist.\\[1ex]
+Oftmals einzelner Knoten: (uneigentlicher) Weg, Kreis\\[1ex]
+Jeder Kreis, der alle Knoten von $G$ enth‰lt, heiﬂt \textit{Hamilton-Kreis} ($G$ heiﬂt dann \textit{hamiltonsch})
+\subsubsection{Bemerkung}
+Seien $G(V,E,\nu)$ allgemeiner Graph, $s,t\in V$
+\begin{enumerate}[(a)]
+\item Ist $t$ von $s$ aus erreichbar, so gibt es $s-t$-Weg
+\item Jeder (eigentliche) geschlossener Kantenzug enth‰lt einen (eigentlichen) Kreis
+\end{enumerate}
+\paragraph*{Beweis}
+\begin{enumerate}[(a)]
+\item Jeder Kantenzug $(v_0,e_1,\dots,v_p)$ mit $s=v_0$, $t=v_p$ minimaler L‰nge ist ein $s-t$-Weg
+\item analog
+\end{enumerate}
+\subsubsection{Bemerkung}
+$G(V,E,\nu)$ allgemeiner Graph, $\sim$ Relation auf $V\times V$ definiert durch $v\sim w\::\Leftrightarrow\:w$ ist von $v$ aus erreichbar. Dann gilt
+\begin{enumerate}[(a)]
+\item $\sim$ ist reflexiv, transitiv
+\item Ist $G$ ungerichtet, so ist $\sim$ symmetrisch
+\end{enumerate}
+\subsubsection{Definition}
+$G=(V,E,\nu)$ allgemeiner Graph, $\Phi:E\rightarrow\mathbb R$. Sei $W=(v_0,e_1,\dots,e_p,v_p)$ Kantenzug.
+\[\varphi(W):=\sum_{i=1}^p\Phi(e_i)\]
+\textit{L‰nge von $W$} (bez. $\Phi$) (Ist $\Theta:V\rightarrow\mathbb R$ so erh‰lt man \textit{Knotengewichtung}).
+\subsubsection{Definition}
+$G_i=(V_i,E_i,\nu_i)$, $i=1,2$ allgemeine Graphen. Gilt $V_1\subset V_2$, $E_1\subset E_2$, $\nu_1=\nu_2\vert_{E_1}$, so heiﬂt $G_1$ \textit{Teil}-, \textit{Sub}-, \textit{Untergraph} von $G_2$ (Schreibweise $G_1\subset G_2$).\\[1ex]
+Ist $G_1$ Teilgraph von $G_2$ und gilt
+\[E_1=\left\{e\in E_2\::\:\nu_2(e)\in\binom{V_1}1\cup\binom{V_1}2\cup V_1^2\right\}\]
+so heiﬂt $G_1$ der durch $V_1$ in $G_2$ \textit{induzierte Teilgraph}.
+\subsubsection{Beispiel}
+$G$ aus \textit{5.1.4}:
+\begin{center}
+\begin{tikzpicture}[>=stealth']
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{edge}=[draw,-]
+\tikzstyle{arrow}=[edge,->]
+\tikzstyle{every loop}=[]
+\foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,0)/v_3},{(0,3)/v_4}}
+  \node[vertex] (\name) at \pos {$\name$};
+\path[edge,loop above] (v_1) to (v_1) node [midway] {$e_1$};
+\path[arrow,bend left] (v_1) to (v_2) node [midway,right] {$e_2$};
+\path[arrow,bend left] (v_2) to (v_1) node [midway,left] {$e_3$};
+\path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
+\path[arrow] (v_1) to (v_3) node[midway, right] {$e_5$};
+\path[edge,bend left] (v_3) to (v_4) node[midway,left] {$e_6$};
+\path[edge,bend left] (v_4) to (v_3) node[midway,right] {$e_7$};
+\path[arrow] (v_3) to (v_4) node[midway,fill=white] {$e_8$};
+\end{tikzpicture}
+\end{center}
+$U:=\{v_1,v_2,v_4\}$, $E_1:=\{e_4\}$, $E_2:=\{e_1,e_2,e_3,e_4\}$ und $S_1:=\left(E,E_1,\nu\vert_{E_1}\right)$, $S_2:=\left(U,E_2,\nu\vert_{E_2}\right)$. Beides sind Teilgraphen, $S_2$ induziert.
+\subsubsection{Bemerkung}
+$G=(V,E,\nu)$ allgemeiner Graph, $W=\left(v_0,e_1,\dots,e_p,v_p\right)$ Kantenzug. $V_W=\left\{v\::\:\exists k\in\{0,\dots,p\}\::\:v=v_k\right\}$, $E_W=\left\{e\::\:\exists k\in\{1,\dots,p\}\::\:e=e_k\right\}$. Dann ist $\left(V_W,E_W,\nu\vert_{E_W}\right)$ Teilgraph von $G$.\\[1ex]
+Oftmals werden daher Wege etc. als Teilgraph aufgefasst.
+\subsubsection{Definition}
+$G$ allgemeiner Graph, $s\in V$, $U(S)$ Menge der von $s$ erreichbaren Knoten. Gilt $U(s)=V$, so heiﬂt $G$ von $s$ aus \textit{zusammenh‰ngend}. $G$ heiﬂt (stark) \textit{zusammendh‰ngend} wenn $G$ von jedem seiner Knoten aus zusammenh‰ngend ist. Ein induzierter Teilgraph $S$ von $G$ heiﬂt (starke) \textit{Zusammenhangskomponente}, wenn $S$ (stark) zusammenh‰ngend ist und kein (stark) zusammenh‰ngender induzierter Teilgraph existiert, der $S$ echt enth‰lt.
 \end{document}
