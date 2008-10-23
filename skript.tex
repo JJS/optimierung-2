@@ -9,8 +9,6 @@
 \usepackage{tikz}
 \usepackage{enumerate}
 \usetikzlibrary{arrows}
-\title{Algebra 1 Mitschrift}
-
 
 \author{JJS}
 
@@ -28,6 +26,8 @@
 %\renewcommand{\footrulewidth}{0.4pt}
 %\newcounter{header}
 
+\usepackage[bf]{caption}
+\renewcommand{\figurename}{Abb.}
 
 \usepackage[nohead,nofoot,lmargin=1.5cm,rmargin=1.5cm,tmargin=1.5cm,bmargin=1.5cm,headsep=0.5cm,headheight=12.4pt, foot=0.75cm]{geometry}
 \renewcommand{\footrulewidth}{0.4pt}
@@ -153,7 +153,7 @@ Dann heißen $G_1$, $G_2$ \textit{isomorph}, falls Reihenfolgen $\tau_{V_i}$ auf 
 \[S_{G_1}\left(\tau_{V_1},\tau_{E_1}\right)=S_{G_2}\left(\tau_{V_2},\tau_{E_2}\right)\]
 \end{enumerate}
 \subsubsection{Beispiel}
-Gegeben ist allgemeiner Graph aus \textit{(5.14)}:
+Gegeben ist allgemeiner Graph aus \textit{(5.1.4)}:
 \begin{center}
 \begin{tikzpicture}[>=stealth']
 \tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
@@ -220,6 +220,7 @@ Ist $G_1$ Teilgraph von $G_2$ und gilt
 so heißt $G_1$ der durch $V_1$ in $G_2$ \textit{induzierte Teilgraph}.
 \subsubsection{Beispiel}
 $G$ aus \textit{5.1.4}:
+\begin{figure}
 \begin{center}
 \begin{tikzpicture}[>=stealth']
 \tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
@@ -237,8 +238,31 @@ $G$ aus \textit{5.1.4}:
 \path[edge,bend left] (v_4) to (v_3) node[midway,right] {$e_7$};
 \path[arrow] (v_3) to (v_4) node[midway,fill=white] {$e_8$};
 \end{tikzpicture}
+\begin{tikzpicture}[>=stealth']
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{edge}=[draw,-]
+\tikzstyle{arrow}=[edge,->]
+\tikzstyle{every loop}=[]
+\foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,3)/v_4}}
+  \node[vertex] (\name) at \pos {$\name$};
+\path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
+\end{tikzpicture}
+\begin{tikzpicture}[>=stealth']
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{edge}=[draw,-]
+\tikzstyle{arrow}=[edge,->]
+\tikzstyle{every loop}=[]
+\foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,3)/v_4}}
+  \node[vertex] (\name) at \pos {$\name$};
+\path[edge,loop above] (v_1) to (v_1) node [midway] {$e_1$};
+\path[arrow,bend left] (v_1) to (v_2) node [midway,right] {$e_2$};
+\path[arrow,bend left] (v_2) to (v_1) node [midway,left] {$e_3$};
+\path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
+\end{tikzpicture}
 \end{center}
-$U:=\{v_1,v_2,v_4\}$, $E_1:=\{e_4\}$, $E_2:=\{e_1,e_2,e_3,e_4\}$ und $S_1:=\left(E,E_1,\nu\vert_{E_1}\right)$, $S_2:=\left(U,E_2,\nu\vert_{E_2}\right)$. Beides sind Teilgraphen, $S_2$ induziert.
+\caption{Zu \textit{5.1.14}: Graphen $G$, $S_1$ und $S_2$}
+\end{figure}
+$U:=\{v_1,v_2,v_4\}$, $E_1:=\{e_4\}$, $E_2:=\{e_1,e_2,e_3,e_4\}$ und $S_1:=\left(U,E_1,\nu\vert_{E_1}\right)$, $S_2:=\left(U,E_2,\nu\vert_{E_2}\right)$. Beides sind Teilgraphen, $S_2$ induziert.
 \subsubsection{Bemerkung}
 $G=(V,E,\nu)$ allgemeiner Graph, $W=\left(v_0,e_1,\dots,e_p,v_p\right)$ Kantenzug. $V_W=\left\{v\::\:\exists k\in\{0,\dots,p\}\::\:v=v_k\right\}$, $E_W=\left\{e\::\:\exists k\in\{1,\dots,p\}\::\:e=e_k\right\}$. Dann ist $\left(V_W,E_W,\nu\vert_{E_W}\right)$ Teilgraph von $G$.\\[1ex]
 Oftmals werden daher Wege etc. als Teilgraph aufgefasst.
