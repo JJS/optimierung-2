@@ -267,5 +267,75 @@ $U:=\{v_1,v_2,v_4\}$, $E_1:=\{e_4\}$, $E_2:=\{e_1,e_2,e_3,e_4\}$ und $S_1:=\left
 $G=(V,E,\nu)$ allgemeiner Graph, $W=\left(v_0,e_1,\dots,e_p,v_p\right)$ Kantenzug. $V_W=\left\{v\::\:\exists k\in\{0,\dots,p\}\::\:v=v_k\right\}$, $E_W=\left\{e\::\:\exists k\in\{1,\dots,p\}\::\:e=e_k\right\}$. Dann ist $\left(V_W,E_W,\nu\vert_{E_W}\right)$ Teilgraph von $G$.\\[1ex]
 Oftmals werden daher Wege etc. als Teilgraph aufgefasst.
 \subsubsection{Definition}
-$G$ allgemeiner Graph, $s\in V$, $U(S)$ Menge der von $s$ erreichbaren Knoten. Gilt $U(s)=V$, so heiﬂt $G$ von $s$ aus \textit{zusammenh‰ngend}. $G$ heiﬂt (stark) \textit{zusammendh‰ngend} wenn $G$ von jedem seiner Knoten aus zusammenh‰ngend ist. Ein induzierter Teilgraph $S$ von $G$ heiﬂt (starke) \textit{Zusammenhangskomponente}, wenn $S$ (stark) zusammenh‰ngend ist und kein (stark) zusammenh‰ngender induzierter Teilgraph existiert, der $S$ echt enth‰lt.
+$G$ allgemeiner Graph, $s\in V$, $U(S)$ Menge der von $s$ erreichbaren Knoten. Gilt $U(s)=V$, so heiﬂt $G$ von $s$ aus \textit{zusammenh‰ngend}. $G$ heiﬂt (stark) \textit{zusammendh‰ngend} wenn $G$ von jedem seiner Knoten aus zusammenh‰ngend ist. Ein induzierter Teilgraph $S$ von $G$ heiﬂt (starke) \textit{Zusammenhangskomponente}, wenn $S$ (stark) zusammenh‰ngend ist und kein (stark) zusammenh‰ngender induzierter Teilgraph existiert, der $S$ echt enth‰lt.\\[1ex]
+Wichtige Grundlagen:\hfill\textbf{24.10.2008}
+\subsubsection{Bezeichnung}
+\begin{enumerate}[(a)]
+\item $G=(V,E,\nu)$ schlingenfreier, schlichter allgemeiner Graph. $\hat E:=\nu(E)$, $\hat G:=(V,\hat E)$. Ist $G$ ungerichtet, so heiﬂt $\hat G$ \textit{Graph}, ist $G$ gerichtet, so heiﬂt $\hat G$ \textit{Digraph} bzw. gerichteter Graph.
+\item Sind $G(V,E)$ ein Graph bzw. Digraph, $\Phi:E\rightarrow\mathbb R$, so heiﬂt $G(V,E,\Phi)$ \textit{gewichteter Graph} bzw. \textit{Digraph}.
+\item Seien $G=(V,E)$ Graph / Digraph, $U\subset V$. Der durch $U$ induzierte Teilgraph von $G$ wird mit $G_U$ bzw. $(V_U,E_U)$ bezeichnet.
+\end{enumerate}
+\subsubsection{Beispiel: Errichten eines Geb‰udes}
+Teilgewerke $A_1,\dots,A_9$. Abh‰ngigkeit
+\begin{center}
+\begin{tabular}{c||c|c|c|c|c|c|c|c|c}
+\textbf{Gewerk}&$A_1$&$A_2$&$A_3$&$A_4$&$A_5$&$A_6$&$A_7$&$A_8$&$A_9$\\
+\hline
+\textbf{Vorg‰nger (direkt)}&$-$&$A_1$&$A_1,A_2$&$A_1$&$A_3$&$A_3,A_4,A_7$&$A_3,A_5$&$A_6$&$A_7,A_8$
+\end{tabular}
+\end{center}
+Gefragt: Mindestbauzeit abh‰ngig von Einzelausf¸hrungszeiten $\gamma_i$ von $A_i$:
+\begin{align*}
+\gamma_1=\gamma_4&=4\\
+\gamma_2=\gamma_5=\gamma_8&=3\\
+\gamma_3=\gamma_6=\gamma_9&=2\\
+\gamma_7&=1
+\end{align*}
+\paragraph*{Digraph (Abh‰ngigkeiten)} ladida
+\paragraph*{Modellierung mit Kantengewichte}
+\subsubsection{Definition}
+Seien $G=(V,E)$ Graph / Digraph, $n:=\vert V\vert\geq1$, $\tau_V$ gegebene Ordnung auf $V$. Ferner
+\[\alpha_{ij}:=\begin{cases}1&\text{falls }\{v_i,v_j\}\in E\text{ bzw. }(v_i,v_j)\in E\\0&\text{sonst}\end{cases}\]
+und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heiﬂt $A_G$ \textit{Adjazenzmatrix} von $G$.
+\subsubsection{Beispiel}
+\paragraph*{$G_1$}
+\[A_{G_1}=\underbrace{\left(\begin{array}{cccccc}
+0&1&1&0&1&0\\
+1&0&1&1&1&1\\
+1&1&0&1&0&0\\
+0&1&1&0&0&0\\
+1&1&0&0&0&1\\
+0&1&0&0&1&0
+\end{array}\right)}_{\text{symmetrisch}}\]
+\paragraph*{$G_2$}
+\[A_{G_2}=\underbrace{\left(\begin{array}{ccccc}
+0&1&1&1&0\\
+1&0&0&1&0\\
+1&0&0&1&1\\
+0&1&0&0&1\\
+0&0&1&0&0
+\end{array}\right)}_{\text{nicht symmetrisch}}\]
+\subsubsection{Bemerkung}
+$G=(V,E)$ Graph, $\tau_V$ Ordnung auf $V$. Dann ist $A_G$ symmetrisch.
+\subsubsection{Bemerkung}
+Durch Ersetzen jeder Kante $\{v,w\}$ durch $(v,w)$, $(w,v)$ kann man einen (ungerichteten) Graphen auch als gerichtet auffassen. Ist $G$ gewichtet, so ¸bertr‰gt sich das Gewicht von $\{v,w\}$ auf beide Kanten $(v,w)$, $(w,v)$.\\[2ex]
+Jetzt vorrangig (zun‰chst) ungerichtete Graphen.
+\paragraph*{Straﬂennetz} ladida
+\subsubsection{Definition}
+Seien $G=(V,E)$ Graph, $S:=(U,F)$ Teilgraph von $G$ mit $\vert U\vert\geq1$, $S_i=(U_i,F_i)$ $i=1,\dots,k$ \textit{Zusammenhangskomponenten} von $S$.\\[1ex]
+Ferner $Y=\{y_1,\dots,y_k\}$ zu $(V,U)\cup E$ disjunkte Menge der Kardinalit‰t $k$ und
+\begin{align*}
+K&=\left\{\{v,w\}\::\:v,w\in V\setminus U\right\}\cap E\\
+&\cup\bigcup_{\overset{i,j=1}{i\neq j}}^k\left\{\{y_i,y_j\}\::\:\exists(u_i\in U_i\:\wedge\:u_j\in U_j)\::\:\{u_i,u_j\}\in E\right\}\\
+&\cup\bigcup_{i=1}^k\left\{\{y_i,v\}\::\:v\in V\setminus U\:\wedge\:\exists u_i\in U_i\::\:\{u_i,v\}\in E\right\}d
+\end{align*}
+Dann heiﬂt $((V\setminus U)\cup Y,K)$ Konstraktion von $S$ in $G$. Bezeichnung $G/S$
+\subsubsection{Lemma}
+$G_i=(V_i,E_i)$ ($i=1,2$) Graphen. $G_1$ $G_2$ sind genau dann \textit{isomorph}, wennes eine bijektive Abbildung $\tau:V_1\rightarrow V_2$ gibt, so dass f¸r alle $v,w\in V_1$ gilt
+\[\{v,w\}\in E_1\:\Leftrightarrow\:(\tau(v),\tau(w))\in E_2\]
+\paragraph*{Beweis} ‹bung
+\subsubsection{Bezeichnung}
+$G_i=(V_i,E_i)$ ($i=1,2$) Graphen, $\tau:V_1\rightarrow V_2$ Bijektion mit $\{v,w\}\in E_1\:\Leftrightarrow\:\{\tau(v),\tau(w)\}\in E_2$ f¸r alle $v,w\in V_1$. Dann heiﬂt $\tau$ \textit{Isomorphismus} und f¸r $G_1=G_2$ \textit{Automorphismus}.
+\subsubsection{Forschungsproblem}
+Gibts es Polynom $\Psi:\mathbb R\rightarrow\mathbb R$ und Algemeinen Algorithmus, der f¸r beliebige Graphen $G_1$, $G_2$ in einer durch $\Psi(\vert V_1\vert)$ beschr‰nkten Anzahl von Rechenoperationen entscheidet, ob $G_1$ und $G_2$ isomorph sind. 
 \end{document}
