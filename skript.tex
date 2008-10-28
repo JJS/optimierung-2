@@ -117,7 +117,7 @@ $V=\{v_1,v_2,v_3,v_4\}$, $E=\{e_1,\dots,e_8\}$ mit $V\cap E=\emptyset$, $v:E\rig
 \nu(e_7)&:=\{v_3,v_4\}\\
 \nu(e_8)&:=(v_3,v_4)\\
 \end{align*}
-\paragraph*{Graphische Darstellung}
+\subsubsection*{Graphische Darstellung}
 \begin{center}
 \begin{tikzpicture}[>=stealth']
 \tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
@@ -198,7 +198,7 @@ Seien $G(V,E,\nu)$ allgemeiner Graph, $s,t\in V$
 \item Ist $t$ von $s$ aus erreichbar, so gibt es $s-t$-Weg
 \item Jeder (eigentliche) geschlossener Kantenzug enthält einen (eigentlichen) Kreis
 \end{enumerate}
-\paragraph*{Beweis}
+\subsubsection*{Beweis}
 \begin{enumerate}[(a)]
 \item Jeder Kantenzug $(v_0,e_1,\dots,v_p)$ mit $s=v_0$, $t=v_p$ minimaler Länge ist ein $s-t$-Weg
 \item analog
@@ -291,8 +291,8 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
 \gamma_3=\gamma_6=\gamma_9&=2\\
 \gamma_7&=1
 \end{align*}
-\paragraph*{Digraph (Abhängigkeiten)} ladida
-\paragraph*{Modellierung mit Kantengewichte}
+\subsubsection*{Digraph (Abhängigkeiten)} ladida
+\subsubsection*{Modellierung mit Kantengewichte}
 \subsubsection{Definition}
 Seien $G=(V,E)$ Graph / Digraph, $n:=\vert V\vert\geq1$, $\tau_V$ gegebene Ordnung auf $V$. Ferner
 \[\alpha_{ij}:=\begin{cases}1&\text{falls }\{v_i,v_j\}\in E\text{ bzw. }(v_i,v_j)\in E\\0&\text{sonst}\end{cases}\]
@@ -320,7 +320,7 @@ $G=(V,E)$ Graph, $\tau_V$ Ordnung auf $V$. Dann ist $A_G$ symmetrisch.
 \subsubsection{Bemerkung}
 Durch Ersetzen jeder Kante $\{v,w\}$ durch $(v,w)$, $(w,v)$ kann man einen (ungerichteten) Graphen auch als gerichtet auffassen. Ist $G$ gewichtet, so überträgt sich das Gewicht von $\{v,w\}$ auf beide Kanten $(v,w)$, $(w,v)$.\\[2ex]
 Jetzt vorrangig (zunächst) ungerichtete Graphen.
-\paragraph*{Straßennetz} ladida
+\subsubsection*{Straßennetz} ladida
 \subsubsection{Definition}
 Seien $G=(V,E)$ Graph, $S:=(U,F)$ Teilgraph von $G$ mit $\vert U\vert\geq1$, $S_i=(U_i,F_i)$ $i=1,\dots,k$ \textit{Zusammenhangskomponenten} von $S$.\\[1ex]
 Ferner $Y=\{y_1,\dots,y_k\}$ zu $(V,U)\cup E$ disjunkte Menge der Kardinalität $k$ und
@@ -333,9 +333,82 @@ Dann heißt $((V\setminus U)\cup Y,K)$ Konstraktion von $S$ in $G$. Bezeichnung $
 \subsubsection{Lemma}
 $G_i=(V_i,E_i)$ ($i=1,2$) Graphen. $G_1$ $G_2$ sind genau dann \textit{isomorph}, wennes eine bijektive Abbildung $\tau:V_1\rightarrow V_2$ gibt, so dass für alle $v,w\in V_1$ gilt
 \[\{v,w\}\in E_1\:\Leftrightarrow\:(\tau(v),\tau(w))\in E_2\]
-\paragraph*{Beweis} Übung
+\subsubsection*{Beweis} Übung
 \subsubsection{Bezeichnung}
 $G_i=(V_i,E_i)$ ($i=1,2$) Graphen, $\tau:V_1\rightarrow V_2$ Bijektion mit $\{v,w\}\in E_1\:\Leftrightarrow\:\{\tau(v),\tau(w)\}\in E_2$ für alle $v,w\in V_1$. Dann heißt $\tau$ \textit{Isomorphismus} und für $G_1=G_2$ \textit{Automorphismus}.
 \subsubsection{Forschungsproblem}
-Gibts es Polynom $\Psi:\mathbb R\rightarrow\mathbb R$ und Algemeinen Algorithmus, der für beliebige Graphen $G_1$, $G_2$ in einer durch $\Psi(\vert V_1\vert)$ beschränkten Anzahl von Rechenoperationen entscheidet, ob $G_1$ und $G_2$ isomorph sind. 
+Gibt es ein Polynom $\Psi:\mathbb R\rightarrow\mathbb R$ und allgemeinen Algorithmus, der für beliebige Graphen $G_1$, $G_2$ in einer durch $\Psi(\vert V_1\vert)$ beschränkten Anzahl von Rechenoperationen entscheidet, ob $G_1$ und $G_2$ isomorph sind. 
+\subsubsection*{Beispiel}
+Kontraktion ladida
+\subsubsection{Definition}
+$G=(V,E)$ mit
+\[v\in V\:\wedge\:w\in V\setminus\{v\}\:\Rightarrow\:\{v,w\}\in E\]
+$G$ heißt \textit{vollständig}. $K_V$, für $n=\vert V\vert$ oft $K_n$
+\subsubsection{Bemerkung}
+$G=(V,E)$ vollständig. Dann $\vert E\//0,0,140ert=\binom{\vert V\vert}2$
+\subsubsection{Beispiel}
+ladida
+\subsubsection{Definition}
+$G=(V,E)$ Graph. Dann heißt $G$ \textit{Baum}, wenn $G$ zusammenhängend und kreisfrei ist. $G$ heißt \textit{Wald}, wenn $G$ kreisfrei ist. Ist $G$ Baum so heißt jeder Knoten $v$ von $G$ mit $deg(v)=1$ \textit{Blatt}.\\[1ex]
+Teilgraph $T=(V_T,E_T)$ eines Graphen $G$ heißt \textit{aufspannender Baum} oder \textit{Spannbaum}, falls $T$ Baum ist und $V=V_T$ gilt.
+\subsubsection{Bemerkung}
+$G=(V,E)$ Baum, $\vert E\vert\geq1$. Dann besitzt $G$ mindestens zwei Blätter.
+\subsubsection*{Beweis}
+Sei $W$ Weg in $G$ maximaler (kombinatorischer) Länge. Endknoten sind Blätter
+\subsubsection{Lemma}
+$G=(V,E)$. Dann äquivalent:
+\begin{enumerate}[(a)]
+\item $G$ ist Baum
+\item Für je zwei Knoten $v,w\in V$ existiert genau ein $v-w$-Weg.
+\item $G$ zusammenhängend, aber für $e\in E$ ist $(V,E\setminus\{e\})$ nicht zusammenhängend.
+\item $G$ ist kreisfrei, für $v,w\in V$, $v\neq w$, $e:=\{v,w\}\not\in E$ enthält $(V,E\cup\{e\})$ einen Kreis
+\end{enumerate}
+\subsubsection*{Beweis}
+$a\Rightarrow b$: $G$ zusammenhängend, dh. es existiert mindestens ein $v-w$-Weg. Gäbe es zwei verschiedene, so enthielte G einen Kreis (\textit{5.1.10(b)})\\[1ex]
+$b\Rightarrow c$: Wäre $(V,E\setminus\{e\})$ zusammenhängend, so wären die beiden Knoten von $e$ durch einen Weg in $(V,E\setminus\{e\})$ verbunden, $e$ verbindet sie in $G$ $\Rightarrow$ Widerspruch: 2 verschiedene Wege\\[1ex]
+$c\Rightarrow d$: Enthielte $G$ einen Kreis, so könnte beliebige Kante entfernt wreden ohne Zusammenhang zu verlieren. Wäre für $v,w\in V$, $v\neq w$, $e=\{v,w\}\neq E$ $(V,E\cup\{e,\})$ kreisfrei, so wären $v,w$ in $G$ nicht verbunden.\\[1ex]
+$d\Rightarrow a$: Enthielte $G$ zwei verschiedene Zusammenhangskomponenten $S_1,S_2$, so könnte zwischen $S_1$ und $S_2$ beliebige Kante eingefügt werden, ohne Kreis zu erzeugen.
+\subsubsection{Korollar}
+$G=(V,E)$ Baum, $\vert V\vert\geq1$. Dann $\vert E\vert=\vert V\vert-1$
+\subsubsection*{Beweis}
+vollständige Induktion über $\vert V\vert$, benutze \textit{5.1.31}.
+\subsubsection{Korollar}
+$G=(V,E)$ $\vert V\vert\geq1$. Dann sit äquivalent
+\begin{enumerate}[(a)]
+\item $G$ Baum
+\item $G$ kreisfrei und $\vert E\vert=\vert V\vert-1$
+\item $G$ zusammenhängend und $\vert E\vert=\vert V\vert-1$
+\end{enumerate}
+\subsubsection*{Beweis}
+$a\Rightarrow b\wedge c$: Korrolar \textit{(5.1.33)}\\[1ex]
+$b\Rightarrow b$: Sei $T=(V,E_T)$ kantenmaximaler kreisfreier Graph, der $G$ als Teilgraph enthält. Nach \textit{(5.1.32)(d)} ist $T$ Baum. Aus \textit{(5.1.33)} folgt $\vert E_T\vert=\vert V\vert-1=\vert E\vert$, also $T=G$\\[1ex]
+$c\Rightarrow c$: analog mit $T=(V,E_T)$ kantenminimaler zusammenhängender Teilgraph von $G$.
+\subsubsection{Korollar}
+$G=(V,E)$ zusammenhängender Graph. Dann besitzt $G$ Spannbaum.
+\subsubsection*{Beweis}
+Sei $T=(V,E_T)$ zusammenhängender Teilgraph minimaler Kantenzahl: \textit{(5.1.32)(c)} Baum
+\subsubsection{Definition}
+$G=(V,E)$ Graph, $M\subset E$.
+\begin{enumerate}[(a)]
+\item $v\in V$. $v$ wird von $M$ \textit{überdeckt}, fals $v\in\bigcup_{e\in M}e$. $M$ \textit{Knotenüberdeckung}, wenn jeder Knoten von $V$ überdeckt wird.
+\item $M$ \textit{Paarung}, \textit{Matching}, wenn gilt
+\[\{v_1,w_1\},\{v_2,w_2\}\in M\:\wedge\:\{v_1,w_1\}\cap\{v_2,w_2\}\neq\emptyset\:\Rightarrow\:\{v_1,w_1\}=\{v_2,w_2\}\]
+\item \textit{perfektes Matching}, wenn $M$ Matching und Knotenüberdeckung ist
+\item $\Phi:E\rightarrow\mathbb R$, $M^*$ Matching heißt \textit{maximales Matching}, wenn $M^*$ bez. $\sum_{e\in M}\Phi(e)$ unter allen matching $M$ maximal ist. $\Phi\equiv1$: \textit{Kardinalitätsmaximum}
+\end{enumerate}
+\subsubsection{Beispiel}
+ladida
+\subsubsection{Definition}
+$G=(V,E)$ heißt \textit{bipartit}, wenn es Partition $V_1,V_2$ von $V$ gibt mit
+\[\{v,w\}\in E\:\Rightarrow\:\{v,w\}\cap V_1\neq\emptyset\:\wedge\:\{v,w\}\cap V_2\neq\emptyset\]
+Gilt  $(v_1\in V_1\wedge v_2\in V_2$ $\Rightarrow$ $\{v_1,v_2\}\in E$), dann heißt $G$ \textit{vollständig bipartit}; $n_1=\vert V_1\vert$, $n_2=\vert V_2\vert$: $K_{n_1,n_2}$
+\subsubsection{Erinnerung}
+$P_1,\dots,P_4$ Geschlecht $\Gamma_1$, $Q_1,\dots, Q_3$, $\Gamma_2$, $\Gamma_1\neq\Gamma_2$, Kompatibilitätskoeffizienten $\gamma_{ij}$, $V_1:=\{v_1,\dots,v_4\}$, $V_2:=\{v_5,v_6,v_7\}$, Kanten $E=\{\{v_i,v_j\}\::\:i=1,\dots,4\:\wedge\:j=4,5,6\}$ $\Rightarrow$ $K_{4,3}$, $\Phi(\{v_i,v_j\})=\gamma_{ij}$. Gesucht: maximales Matching.
+\subsubsection{Lemma}
+$G=(V,E)$ Graph. $G$ bipartit, wenn $G$ keinen Kreis ungerader Länge enthält.
+\subsubsection*{Beweis}
+\begin{itemize}
+\item[$\Rightarrow$] $\surd$
+\item[$\Leftarrow$] Konstruiere Partition
+\end{itemize}
 \end{document}
