@@ -337,7 +337,7 @@ $G_i=(V_i,E_i)$ ($i=1,2$) Graphen. $G_1$ $G_2$ sind genau dann \textit{isomorph}
 \subsubsection{Bezeichnung}
 $G_i=(V_i,E_i)$ ($i=1,2$) Graphen, $\tau:V_1\rightarrow V_2$ Bijektion mit $\{v,w\}\in E_1\:\Leftrightarrow\:\{\tau(v),\tau(w)\}\in E_2$ für alle $v,w\in V_1$. Dann heißt $\tau$ \textit{Isomorphismus} und für $G_1=G_2$ \textit{Automorphismus}.
 \subsubsection{Forschungsproblem}
-Gibt es ein Polynom $\Psi:\mathbb R\rightarrow\mathbb R$ und allgemeinen Algorithmus, der für beliebige Graphen $G_1$, $G_2$ in einer durch $\Psi(\vert V_1\vert)$ beschränkten Anzahl von Rechenoperationen entscheidet, ob $G_1$ und $G_2$ isomorph sind. 
+Gibt es ein Polynom $\Psi:\mathbb R\rightarrow\mathbb R$ und allgemeinen Algorithmus, der für beliebige Graphen $G_1$, $G_2$ in einer durch $\Psi(\vert V_1\vert)$ beschränkten Anzahl von Rechenoperationen entscheidet, ob $G_1$ und $G_2$ isomorph sind.\hfill\textbf{28.10.2008}
 \subsubsection*{Beispiel}
 Kontraktion ladida
 \subsubsection{Definition}
@@ -405,10 +405,59 @@ Gilt  $(v_1\in V_1\wedge v_2\in V_2$ $\Rightarrow$ $\{v_1,v_2\}\in E$), dann hei
 \subsubsection{Erinnerung}
 $P_1,\dots,P_4$ Geschlecht $\Gamma_1$, $Q_1,\dots, Q_3$, $\Gamma_2$, $\Gamma_1\neq\Gamma_2$, Kompatibilitätskoeffizienten $\gamma_{ij}$, $V_1:=\{v_1,\dots,v_4\}$, $V_2:=\{v_5,v_6,v_7\}$, Kanten $E=\{\{v_i,v_j\}\::\:i=1,\dots,4\:\wedge\:j=4,5,6\}$ $\Rightarrow$ $K_{4,3}$, $\Phi(\{v_i,v_j\})=\gamma_{ij}$. Gesucht: maximales Matching.
 \subsubsection{Lemma}
-$G=(V,E)$ Graph. $G$ bipartit, wenn $G$ keinen Kreis ungerader Länge enthält.
+$G=(V,E)$ Graph. $G$ bipartit, wenn $G$ keinen Kreis ungerader Länge enthält.\hfill\textbf{31.10.2008}
 \subsubsection*{Beweis}
 \begin{itemize}
 \item[$\Rightarrow$] $\surd$
-\item[$\Leftarrow$] Konstruiere Partition
+\item[$\Leftarrow$] Konstruiere Partition, oBdA. $G$ zusammenhängend. Nach \textit{(5.1.35)} besitzt $G$ Spannbaum $T=(V,E_T)$. Sei $s\in T$. Nach \textit{(5.1.32)(b)} gibt es zu jedem $v\in V$ genau einen $s-v$-Weg in $T$; $p(v)$ sei seine Länge, setze für $k=0,1$:
+\[V_{k+1}:=\{v\in V\::\:p(v)\equiv k\mod2\}\]
+$(V_1,V_2)$ Partition.\\[1ex]
+Seien $v,w\in V$, $e=\{v,w\}\in E\setminus E_T$. Nach \textit{(5.1.32)(d)} enthält $(V,E_T\cup\{e\})$ einen Kreis (gerader Länge nach Voraussetzung). Somit:\\[1ex]
+$s-v$-Weg und $s-w$-Weg in $T$ haben unterschiedliche Länge $\mod2$. Also liegen $v,w$ in verschiedenen Mengen der Partition.
+\end{itemize}
+\subsubsection{Bezeichnung}
+$G=(V,E,\nu)$ allgemeiner Graph, $U\subset V$. Dann
+\begin{align*}
+\delta(G,U)&:=\left\{e\in\::\:\exists(u\in U,v\in V\setminus U)\:\wedge\:\nu(e)\in\{\{u,v\},(u,v)\}\right\}\\
+N(G,U)&:=\left\{v\in V\setminus U\::\:\exists(u\in U,e\in E)\::\:\nu(e)\in\{\{u,v\},(u,v)\}\right\}
+\end{align*}
+$N(G,U)$ Menge der \textit{Nachbarn}, Abkürzung $N(G,v)$, $S(G,v)$ für $U=\{v\}$
+\subsubsection{Satz von Hall}
+$G=(V,E)$ bipartit, $(Y,Z)$ zugehörige Partitionen von $V$. Dann äquivalent:
+\begin{enumerate}[(a)]
+\item Es gibt Matching $M$ in $G$ mit $\vert M\vert=\vert Y\vert$
+\item Für jede Teilmenge $U\subset Y$ gilt $\vert N(G,U)\vert\geq\vert U\vert$
+\end{enumerate}
+\subsubsection*{Beweis}
+(a) $\Rightarrow$ (b): $\surd$\\[1ex]
+(b) $\Rightarrow$ (a): $M$ kardinalitätsmaximales Matching, aber $\vert M\vert<\vert Y\vert$. Sei $y_1\in Y$, in keiner Kante von $M$ enthalten. Sei $Y_1=\{y_1\}$. Es gilt $\vert N(G,Y_1)\geq\vert Y_1\vert=1$. Seien $z_1\in N(G,Y_1)$, $Z_1=\{z_1\}$, $e_1=\{y_1,z_1\}$, $E_1=\{e_1\}$.\\[1ex]
+Wäre $z_1$ in keiner Matchingkante enthalten, so wäre $M\cup\{e\}$ größeres Matching $\Rightarrow$ Widerspruch.\\[1ex]
+Seien $y_2\in Y\setminus Y_1$, $m_1=\{y_2,z_1\}\in M$, $Y_2=Y_1\cup\{y_2\}$, $M_1=\{m_1\}$. Nach Voraussetzung gilt $\vert N(G,Y_2)\vert\geq\vert Y_2\vert=2>\vert Z_1\vert$.\\[1ex]
+Seien $z_2\in Z\setminus Z_1$, $Z_2=Z_1\cup\{z_2\}$, $e_2\in\delta(G,Y_2)$ mit $z_2\in e_2$, $E_2=E_1\cup\{e_2\}$. Induktiv fortsetzen so weit wie möglich.\\[1ex]
+Nach $\vert N(G,Y_i)\vert\geq\vert Y_i\vert=i>i-1=\vert Z_{i-1}\vert$. Letzter hinzukommender Knoten $z_k\in Z$. Abbruch $Y_k\subset Y$, $Z_k\subset Z$, $E_k\subset E\setminus M$\\[1ex]
+Sei $T:=(Y_k\cup Z_k,E_k\cup M_{k-1})$.\\[1ex]
+Konstruktion: $T$ zusammenhängend, kreisfrei, also Baum. Sei $W$ eindeutig bestimmt, $y_1-z_k$-Weg in $T$. $W$ kann nciht verlängert werden, dh. $z_k$ liegt in keiner Kante von $M$. Setze
+\[M^*=(M\setminus M_{k-1})\cup E_k\]
+$M^*$ ist Matching. $\vert M^*\vert=\vert M\vert+1$ Widerspruch, somit $\vert Y\vert=\vert M\vert$.
+\subsubsection{Korrolar: Heiratssatz}
+$G=(V,E)$ bipartit, $(V_1,V_2)$ zugehörige Partition von $V$. Es gilt genau dann perfektes Matchin in $G$, wenn für $i=1,2$ gilt
+\[U_i\subset V_i\:\Rightarrow\:\vert N(G,U_i)\vert\geq\vert U_i\vert\]
+\subsubsection*{Beweis}
+\textit{(5.1.42)}: Für $i=1,2$ gibt es Matching $M_i$ mit $\vert M_i\vert=\vert V_i\vert$. Es folgt $\vert V_1\vert\leq\vert V_2\vert$, $\vert V_1\vert\geq\vert V_2\vert$, also $\Vert V_1\vert=\vert V_2\vert$ und $M_i$ überdeckt ganz $V$.
+\subsubsection{Beispiel}
+Besitzt $G$ perfektes Matching? Nein, weil $N(G,\{z_3,z_5\})=\{y_4\}$ ladida
+\subsubsection{Definition}
+$G=(V,E)$, $M$ Matching $W$ eigentlicher Weg in $G$, kantenmenge $E_W$, $A:=E_W\setminus M$. $W$ heißt \textit{alternierend} bezüglich $M$, wenn $A$ Matching ist. $W$ heißt \textit{Augmentationsweg} bezüglich $M$ in $G$, wenn $W$ alternierend ist.
+\subsubsection{Bemerkung}
+$G=(V,E)$ Graph, $M$ Matching, $W$ Augmentationsweg, Kantenmenge $E_W$, $A:=E_W\setminus M$, $M^*=(M\setminus E_W)\cup A$. Dann ist $M^*$ Matching, $\vert M^*\vert=\vert M\vert+1$.
+\subsubsection{Bezeichnung}
+$M^*$ gemäß \textit{5.1.46)} heißt (mittels $W$) \textit{augmentiertes Matching}.
+\subsubsection{Lemma}
+$G=(V,E)$ Graph, $M$ Matching. $M$ ist genau dann Kardinalitätsmaximum, wenn es keinen Augmentationsweg bezüglich $M$ in $G$ gibt.
+\subsubsection*{Beweis}
+\begin{itemize}
+\item[$\Rightarrow$] folg aus \textit{(5.1.46)}
+\item[$\Leftarrow$] Sei $M$ nicht maximal. $M^*$ Matching mit $\vert M^*\vert>\vert M\vert$. Seien $F:=(M\setminus M^*)\cup(M^*\setminus M)$, $U=\bigcup_{e\in F}e$, $S:=(U,F)$ nicht leerer Teilgraph von $G$. Es gilt für $u\in U$:\\[1ex]
+$deg_S(u)\leq2$, dh. Zusammenhangskomponenten von $S$ sind Wege und Kreise. Kreise enthalten gleichviele Kanten von $M$ und $M^*$, bei Wegen ist die Differenz höchstens 1. Wegen $\vert M^*\vert\geq\vert M\vert+1$ gibt es Weg in $S$, der eine Kante mehr aus $M^*$ enthält als aus $M$. Das ist gesuchter Augmentationsweg.
 \end{itemize}
 \end{document}
