@@ -1,5 +1,6 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[latin1]{inputenc}
+\usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -8,6 +9,10 @@
 \usepackage{xcolor}
 \usepackage{tikz}
 \usepackage{enumerate}
+\usepackage{makeidx}
+
+\makeindex
+
 \usetikzlibrary{arrows}
 
 \author{JJS}
@@ -95,16 +100,16 @@ Für zulässige $x$ und $y$ gilt (schwacher Dualitätssatz):
 $\vdots$
 \end{itemize}
 \subsubsection{Bezeichung}
-Sei $X$ eine Menge. Dann bezeichnet $2^X$ die \textit{Potenzmenge} von $X$. Für $k\in\mathbb N$ sei
+Sei $X$ eine Menge. Dann bezeichnet $2^X$ die \textit{Potenzmenge}\index{Potenzmenge} von $X$. Für $k\in\mathbb N$ sei
 \[\binom Xk:=\left\{S\in2^X\::\:\vert S\vert=k\right\}\]
 Menge der $k$-elementigen Teilmengen von $X$.
 \subsubsection{Definition}
-Seien $V$, $E$ endliche Mengen mit $V\cap E=\emptyset$ und $\nu:E\rightarrow\binom V1\cup\binom V2\cup V^2$. Dann heißt $G:=(V,E,\nu)$ \textit{allgemeiner Graph}. Elemente von $V$: \textit{Knoten}, Elemente von $E$: \textit{Kanten}.\\[1ex]
-Sei $e\in E$. Existiert ein $v\in V$ mit $\nu(e)\in\left\{\{v\},(v,v)\right\}$, so heißt $e$ \textit{Schlinge}. Ist $\nu(e)\in\binom V1\cup\binom V2$, so heißt $e$ \textit{ungerichtet}. Ist $\nu(e)\in V^2$, so heißt $e$ \textit{gerichtet}. Gilt $\nu(e)=(v,w)$, so heißt $v$ \textit{Anfangs-} und $w$ \textit{Endknoten} von $e$.\\[1ex]
-Der allgemeine Graph $G$ heißt \textit{schlingenfrei}, wenn $E$ keine Schlinge enthält. Sind alle Kanten ungerichtet bzw. gerichtet, dann heißt $G$ \textit{ungerichtet} bzw. \textit{gerichtet}.\\[1ex]
-Allgemeine schlingenfreie ungerichtete Graphen heißen \textit{Multigraphen}. Analog \textit{gerichtete Multigraphen}.\\[1ex]
-Ist $\nu$ injektiv und gibt es keine $e_1,e_2\in E$ und $v\in V$ mit  $\nu(e_1)=\{v\}$, $\nu(e_2)=(v,v)$, so heißt $G$ \textit{schlicht} (\textit{einfach}).\\[1ex]
-Sind $G(V,E,\nu)$ allgemeiner Graph, $\Phi:E\rightarrow\mathbb R$, so heißt $(G;\Phi)$ \textit{gewichteter} allgemeiner Graph. Für $e\in E$ heißt $\Phi(e)$ \textit{Gewicht} (Kosten, Länge, Kapazität $\dots$) von $e$.
+Seien $V$, $E$ endliche Mengen mit $V\cap E=\emptyset$ und $\nu:E\rightarrow\binom V1\cup\binom V2\cup V^2$. Dann heißt $G:=(V,E,\nu)$ \textit{allgemeiner Graph}\index{Graph!allgemeiner}. Elemente von $V$: \textit{Knoten}\index{Knoten}, Elemente von $E$: \textit{Kanten}\index{Kante}.\\[1ex]
+Sei $e\in E$. Existiert ein $v\in V$ mit $\nu(e)\in\left\{\{v\},(v,v)\right\}$, so heißt $e$ \textit{Schlinge}\index{Schlinge}. Ist $\nu(e)\in\binom V1\cup\binom V2$, so heißt $e$ \textit{ungerichtet}\index{Kante!ungerichtete}. Ist $\nu(e)\in V^2$, so heißt $e$ \textit{gerichtet}\index{Kante!gerichtete}. Gilt $\nu(e)=(v,w)$, so heißt $v$ \textit{Anfangs-} und $w$ \textit{Endknoten} von $e$.\\[1ex]
+Der allgemeine Graph $G$ heißt \textit{schlingenfrei}\index{Graph!schlingenfrei}, wenn $E$ keine Schlinge enthält. Sind alle Kanten ungerichtet bzw. gerichtet, dann heißt $G$ \textit{ungerichtet}\index{Graph!ungerichteter} bzw. \textit{gerichtet}\index{Graph!gerichteter}.\\[1ex]
+Allgemeine schlingenfreie ungerichtete Graphen heißen \textit{Multigraphen}\index{Graph!Multi-}\index{Multigraph}. Analog \textit{gerichtete Multigraphen}.\\[1ex]
+Ist $\nu$ injektiv und gibt es keine $e_1,e_2\in E$ und $v\in V$ mit  $\nu(e_1)=\{v\}$, $\nu(e_2)=(v,v)$, so heißt $G$ \textit{schlicht}\index{Graph!schlichter} (\textit{einfach}\index{Graph!einfacher}).\\[1ex]
+Sind $G(V,E,\nu)$ allgemeiner Graph, $\Phi:E\rightarrow\mathbb R$, so heißt $(G;\Phi)$ \textit{gewichteter}\index{Graph!gewichteter} allgemeiner Graph. Für $e\in E$ heißt $\Phi(e)$ \textit{Gewicht}\index{Gewicht}\index{Kosten}\index{Länge}\index{Kapazität} (Kosten, Länge, Kapazität $\dots$) von $e$.
  \subsubsection{Beispiel}
 $V=\{v_1,v_2,v_3,v_4\}$, $E=\{e_1,\dots,e_8\}$ mit $V\cap E=\emptyset$, $v:E\rightarrow\binom V1\cup\binom V2\cup V^2$ definiert durch
 \begin{align*}
@@ -137,7 +142,7 @@ $V=\{v_1,v_2,v_3,v_4\}$, $E=\{e_1,\dots,e_8\}$ mit $V\cap E=\emptyset$, $v:E\rig
 \end{tikzpicture}
 \end{center}
 \subsubsection{Bezeichnung}
-Seien $X$ eine nichtleere endliche Menge, $k:=\vert X\vert$. Jede Bijektion $\tau:\{1,\dots,k\}\rightarrow X$ heißt \textit{Ordnung} (\textit{Reihenfolge}) auf $X$. Ist $\tau$ Reihenfolge auf $X$, so setzt man oft $x_i:=\tau(i)$ und schreibt $x=\{x_0,\dots,x_k\}$. Umgekehrt $\tau(i)=x_i$ legt Reiehenfolge fest.
+Seien $X$ eine nichtleere endliche Menge, $k:=\vert X\vert$. Jede Bijektion $\tau:\{1,\dots,k\}\rightarrow X$ heißt \textit{Ordnung}\index{Ordnung} (\textit{Reihenfolge}\index{Reihenfolge}) auf $X$. Ist $\tau$ Reihenfolge auf $X$, so setzt man oft $x_i:=\tau(i)$ und schreibt $x=\{x_0,\dots,x_k\}$. Umgekehrt $\tau(i)=x_i$ legt Reiehenfolge fest.
 \subsubsection{Definition}
 Seien $G=(V,E,\nu)$ allgemeiner Graph, $n=\vert V\vert$, $m=\vert E\vert$, $m,n\geq1$
 \begin{enumerate}[a)]
@@ -146,10 +151,10 @@ Seien $G=(V,E,\nu)$ allgemeiner Graph, $n=\vert V\vert$, $m=\vert E\vert$, $m,n\
 -1&\text{falls }e_j\text{ gerichtet und }v_i\text{ Anfangsknoten von }e_j\\
 +1&\text{falls }e_j\text{ gerichtet und }v_i\text{ Endknoten von }e_j\\
 0&\text{sonst}\end{cases}\]
-$S_G$ heißt (\textit{Knoten-Kanten}) \textit{Inzidenzmatrix} von $G$. Der $j$-te Spaltenvektor von $S_G$ heißt \textit{Inzidenzvektor} von $e_j$.
+$S_G$ heißt (\textit{Knoten-Kanten}) \textit{Inzidenzmatrix}\index{Inzidenzmatrix} von $G$. Der $j$-te Spaltenvektor von $S_G$ heißt \textit{Inzidenzvektor}\index{Inzidenzvektor} von $e_j$.
 \item Seien $G_i=(V_i,E_i,\nu_i)$ $i=1,2$ allgemeine Graphen\hfill\textbf{21.10.2008}
 \[n:=\vert V_1\vert=\vert V_2\vert\:,\quad\vert E_1\vert=\vert E_2\vert\:,\quad n,m\geq1\]
-Dann heißen $G_1$, $G_2$ \textit{isomorph}, falls Reihenfolgen $\tau_{V_i}$ auf $V_i$ und $\tau_{E_i}$ auf $E_i$ existieren, ($i=1,2$), so dass
+Dann heißen $G_1$, $G_2$ \textit{isomorph}\index{Graph!isomorpher}\index{Isomorphie}, falls Reihenfolgen $\tau_{V_i}$ auf $V_i$ und $\tau_{E_i}$ auf $E_i$ existieren, ($i=1,2$), so dass
 \[S_{G_1}\left(\tau_{V_1},\tau_{E_1}\right)=S_{G_2}\left(\tau_{V_2},\tau_{E_2}\right)\]
 \end{enumerate}
 \subsubsection{Beispiel}
@@ -180,18 +185,18 @@ deg_G(v)&:=2\left\vert\left\{e\in E\::\:\nu(e)=\{v\}\right\}\right\vert+\left\ve
 deg_{\text{in}\:G(v)}&:=\left\vert\left\{e\in E\::\:\nu(e)=\{v\}\vee\exists\left(w\in V\setminus\{v\}\right)\::\:\nu(e)=(w,v)\right\}\right\vert\\
 deg_{\text{aus}\:G(v)}&:=\left\vert\left\{e\in E\::\:\nu(e)=\{v\}\vee\exists\left(w\in V\setminus\{v\}\right)\::\:\nu(e)=(v,w)\right\}\right\vert\\
 \end{align*}
-heißen \textit{Grad}, \textit{Ingrad}, \textit{Ausgrad} (\textit{Valenz}). Knoten mit In-aus-Grad =0 heißen \textit{isoliert}.
+heißen \textit{Grad}\index{Grad}, \textit{Ingrad}\index{Grad!In-}\index{Ingrad}, \textit{Ausgrad}\index{Ausgrad}\index{Grad!Aus-} (\textit{Valenz}\index{Valenz|see{Grad}}). Knoten mit In-aus-Grad =0 heißen \textit{isoliert}\index{Knoten!isolierter}.
 \subsubsection{Definition}
-$G=(V,E,\nu)$ allgemeiner Graph, $p\in\mathbb N$. Ein \textit{Kantenzug} der \textit{kombinatorischen Länge} $p$ in $G$ ist Sequenz
+$G=(V,E,\nu)$ allgemeiner Graph, $p\in\mathbb N$. Ein \textit{Kantenzug}\index{Kantenzug} der \textit{kombinatorischen Länge}\index{Länge!kombinatorische} $p$ in $G$ ist Sequenz
 \[\left(v_0,e_1,v_1,e_2,\dots,e_p,v_p\right)\]
 von (alternierend) Knoten $v_0,\dots,v_p$, Kanten $e_1,\dots,e_p$, so dass für $k=1,\dots,p$ gilt
 \[\nu(e_k)\in\begin{cases}\left\{\{v\},(v,v)\right\}&\text{falls }v_{k-1}=v_k=v\\\left\{\{v_{k-1},v_k\},(v_{k-11},v_k)\right\}&\text{falls }v_{k-1}\neq v_k\end{cases}\]
 (Oft kürzer $(e_1,\dots,e_p)$, manchmal -wenn eindeutig- $(v_0,\dots,v_p)$)\\[1ex]
 Seien $v,w\in V$. $w$ heißt \textit{von $v$ aus erreichbar}, wenn $v=w$, oder wenn es einen Kantenzug $\left(v_0,e_1,\dots,e_p,v_p\right)$ in $G$ gibt mit $v_0=v$ und $v_p=w$.\\[1ex]
-Sei $W:=\left(v_0,e_1,\dots,e_p,v_p\right)$ Kantenzug. $W$ heißt \textit{einfach}, wenn $e_1,\dots,e_p$ paarweise verschieden sind und $(v_0-v_p)$-\textit{Weg}, wenn Knoten $v_0,\dots,v_p$ paarweise verschieden sind.\\[1ex]
-$W$ \textit{geschlossen} wenn $v_0=v_p$ ist, \textit{Kreis} wenn $(v_0,e_1,\dots,e_{p-1},v_{p-1})$ Weg ist.\\[1ex]
+Sei $W:=\left(v_0,e_1,\dots,e_p,v_p\right)$ Kantenzug. $W$ heißt \textit{einfach}\index{Kantenzug!einfacher}, wenn $e_1,\dots,e_p$ paarweise verschieden sind und $(v_0-v_p)$-\textit{Weg}\index{Weg}, wenn Knoten $v_0,\dots,v_p$ paarweise verschieden sind.\\[1ex]
+$W$ \textit{geschlossen}\index{Kantenzug!geschlossener} wenn $v_0=v_p$ ist, \textit{Kreis}\index{Kreis} wenn $(v_0,e_1,\dots,e_{p-1},v_{p-1})$ Weg ist.\\[1ex]
 Oftmals einzelner Knoten: (uneigentlicher) Weg, Kreis\\[1ex]
-Jeder Kreis, der alle Knoten von $G$ enthält, heißt \textit{Hamilton-Kreis} ($G$ heißt dann \textit{hamiltonsch})
+Jeder Kreis, der alle Knoten von $G$ enthält, heißt \textit{Hamilton-Kreis}\index{Kreis!Hamilton-}\index{Hamilton-Kreis} ($G$ heißt dann \textit{hamiltonsch}\index{Graph!hamiltonscher})
 \subsubsection{Bemerkung}
 Seien $G(V,E,\nu)$ allgemeiner Graph, $s,t\in V$
 \begin{enumerate}[(a)]
@@ -212,12 +217,12 @@ $G(V,E,\nu)$ allgemeiner Graph, $\sim$ Relation auf $V\times V$ definiert durch 
 \subsubsection{Definition}
 $G=(V,E,\nu)$ allgemeiner Graph, $\Phi:E\rightarrow\mathbb R$. Sei $W=(v_0,e_1,\dots,e_p,v_p)$ Kantenzug.
 \[\varphi(W):=\sum_{i=1}^p\Phi(e_i)\]
-\textit{Länge von $W$} (bez. $\Phi$) (Ist $\Theta:V\rightarrow\mathbb R$ so erhält man \textit{Knotengewichtung}).
+\textit{Länge von $W$}\index{Kantenzug!Länge} (bez. $\Phi$) (Ist $\Theta:V\rightarrow\mathbb R$ so erhält man \textit{Knotengewichtung}\index{Knotengewichtung}).
 \subsubsection{Definition}
-$G_i=(V_i,E_i,\nu_i)$, $i=1,2$ allgemeine Graphen. Gilt $V_1\subset V_2$, $E_1\subset E_2$, $\nu_1=\nu_2\vert_{E_1}$, so heißt $G_1$ \textit{Teil}-, \textit{Sub}-, \textit{Untergraph} von $G_2$ (Schreibweise $G_1\subset G_2$).\\[1ex]
+$G_i=(V_i,E_i,\nu_i)$, $i=1,2$ allgemeine Graphen. Gilt $V_1\subset V_2$, $E_1\subset E_2$, $\nu_1=\nu_2\vert_{E_1}$, so heißt $G_1$ \textit{Teil}-\index{Teilgraph}\index{Graph!Teil-}, \textit{Sub}-\index{Subgraph|see{Teilgraph}}, \textit{Untergraph}\index{Untergraph|see{Teilgraph}} von $G_2$ (Schreibweise $G_1\subset G_2$).\\[1ex]
 Ist $G_1$ Teilgraph von $G_2$ und gilt
 \[E_1=\left\{e\in E_2\::\:\nu_2(e)\in\binom{V_1}1\cup\binom{V_1}2\cup V_1^2\right\}\]
-so heißt $G_1$ der durch $V_1$ in $G_2$ \textit{induzierte Teilgraph}.
+so heißt $G_1$ der durch $V_1$ in $G_2$ \textit{induzierte Teilgraph}\index{Teilgraph!induzierter}.
 \subsubsection{Beispiel}
 $G$ aus \textit{5.1.4}:
 \begin{figure}
@@ -267,12 +272,12 @@ $U:=\{v_1,v_2,v_4\}$, $E_1:=\{e_4\}$, $E_2:=\{e_1,e_2,e_3,e_4\}$ und $S_1:=\left
 $G=(V,E,\nu)$ allgemeiner Graph, $W=\left(v_0,e_1,\dots,e_p,v_p\right)$ Kantenzug. $V_W=\left\{v\::\:\exists k\in\{0,\dots,p\}\::\:v=v_k\right\}$, $E_W=\left\{e\::\:\exists k\in\{1,\dots,p\}\::\:e=e_k\right\}$. Dann ist $\left(V_W,E_W,\nu\vert_{E_W}\right)$ Teilgraph von $G$.\\[1ex]
 Oftmals werden daher Wege etc. als Teilgraph aufgefasst.
 \subsubsection{Definition}
-$G$ allgemeiner Graph, $s\in V$, $U(S)$ Menge der von $s$ erreichbaren Knoten. Gilt $U(s)=V$, so heißt $G$ von $s$ aus \textit{zusammenhängend}. $G$ heißt (stark) \textit{zusammendhängend} wenn $G$ von jedem seiner Knoten aus zusammenhängend ist. Ein induzierter Teilgraph $S$ von $G$ heißt (starke) \textit{Zusammenhangskomponente}, wenn $S$ (stark) zusammenhängend ist und kein (stark) zusammenhängender induzierter Teilgraph existiert, der $S$ echt enthält.\\[1ex]
+$G$ allgemeiner Graph, $s\in V$, $U(S)$ Menge der von $s$ erreichbaren Knoten. Gilt $U(s)=V$, so heißt $G$ von $s$ aus \textit{zusammenhängend}\index{Graph!zusammenhängender}. $G$ heißt (stark) \textit{zusammendhängend} wenn $G$ von jedem seiner Knoten aus zusammenhängend ist. Ein induzierter Teilgraph $S$ von $G$ heißt (starke) \textit{Zusammenhangskomponente}\index{Zusammenhangskomponente}, wenn $S$ (stark) zusammenhängend ist und kein (stark) zusammenhängender induzierter Teilgraph existiert, der $S$ echt enthält.\\[1ex]
 Wichtige Grundlagen:\hfill\textbf{24.10.2008}
 \subsubsection{Bezeichnung}
 \begin{enumerate}[(a)]
-\item $G=(V,E,\nu)$ schlingenfreier, schlichter allgemeiner Graph. $\hat E:=\nu(E)$, $\hat G:=(V,\hat E)$. Ist $G$ ungerichtet, so heißt $\hat G$ \textit{Graph}, ist $G$ gerichtet, so heißt $\hat G$ \textit{Digraph} bzw. gerichteter Graph.
-\item Sind $G(V,E)$ ein Graph bzw. Digraph, $\Phi:E\rightarrow\mathbb R$, so heißt $G(V,E,\Phi)$ \textit{gewichteter Graph} bzw. \textit{Digraph}.
+\item $G=(V,E,\nu)$ schlingenfreier, schlichter allgemeiner Graph. $\hat E:=\nu(E)$, $\hat G:=(V,\hat E)$. Ist $G$ ungerichtet, so heißt $\hat G$ \textit{Graph}\index{Graph}, ist $G$ gerichtet, so heißt $\hat G$ \textit{Digraph}\index{Digraph}\index{Graph!Di-} bzw. gerichteter Graph\index{Graph!gerichteter}.
+\item Sind $G(V,E)$ ein Graph bzw. Digraph, $\Phi:E\rightarrow\mathbb R$, so heißt $G(V,E,\Phi)$ \textit{gewichteter Graph}\index{Graph!gewichteter} bzw. \textit{Digraph}\index{Digraph!gewichteter}.
 \item Seien $G=(V,E)$ Graph / Digraph, $U\subset V$. Der durch $U$ induzierte Teilgraph von $G$ wird mit $G_U$ bzw. $(V_U,E_U)$ bezeichnet.
 \end{enumerate}
 \subsubsection{Beispiel: Errichten eines Gebäudes}
@@ -296,7 +301,7 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
 \subsubsection{Definition}
 Seien $G=(V,E)$ Graph / Digraph, $n:=\vert V\vert\geq1$, $\tau_V$ gegebene Ordnung auf $V$. Ferner
 \[\alpha_{ij}:=\begin{cases}1&\text{falls }\{v_i,v_j\}\in E\text{ bzw. }(v_i,v_j)\in E\\0&\text{sonst}\end{cases}\]
-und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heißt $A_G$ \textit{Adjazenzmatrix} von $G$.
+und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heißt $A_G$ \textit{Adjazenzmatrix}\index{Adjazenzmatrix} von $G$.
 \subsubsection{Beispiel}
 \paragraph*{$G_1$}
 \[A_{G_1}=\underbrace{\left(\begin{array}{cccccc}
@@ -322,20 +327,20 @@ Durch Ersetzen jeder Kante $\{v,w\}$ durch $(v,w)$, $(w,v)$ kann man einen (unge
 Jetzt vorrangig (zunächst) ungerichtete Graphen.
 \subsubsection*{Straßennetz} ladida
 \subsubsection{Definition}
-Seien $G=(V,E)$ Graph, $S:=(U,F)$ Teilgraph von $G$ mit $\vert U\vert\geq1$, $S_i=(U_i,F_i)$ $i=1,\dots,k$ \textit{Zusammenhangskomponenten} von $S$.\\[1ex]
+Seien $G=(V,E)$ Graph, $S:=(U,F)$ Teilgraph von $G$ mit $\vert U\vert\geq1$, $S_i=(U_i,F_i)$ $i=1,\dots,k$ Zusammenhangskomponenten von $S$.\\[1ex]
 Ferner $Y=\{y_1,\dots,y_k\}$ zu $(V,U)\cup E$ disjunkte Menge der Kardinalität $k$ und
 \begin{align*}
 K&=\left\{\{v,w\}\::\:v,w\in V\setminus U\right\}\cap E\\
 &\cup\bigcup_{\overset{i,j=1}{i\neq j}}^k\left\{\{y_i,y_j\}\::\:\exists(u_i\in U_i\:\wedge\:u_j\in U_j)\::\:\{u_i,u_j\}\in E\right\}\\
 &\cup\bigcup_{i=1}^k\left\{\{y_i,v\}\::\:v\in V\setminus U\:\wedge\:\exists u_i\in U_i\::\:\{u_i,v\}\in E\right\}d
 \end{align*}
-Dann heißt $((V\setminus U)\cup Y,K)$ Konstraktion von $S$ in $G$. Bezeichnung $G/S$
+Dann heißt $((V\setminus U)\cup Y,K)$ \textit{Kontraktion}\index{Kontraktion}\index{Kontraktion} von $S$ in $G$. Bezeichnung $G/S$
 \subsubsection{Lemma}
-$G_i=(V_i,E_i)$ ($i=1,2$) Graphen. $G_1$ $G_2$ sind genau dann \textit{isomorph}, wennes eine bijektive Abbildung $\tau:V_1\rightarrow V_2$ gibt, so dass für alle $v,w\in V_1$ gilt
+$G_i=(V_i,E_i)$ ($i=1,2$) Graphen. $G_1$ $G_2$ sind genau dann \textit{isomorph}\index{Graph!isomorpher}, wennes eine bijektive Abbildung $\tau:V_1\rightarrow V_2$ gibt, so dass für alle $v,w\in V_1$ gilt
 \[\{v,w\}\in E_1\:\Leftrightarrow\:(\tau(v),\tau(w))\in E_2\]
 \subsubsection*{Beweis} Übung
 \subsubsection{Bezeichnung}
-$G_i=(V_i,E_i)$ ($i=1,2$) Graphen, $\tau:V_1\rightarrow V_2$ Bijektion mit $\{v,w\}\in E_1\:\Leftrightarrow\:\{\tau(v),\tau(w)\}\in E_2$ für alle $v,w\in V_1$. Dann heißt $\tau$ \textit{Isomorphismus} und für $G_1=G_2$ \textit{Automorphismus}.
+$G_i=(V_i,E_i)$ ($i=1,2$) Graphen, $\tau:V_1\rightarrow V_2$ Bijektion mit $\{v,w\}\in E_1\:\Leftrightarrow\:\{\tau(v),\tau(w)\}\in E_2$ für alle $v,w\in V_1$. Dann heißt $\tau$ \textit{Isomorphismus}\index{Isomorphismus} und für $G_1=G_2$ \textit{Automorphismus}\index{Automorphismus}.
 \subsubsection{Forschungsproblem}
 Gibt es ein Polynom $\Psi:\mathbb R\rightarrow\mathbb R$ und allgemeinen Algorithmus, der für beliebige Graphen $G_1$, $G_2$ in einer durch $\Psi(\vert V_1\vert)$ beschränkten Anzahl von Rechenoperationen entscheidet, ob $G_1$ und $G_2$ isomorph sind.\hfill\textbf{28.10.2008}
 \subsubsection*{Beispiel}
@@ -343,14 +348,14 @@ Kontraktion ladida
 \subsubsection{Definition}
 $G=(V,E)$ mit
 \[v\in V\:\wedge\:w\in V\setminus\{v\}\:\Rightarrow\:\{v,w\}\in E\]
-$G$ heißt \textit{vollständig}. $K_V$, für $n=\vert V\vert$ oft $K_n$
+$G$ heißt \textit{vollständig}\index{Graph!vollständiger}. $K_V$, für $n=\vert V\vert$ oft $K_n$
 \subsubsection{Bemerkung}
 $G=(V,E)$ vollständig. Dann $\vert E\//0,0,140ert=\binom{\vert V\vert}2$
 \subsubsection{Beispiel}
 ladida
 \subsubsection{Definition}
-$G=(V,E)$ Graph. Dann heißt $G$ \textit{Baum}, wenn $G$ zusammenhängend und kreisfrei ist. $G$ heißt \textit{Wald}, wenn $G$ kreisfrei ist. Ist $G$ Baum so heißt jeder Knoten $v$ von $G$ mit $deg(v)=1$ \textit{Blatt}.\\[1ex]
-Teilgraph $T=(V_T,E_T)$ eines Graphen $G$ heißt \textit{aufspannender Baum} oder \textit{Spannbaum}, falls $T$ Baum ist und $V=V_T$ gilt.
+$G=(V,E)$ Graph. Dann heißt $G$ \textit{Baum}\index{Baum}, wenn $G$ zusammenhängend und kreisfrei ist. $G$ heißt \textit{Wald}\index{Wald}, wenn $G$ kreisfrei ist. Ist $G$ Baum so heißt jeder Knoten $v$ von $G$ mit $deg(v)=1$ \textit{Blatt}\index{Blatt}.\\[1ex]
+Teilgraph $T=(V_T,E_T)$ eines Graphen $G$ heißt \textit{aufspannender Baum}\index{Baum!aufspannender} oder \textit{Spannbaum}\index{Spannbaum}, falls $T$ Baum ist und $V=V_T$ gilt.
 \subsubsection{Bemerkung}
 $G=(V,E)$ Baum, $\vert E\vert\geq1$. Dann besitzt $G$ mindestens zwei Blätter.
 \subsubsection*{Beweis}
@@ -390,18 +395,18 @@ Sei $T=(V,E_T)$ zusammenhängender Teilgraph minimaler Kantenzahl: \textit{(5.1.3
 \subsubsection{Definition}
 $G=(V,E)$ Graph, $M\subset E$.
 \begin{enumerate}[(a)]
-\item $v\in V$. $v$ wird von $M$ \textit{überdeckt}, fals $v\in\bigcup_{e\in M}e$. $M$ \textit{Knotenüberdeckung}, wenn jeder Knoten von $V$ überdeckt wird.
-\item $M$ \textit{Paarung}, \textit{Matching}, wenn gilt
+\item $v\in V$. $v$ wird von $M$ \textit{überdeckt}\index{Knoten!überdeckter}, fals $v\in\bigcup_{e\in M}e$. $M$ \index{Knoten!-überdeckung}, wenn jeder Knoten von $V$ überdeckt wird.
+\item $M$ \textit{Paarung}\index{Paarung|see{Matching}}, \textit{Matching}\index{Matching}, wenn gilt
 \[\{v_1,w_1\},\{v_2,w_2\}\in M\:\wedge\:\{v_1,w_1\}\cap\{v_2,w_2\}\neq\emptyset\:\Rightarrow\:\{v_1,w_1\}=\{v_2,w_2\}\]
-\item \textit{perfektes Matching}, wenn $M$ Matching und Knotenüberdeckung ist
-\item $\Phi:E\rightarrow\mathbb R$, $M^*$ Matching heißt \textit{maximales Matching}, wenn $M^*$ bez. $\sum_{e\in M}\Phi(e)$ unter allen matching $M$ maximal ist. $\Phi\equiv1$: \textit{Kardinalitätsmaximum}
+\item \textit{perfektes Matching}\index{Matching!perfektes}, wenn $M$ Matching und Knotenüberdeckung ist
+\item $\Phi:E\rightarrow\mathbb R$, $M^*$ Matching heißt \textit{maximales Matching}\index{Matching!maximales}, wenn $M^*$ bez. $\sum_{e\in M}\Phi(e)$ unter allen matching $M$ maximal ist. $\Phi\equiv1$: \textit{Kardinalitätsmaximum}\index{Kardinalitätsmaximum}
 \end{enumerate}
 \subsubsection{Beispiel}
 ladida
 \subsubsection{Definition}
-$G=(V,E)$ heißt \textit{bipartit}, wenn es Partition $V_1,V_2$ von $V$ gibt mit
+$G=(V,E)$ heißt \textit{bipartit}\index{Graph!bipartiter}, wenn es Partition $V_1,V_2$ von $V$ gibt mit
 \[\{v,w\}\in E\:\Rightarrow\:\{v,w\}\cap V_1\neq\emptyset\:\wedge\:\{v,w\}\cap V_2\neq\emptyset\]
-Gilt  $(v_1\in V_1\wedge v_2\in V_2$ $\Rightarrow$ $\{v_1,v_2\}\in E$), dann heißt $G$ \textit{vollständig bipartit}; $n_1=\vert V_1\vert$, $n_2=\vert V_2\vert$: $K_{n_1,n_2}$
+Gilt  $(v_1\in V_1\wedge v_2\in V_2$ $\Rightarrow$ $\{v_1,v_2\}\in E$), dann heißt $G$ \textit{vollständig bipartit}\index{Graph!bipartiter!vollständig}; $n_1=\vert V_1\vert$, $n_2=\vert V_2\vert$: $K_{n_1,n_2}$
 \subsubsection{Erinnerung}
 $P_1,\dots,P_4$ Geschlecht $\Gamma_1$, $Q_1,\dots, Q_3$, $\Gamma_2$, $\Gamma_1\neq\Gamma_2$, Kompatibilitätskoeffizienten $\gamma_{ij}$, $V_1:=\{v_1,\dots,v_4\}$, $V_2:=\{v_5,v_6,v_7\}$, Kanten $E=\{\{v_i,v_j\}\::\:i=1,\dots,4\:\wedge\:j=4,5,6\}$ $\Rightarrow$ $K_{4,3}$, $\Phi(\{v_i,v_j\})=\gamma_{ij}$. Gesucht: maximales Matching.
 \subsubsection{Lemma}
@@ -421,7 +426,7 @@ $G=(V,E,\nu)$ allgemeiner Graph, $U\subset V$. Dann
 \delta(G,U)&:=\left\{e\in\::\:\exists(u\in U,v\in V\setminus U)\:\wedge\:\nu(e)\in\{\{u,v\},(u,v)\}\right\}\\
 N(G,U)&:=\left\{v\in V\setminus U\::\:\exists(u\in U,e\in E)\::\:\nu(e)\in\{\{u,v\},(u,v)\}\right\}
 \end{align*}
-$N(G,U)$ Menge der \textit{Nachbarn}, Abkürzung $N(G,v)$, $S(G,v)$ für $U=\{v\}$
+$N(G,U)$ Menge der \textit{Nachbarn}\index{Nachbar}, Abkürzung $N(G,v)$, $S(G,v)$ für $U=\{v\}$
 \subsubsection{Satz von Hall}
 $G=(V,E)$ bipartit, $(Y,Z)$ zugehörige Partitionen von $V$. Dann äquivalent:
 \begin{enumerate}[(a)]
@@ -447,11 +452,11 @@ $G=(V,E)$ bipartit, $(V_1,V_2)$ zugehörige Partition von $V$. Es gilt genau dann
 \subsubsection{Beispiel}
 Besitzt $G$ perfektes Matching? Nein, weil $N(G,\{z_3,z_5\})=\{y_4\}$ ladida
 \subsubsection{Definition}
-$G=(V,E)$, $M$ Matching $W$ eigentlicher Weg in $G$, kantenmenge $E_W$, $A:=E_W\setminus M$. $W$ heißt \textit{alternierend} bezüglich $M$, wenn $A$ Matching ist. $W$ heißt \textit{Augmentationsweg} bezüglich $M$ in $G$, wenn $W$ alternierend ist.
+$G=(V,E)$, $M$ Matching $W$ eigentlicher Weg in $G$, Kantenmenge $E_W$, $A:=E_W\setminus M$. $W$ heißt \textit{alternierend}\index{Weg!alternierender} bezüglich $M$, wenn $A$ Matching ist. $W$ heißt \textit{Augmentationsweg}\index{Weg!Augmentations-}\index{Augmentationsweg} bezüglich $M$ in $G$, wenn $W$ alternierend ist.
 \subsubsection{Bemerkung}
 $G=(V,E)$ Graph, $M$ Matching, $W$ Augmentationsweg, Kantenmenge $E_W$, $A:=E_W\setminus M$, $M^*=(M\setminus E_W)\cup A$. Dann ist $M^*$ Matching, $\vert M^*\vert=\vert M\vert+1$.
 \subsubsection{Bezeichnung}
-$M^*$ gemäß \textit{5.1.46)} heißt (mittels $W$) \textit{augmentiertes Matching}.
+$M^*$ gemäß \textit{5.1.46)} heißt (mittels $W$) \textit{augmentiertes Matching}\index{Matching!augmentiertes}.
 \subsubsection{Lemma}
 $G=(V,E)$ Graph, $M$ Matching. $M$ ist genau dann Kardinalitätsmaximum, wenn es keinen Augmentationsweg bezüglich $M$ in $G$ gibt.
 \subsubsection*{Beweis}
@@ -460,4 +465,6 @@ $G=(V,E)$ Graph, $M$ Matching. $M$ ist genau dann Kardinalitätsmaximum, wenn es 
 \item[$\Leftarrow$] Sei $M$ nicht maximal. $M^*$ Matching mit $\vert M^*\vert>\vert M\vert$. Seien $F:=(M\setminus M^*)\cup(M^*\setminus M)$, $U=\bigcup_{e\in F}e$, $S:=(U,F)$ nicht leerer Teilgraph von $G$. Es gilt für $u\in U$:\\[1ex]
 $deg_S(u)\leq2$, dh. Zusammenhangskomponenten von $S$ sind Wege und Kreise. Kreise enthalten gleichviele Kanten von $M$ und $M^*$, bei Wegen ist die Differenz höchstens 1. Wegen $\vert M^*\vert\geq\vert M\vert+1$ gibt es Weg in $S$, der eine Kante mehr aus $M^*$ enthält als aus $M$. Das ist gesuchter Augmentationsweg.
 \end{itemize}
+
+\printindex
 \end{document}
