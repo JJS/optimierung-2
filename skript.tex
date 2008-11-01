@@ -300,7 +300,25 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
 \gamma_3=\gamma_6=\gamma_9&=2\\
 \gamma_7&=1
 \end{align*}
-\subsubsection*{Digraph (Abhängigkeiten)} ladida
+\subsubsection*{Digraph (Abhängigkeiten)}
+\begin{center}
+\begin{tikzpicture}[>=stealth']
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{edge}=[draw,-]
+\tikzstyle{arrow}=[edge,->]
+\tikzstyle{every loop}=[]
+\foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,0)/v_3},{(0,3)/v_4}}
+  \node[vertex] (\name) at \pos {$\name$};
+\path[edge,loop above] (v_1) to (v_1) node [midway] {$e_1$};
+\path[arrow,bend left] (v_1) to (v_2) node [midway,right] {$e_2$};
+\path[arrow,bend left] (v_2) to (v_1) node [midway,left] {$e_3$};
+\path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
+\path[arrow] (v_1) to (v_3) node[midway, right] {$e_5$};
+\path[edge,bend left] (v_3) to (v_4) node[midway,left] {$e_6$};
+\path[edge,bend left] (v_4) to (v_3) node[midway,right] {$e_7$};
+\path[arrow] (v_3) to (v_4) node[midway,fill=white] {$e_8$};
+\end{tikzpicture}
+\end{center}
 \subsubsection*{Modellierung mit Kantengewichte}
 \subsubsection{Definition}\ssslbl
 Seien $G=(V,E)$ Graph / Digraph, $n:=\vert V\vert\geq1$, $\tau_V$ gegebene Ordnung auf $V$. Ferner
@@ -354,7 +372,7 @@ $G=(V,E)$ mit
 \[v\in V\:\wedge\:w\in V\setminus\{v\}\:\Rightarrow\:\{v,w\}\in E\]
 $G$ heißt \textit{vollständig}\index{Graph!vollständiger}. $K_V$, für $n=\vert V\vert$ oft $K_n$
 \subsubsection{Bemerkung}\ssslbl
-$G=(V,E)$ vollständig. Dann $\vert E\//0,0,140ert=\binom{\vert V\vert}2$
+$G=(V,E)$ vollständig. Dann $\vert E\vert=\binom{\vert V\vert}2$
 \subsubsection{Beispiel}\ssslbl
 ladida
 \subsubsection{Definition}\ssslbl
@@ -375,14 +393,14 @@ $G=(V,E)$. Dann äquivalent:
 \subsubsection*{Beweis}
 $a\Rightarrow b$: $G$ zusammenhängend, dh. es existiert mindestens ein $v-w$-Weg. Gäbe es zwei verschiedene, so enthielte G einen Kreis (\textit{\ref{5.1.10}(b)})\\[1ex]
 $b\Rightarrow c$: Wäre $(V,E\setminus\{e\})$ zusammenhängend, so wären die beiden Knoten von $e$ durch einen Weg in $(V,E\setminus\{e\})$ verbunden, $e$ verbindet sie in $G$ $\Rightarrow$ Widerspruch: 2 verschiedene Wege\\[1ex]
-$c\Rightarrow d$: Enthielte $G$ einen Kreis, so könnte beliebige Kante entfernt wreden ohne Zusammenhang zu verlieren. Wäre für $v,w\in V$, $v\neq w$, $e=\{v,w\}\neq E$ $(V,E\cup\{e,\})$ kreisfrei, so wären $v,w$ in $G$ nicht verbunden.\\[1ex]
+$c\Rightarrow d$: Enthielte $G$ einen Kreis, so könnte beliebige Kante entfernt wreden ohne Zusammenhang zu verlieren. Wäre für $v,w\in V$, $v\neq w$, $e=\{v,w\}\neq E$ $(V,E\cup\{e\})$ kreisfrei, so wären $v,w$ in $G$ nicht verbunden.\\[1ex]
 $d\Rightarrow a$: Enthielte $G$ zwei verschiedene Zusammenhangskomponenten $S_1,S_2$, so könnte zwischen $S_1$ und $S_2$ beliebige Kante eingefügt werden, ohne Kreis zu erzeugen.
 \subsubsection{Korollar}\ssslbl
 $G=(V,E)$ Baum, $\vert V\vert\geq1$. Dann $\vert E\vert=\vert V\vert-1$
 \subsubsection*{Beweis}
 vollständige Induktion über $\vert V\vert$, benutze \textit{(\ref{5.1.31})}.
 \subsubsection{Korollar}\ssslbl
-$G=(V,E)$ $\vert V\vert\geq1$. Dann sit äquivalent
+$G=(V,E)$, $\vert V\vert\geq1$. Dann ist äquivalent
 \begin{enumerate}[(a)]
 \item $G$ Baum
 \item $G$ kreisfrei und $\vert E\vert=\vert V\vert-1$
@@ -390,8 +408,8 @@ $G=(V,E)$ $\vert V\vert\geq1$. Dann sit äquivalent
 \end{enumerate}
 \subsubsection*{Beweis}
 $a\Rightarrow b\wedge c$: Korrolar \textit{(\ref{5.1.33})}\\[1ex]
-$b\Rightarrow b$: Sei $T=(V,E_T)$ kantenmaximaler kreisfreier Graph, der $G$ als Teilgraph enthält. Nach \textit{(\ref{5.1.32})(d)} ist $T$ Baum. Aus \textit{(\ref{5.1.33})} folgt $\vert E_T\vert=\vert V\vert-1=\vert E\vert$, also $T=G$\\[1ex]
-$c\Rightarrow c$: analog mit $T=(V,E_T)$ kantenminimaler zusammenhängender Teilgraph von $G$.
+$b\Rightarrow a$: Sei $T=(V,E_T)$ kantenmaximaler kreisfreier Graph, der $G$ als Teilgraph enthält. Nach \textit{(\ref{5.1.32})(d)} ist $T$ Baum. Aus \textit{(\ref{5.1.33})} folgt $\vert E_T\vert=\vert V\vert-1=\vert E\vert$, also $T=G$\\[1ex]
+$c\Rightarrow a$: analog mit $T=(V,E_T)$ kantenminimaler zusammenhängender Teilgraph von $G$.
 \subsubsection{Korollar}\ssslbl
 $G=(V,E)$ zusammenhängender Graph. Dann besitzt $G$ Spannbaum.
 \subsubsection*{Beweis}
@@ -399,11 +417,11 @@ Sei $T=(V,E_T)$ zusammenhängender Teilgraph minimaler Kantenzahl: \textit{(\ref{
 \subsubsection{Definition}\ssslbl
 $G=(V,E)$ Graph, $M\subset E$.
 \begin{enumerate}[(a)]
-\item $v\in V$. $v$ wird von $M$ \textit{überdeckt}\index{Knoten!überdeckter}, fals $v\in\bigcup_{e\in M}e$. $M$ \index{Knoten!-überdeckung}, wenn jeder Knoten von $V$ überdeckt wird.
+\item $v\in V$. $v$ wird von $M$ \textit{überdeckt}\index{Knoten!überdeckter}, fals $v\in\bigcup_{e\in M}e$. $M$ \textit{Knotenüberdeckung}\index{Knoten!-überdeckung}, wenn jeder Knoten von $V$ überdeckt wird.
 \item $M$ \textit{Paarung}\index{Paarung|see{Matching}}, \textit{Matching}\index{Matching}, wenn gilt
 \[\{v_1,w_1\},\{v_2,w_2\}\in M\:\wedge\:\{v_1,w_1\}\cap\{v_2,w_2\}\neq\emptyset\:\Rightarrow\:\{v_1,w_1\}=\{v_2,w_2\}\]
 \item \textit{perfektes Matching}\index{Matching!perfektes}, wenn $M$ Matching und Knotenüberdeckung ist
-\item $\Phi:E\rightarrow\mathbb R$, $M^*$ Matching heißt \textit{maximales Matching}\index{Matching!maximales}, wenn $M^*$ bez. $\sum_{e\in M}\Phi(e)$ unter allen matching $M$ maximal ist. $\Phi\equiv1$: \textit{Kardinalitätsmaximum}\index{Kardinalitätsmaximum}
+\item $\Phi:E\rightarrow\mathbb R$, $M^*$ Matching heißt \textit{maximales Matching}\index{Matching!maximales}, wenn $M^*$ bez. $\sum_{e\in M}\Phi(e)$ unter allen Matchings $M$ maximal ist. $\Phi\equiv1$: \textit{Kardinalitätsmaximum}\index{Kardinalitätsmaximum}
 \end{enumerate}
 \subsubsection{Beispiel}\ssslbl
 ladida
@@ -418,7 +436,7 @@ $G=(V,E)$ Graph. $G$ bipartit, wenn $G$ keinen Kreis ungerader Länge enthält.\hf
 \subsubsection*{Beweis}
 \begin{itemize}
 \item[$\Rightarrow$] $\surd$
-\item[$\Leftarrow$] Konstruiere Partition, oBdA. $G$ zusammenhängend. Nach \textit{(5.1.35)} besitzt $G$ Spannbaum $T=(V,E_T)$. Sei $s\in T$. Nach \textit{(\ref{5.1.32})(b)} gibt es zu jedem $v\in V$ genau einen $s-v$-Weg in $T$; $p(v)$ sei seine Länge, setze für $k=0,1$:
+\item[$\Leftarrow$] Konstruiere Partition, oBdA. $G$ zusammenhängend. Nach \textit{(\ref{5.1.35})} besitzt $G$ Spannbaum $T=(V,E_T)$. Sei $s\in T$. Nach \textit{(\ref{5.1.32})(b)} gibt es zu jedem $v\in V$ genau einen $s-v$-Weg in $T$; $p(v)$ sei seine Länge, setze für $k=0,1$:
 \[V_{k+1}:=\{v\in V\::\:p(v)\equiv k\mod2\}\]
 $(V_1,V_2)$ Partition.\\[1ex]
 Seien $v,w\in V$, $e=\{v,w\}\in E\setminus E_T$. Nach \textit{(\ref{5.1.32})(d)} enthält $(V,E_T\cup\{e\})$ einen Kreis (gerader Länge nach Voraussetzung). Somit:\\[1ex]
@@ -427,10 +445,10 @@ $s-v$-Weg und $s-w$-Weg in $T$ haben unterschiedliche Länge $\mod2$. Also liegen
 \subsubsection{Bezeichnung}\ssslbl
 $G=(V,E,\nu)$ allgemeiner Graph, $U\subset V$. Dann
 \begin{align*}
-\delta(G,U)&:=\left\{e\in\::\:\exists(u\in U,v\in V\setminus U)\:\wedge\:\nu(e)\in\{\{u,v\},(u,v)\}\right\}\\
+\delta(G,U)&:=\left\{e\in E\::\:\exists(u\in U,v\in V\setminus U)\:\wedge\:\nu(e)\in\{\{u,v\},(u,v)\}\right\}\\
 N(G,U)&:=\left\{v\in V\setminus U\::\:\exists(u\in U,e\in E)\::\:\nu(e)\in\{\{u,v\},(u,v)\}\right\}
 \end{align*}
-$N(G,U)$ Menge der \textit{Nachbarn}\index{Nachbar}, Abkürzung $N(G,v)$, $S(G,v)$ für $U=\{v\}$
+$N(G,U)$ Menge der \textit{Nachbarn}\index{Nachbar}, Abkürzung $N(G,v)$, $\delta(G,v)$ für $U=\{v\}$
 \subsubsection{Satz von Hall}\ssslbl
 $G=(V,E)$ bipartit, $(Y,Z)$ zugehörige Partitionen von $V$. Dann äquivalent:
 \begin{enumerate}[(a)]
