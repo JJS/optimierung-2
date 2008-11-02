@@ -17,7 +17,7 @@
 \usetikzlibrary{arrows,shapes,calc,backgrounds,fit}
 \tikzset{
   vertex/.style={circle,draw=black!25,thick,top color=white,bottom color=black!15,minimum size=7.5mm,inner sep=0cm},
-  vertexpt/.style={circle,draw=black!50,thick,fill=black!25,minimum size=1mm,inner sep=0cm,node distance=15pt},
+  vertexpt/.style={circle,draw=black!50,thick,fill=black!25,minimum size=1mm,inner sep=0cm},
   edge/.style={draw,-},
   arrow/.style={edge,->},
   annotation/.style={font=\footnotesize,node distance=18pt}}
@@ -363,11 +363,11 @@ Gefragt: Mindestbauzeit abh‰ngig von Einzelausf¸hrungszeiten $\gamma_i$ von $A_i
 \end{center}
 
 \begin{center}
-\begin{tikzpicture}[>=stealth']
+\begin{tikzpicture}[>=stealth',node distance=5mm]
 \def\doublevertex#1{\node (v_#1) [vertexpt] {};%
   \node (w_#1) [vertexpt,right of=v_#1] {};%
   \path [arrow] (v_#1) to (w_#1);}
-\matrix[row sep=1cm,column sep=1cm]{
+\matrix[row sep=1.5cm,column sep=1.5cm]{
  & \doublevertex4 & \doublevertex6 & \doublevertex8 & \\
  \doublevertex1 & \doublevertex3 & & \doublevertex7 & \doublevertex9 \\
  & \doublevertex2 & \doublevertex5 & & \\
@@ -503,28 +503,28 @@ $G=(V,E)$ vollst‰ndig. Dann $\vert E\vert=\binom{\vert V\vert}2$
   \node [vertexpt] {}; &
 
   \foreach \n/\angle in {{1/0},{2/180}}
-    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+    \node (v_\n) [vertexpt] at (\angle:7mm) {};
   \foreach \i in {1,...,2} {
     \foreach \j in {\i,...,2}
       \path [edge] (v_\i) to (v_\j);
   } &
   
   \foreach \n/\angle in {{1/90},{2/210},{3/330}}
-    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+    \node (v_\n) [vertexpt] at (\angle:7mm) {};
   \foreach \i in {1,...,3} {
     \foreach \j in {\i,...,3}
       \path [edge] (v_\i) to (v_\j);
   } &
   
   \foreach \n/\angle in {{1/45},{2/135},{3/225},{4/315}}
-    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+    \node (v_\n) [vertexpt] at (\angle:7mm) {};
   \foreach \i in {1,...,4} {
     \foreach \j in {\i,...,4}
       \path [edge] (v_\i) to (v_\j);
   } &
 
   \foreach \n/\angle in {{1/90},{2/210},{3/330}}
-    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+    \node (v_\n) [vertexpt] at (\angle:7mm) {};
   \node (v_4) [vertexpt] {};
   \foreach \i in {1,...,4} {
     \foreach \j in {\i,...,4}
@@ -532,7 +532,7 @@ $G=(V,E)$ vollst‰ndig. Dann $\vert E\vert=\binom{\vert V\vert}2$
   } &
 
   \foreach \n/\angle in {{1/90},{2/162},{3/234},{4/306},{5/18}}
-    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+    \node (v_\n) [vertexpt] at (\angle:7mm) {};
   \foreach \i in {1,...,5} {
     \foreach \j in {\i,...,5}
       \path [edge] (v_\i) to (v_\j);
@@ -591,7 +591,39 @@ $G=(V,E)$ Graph, $M\subset E$.
 \item $\Phi:E\rightarrow\mathbb R$, $M^*$ Matching heiﬂt \textit{maximales Matching}\index{Matching!maximales}, wenn $M^*$ bez. $\sum_{e\in M}\Phi(e)$ unter allen Matchings $M$ maximal ist. $\Phi\equiv1$: \textit{Kardinalit‰tsmaximum}\index{Kardinalit‰tsmaximum}
 \end{enumerate}
 \subsubsection{Beispiel}\ssslbl
-ladida
+\begin{center}
+\begin{tikzpicture}
+\foreach \n in {1,...,6}
+  \node (v_\n) [vertexpt] at (60*\n:1.5cm) {};
+\node (v_7) [vertexpt] {};
+
+\foreach \i/\j in {
+    {1/2}, {1/6},
+    {2/7},
+    {3/4}, {3/5}, {3/7},
+    {4/6},
+    {5/6}, {5/7}}
+  \path [edge] (v_\i) to (v_\j);
+
+\foreach \i/\j in {{1/7},{2/3},{4/5}}
+  \path [edge,orange,very thick] (v_\i) to (v_\j);
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}
+\foreach \n in {1,...,5}
+  \node (v_\n) [vertexpt] at (18+72*\n:1.5cm) {};
+\node (v_6) [vertexpt] {};
+
+\foreach \i/\j in {
+    {1/5}, {1/6},
+    {2/3}, {2/4}, {2/5}, {2/6},
+    {4/5}, {4/6}}
+  \path [edge] (v_\i) to (v_\j);
+
+\foreach \i/\j in {{1/2},{3/4},{5/6}}
+  \path [edge,red,very thick] (v_\i) to (v_\j);
+\end{tikzpicture}\vspace{1em}\\
+\emph{\textcolor{orange}{Matching} und \textcolor{red}{perfektes Matching}}
+\end{center}
 \subsubsection{Definition}\ssslbl
 $G=(V,E)$ heiﬂt \textit{bipartit}\index{Graph!bipartiter}, wenn es Partition $V_1,V_2$ von $V$ gibt mit
 \[\{v,w\}\in E\:\Rightarrow\:\{v,w\}\cap V_1\neq\emptyset\:\wedge\:\{v,w\}\cap V_2\neq\emptyset\]
