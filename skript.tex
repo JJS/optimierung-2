@@ -16,8 +16,8 @@
 
 \usetikzlibrary{arrows,shapes,calc,backgrounds}
 \tikzset{
-  vertex/.style={circle,draw=black!25,thick,top color=white,bottom color=black!15,minimum size=20pt,inner sep=0pt},
-  vertexpt/.style={circle,draw=black!50,thick,fill=black!25,minimum size=3pt,inner sep=0pt,node distance=15pt},
+  vertex/.style={circle,draw=black!25,thick,top color=white,bottom color=black!15,minimum size=7.5mm,inner sep=0cm},
+  vertexpt/.style={circle,draw=black!50,thick,fill=black!25,minimum size=1mm,inner sep=0cm,node distance=15pt},
   edge/.style={draw,-},
   arrow/.style={edge,->},
   annotation/.style={font=\footnotesize,node distance=18pt}}
@@ -294,7 +294,6 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
 \gamma_7&=1
 \end{align*}
 \subsubsection*{Digraph (Abhängigkeiten)}
-
 \begin{center}
 \begin{tikzpicture}[>=stealth']
 \matrix[row sep=1cm,column sep=1cm]{
@@ -328,7 +327,6 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
 \end{center}
 
 \subsubsection*{Modellierung mit Kantengewichte}
-
 \begin{center}
 \begin{tikzpicture}[>=stealth']
 \def\doublevertex#1{\node (v_#1) [vertex] {$v_#1$};%
@@ -363,7 +361,6 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
         ($ (v_\n.south west)-(0.2,0.2) $) rectangle
         ($ (w_\n.north east)+(0.2,0.2) $);
 \end{pgfonlayer}
-
 \end{tikzpicture}
 \end{center}
 
@@ -421,6 +418,40 @@ Seien $G=(V,E)$ Graph / Digraph, $n:=\vert V\vert\geq1$, $\tau_V$ gegebene Ordnu
 \[\alpha_{ij}:=\begin{cases}1&\text{falls }\{v_i,v_j\}\in E\text{ bzw. }(v_i,v_j)\in E\\0&\text{sonst}\end{cases}\]
 und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heißt $A_G$ \textit{Adjazenzmatrix}\index{Adjazenzmatrix} von $G$.
 \subsubsection{Beispiel}\ssslbl
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[>=stealth',node distance=1.5cm]
+\node (v_1) [vertex]                    {$v_1$};
+\node (v_2) [vertex,above right of=v_1] {$v_2$};
+\node (v_3) [vertex,below right of=v_1] {$v_3$};
+\node (v_4) [vertex,right of=v_2]       {$v_4$};
+\node (v_5) [vertex,right of=v_3]       {$v_5$};
+\node (v_6) [vertex,below right of=v_4] {$v_6$};
+
+\foreach \from/\to in {
+    {1/2}, {1/3}, {1/5},
+    {2/3}, {2/4}, {2/5}, {2/6},
+    {3/4},
+    {5/6}}
+  \path [edge] (v_\from) to (v_\to);
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}[>=stealth']
+\node (v_1) [vertex] at (0,2) {$v_1$};
+\node (v_2) [vertex] at (0,0) {$v_2$};
+\node (v_3) [vertex] at (2,2) {$v_3$};
+\node (v_4) [vertex] at (2,0) {$v_4$};
+\node (v_5) [vertex] at (4,1) {$v_5$};
+
+\foreach \v/\w in {{1/2}, {1/3}, {2/4}, {3/5}} {
+  \path [arrow,bend right] (v_\v) to (v_\w);
+  \path [arrow,bend right] (v_\w) to (v_\v);
+}
+\foreach \from/\to in {{1/4}, {3/4}, {4/5}}
+  \path [arrow] (v_\from) to (v_\to);
+\end{tikzpicture}
+\end{center}
+\caption{Zu \textit{(\ref{5.1.20})}: Graphen $G_1$ und $G_2$}
+\end{figure}
 \paragraph*{$G_1$}
 \[A_{G_1}=\underbrace{\left(\begin{array}{cccccc}
 0&1&1&0&1&0\\
