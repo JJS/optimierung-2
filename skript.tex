@@ -14,7 +14,7 @@
 
 \makeindex
 
-\usetikzlibrary{arrows,shapes,calc,backgrounds}
+\usetikzlibrary{arrows,shapes,calc,backgrounds,fit}
 \tikzset{
   vertex/.style={circle,draw=black!25,thick,top color=white,bottom color=black!15,minimum size=7.5mm,inner sep=0cm},
   vertexpt/.style={circle,draw=black!50,thick,fill=black!25,minimum size=1mm,inner sep=0cm,node distance=15pt},
@@ -357,9 +357,7 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
   
 \begin{pgfonlayer}{background}
   \foreach \n in {1,...,9}
-    \path [thick,draw=black!25,]
-        ($ (v_\n.south west)-(0.2,0.2) $) rectangle
-        ($ (w_\n.north east)+(0.2,0.2) $);
+    \node [thick,draw=black!25,fit=(v_\n) (w_\n)] {};
 \end{pgfonlayer}
 \end{tikzpicture}
 \end{center}
@@ -404,9 +402,7 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
 
 \begin{pgfonlayer}{background}
   \foreach \n in {1,...,9}
-    \path [thick,draw=black!25,]
-        ($ (v_\n.south west)-(0.2,0.2) $) rectangle
-        ($ (w_\n.north east)+(0.2,0.2) $);
+    \node [thick,draw=black!25,fit=(v_\n) (w_\n)] {};
 \end{pgfonlayer}
 \end{tikzpicture}\par
   \small\emph{\textcolor{red}{kritischer~Pfad}},
