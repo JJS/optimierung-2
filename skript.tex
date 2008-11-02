@@ -497,7 +497,51 @@ $G$ heiﬂt \textit{vollst‰ndig}\index{Graph!vollst‰ndiger}. $K_V$, f¸r $n=\vert V
 \subsubsection{Bemerkung}\ssslbl
 $G=(V,E)$ vollst‰ndig. Dann $\vert E\vert=\binom{\vert V\vert}2$
 \subsubsection{Beispiel}\ssslbl
-ladida
+\begin{center}
+\begin{tikzpicture}
+\matrix[row sep=0mm,column sep=5mm]{
+  \node [vertexpt] {}; &
+
+  \foreach \n/\angle in {{1/0},{2/180}}
+    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+  \foreach \i in {1,...,2} {
+    \foreach \j in {\i,...,2}
+      \path [edge] (v_\i) to (v_\j);
+  } &
+  
+  \foreach \n/\angle in {{1/90},{2/210},{3/330}}
+    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+  \foreach \i in {1,...,3} {
+    \foreach \j in {\i,...,3}
+      \path [edge] (v_\i) to (v_\j);
+  } &
+  
+  \foreach \n/\angle in {{1/45},{2/135},{3/225},{4/315}}
+    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+  \foreach \i in {1,...,4} {
+    \foreach \j in {\i,...,4}
+      \path [edge] (v_\i) to (v_\j);
+  } &
+
+  \foreach \n/\angle in {{1/90},{2/210},{3/330}}
+    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+  \node (v_4) [vertexpt] {};
+  \foreach \i in {1,...,4} {
+    \foreach \j in {\i,...,4}
+      \path [edge] (v_\i) to (v_\j);
+  } &
+
+  \foreach \n/\angle in {{1/90},{2/162},{3/234},{4/306},{5/18}}
+    \node (v_\n) [vertexpt] at (\angle:10pt) {};
+  \foreach \i in {1,...,5} {
+    \foreach \j in {\i,...,5}
+      \path [edge] (v_\i) to (v_\j);
+  }\\
+  
+  \node {$K_1$}; & \node {$K_2$}; & \node {$K_3$}; & \node {$K_4$}; & \node {$K_4$}; & \node {$K_5$};\\
+};
+\end{tikzpicture}
+\end{center}
 \subsubsection{Definition}\ssslbl
 $G=(V,E)$ Graph. Dann heiﬂt $G$ \textit{Baum}\index{Baum}, wenn $G$ zusammenh‰ngend und kreisfrei ist. $G$ heiﬂt \textit{Wald}\index{Wald}, wenn $G$ kreisfrei ist. Ist $G$ Baum so heiﬂt jeder Knoten $v$ von $G$ mit $deg(v)=1$ \textit{Blatt}\index{Blatt}.\\[1ex]
 Teilgraph $T=(V_T,E_T)$ eines Graphen $G$ heiﬂt \textit{aufspannender Baum}\index{Baum!aufspannender} oder \textit{Spannbaum}\index{Spannbaum}, falls $T$ Baum ist und $V=V_T$ gilt.
