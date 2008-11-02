@@ -14,7 +14,13 @@
 
 \makeindex
 
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows,shapes,calc,backgrounds}
+\tikzset{
+  vertex/.style={circle,draw=black!25,thick,top color=white,bottom color=black!15,minimum size=20pt,inner sep=0pt},
+  vertexpt/.style={circle,draw=black!50,thick,fill=black!25,minimum size=3pt,inner sep=0pt,node distance=15pt},
+  edge/.style={draw,-},
+  arrow/.style={edge,->},
+  annotation/.style={font=\footnotesize,node distance=18pt}}
 
 \author{JJS}
 
@@ -129,9 +135,6 @@ $V=\{v_1,v_2,v_3,v_4\}$, $E=\{e_1,\dots,e_8\}$ mit $V\cap E=\emptyset$, $v:E\rig
 \subsubsection*{Graphische Darstellung}
 \begin{center}
 \begin{tikzpicture}[>=stealth']
-\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
-\tikzstyle{edge}=[draw,-]
-\tikzstyle{arrow}=[edge,->]
 \tikzstyle{every loop}=[]
 \foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,0)/v_3},{(0,3)/v_4}}
   \node[vertex] (\name) at \pos {$\name$};
@@ -165,9 +168,6 @@ Dann heißen $G_1$, $G_2$ \textit{isomorph}\index{Graph!isomorpher}\index{Isomorp
 Gegeben ist allgemeiner Graph aus \textit{(\ref{5.1.4})}:
 \begin{center}
 \begin{tikzpicture}[>=stealth']
-\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
-\tikzstyle{edge}=[draw,-]
-\tikzstyle{arrow}=[edge,->]
 \tikzstyle{every loop}=[]
 \foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,0)/v_3},{(0,3)/v_4}}
   \node[vertex] (\name) at \pos {$\name$};
@@ -232,7 +232,6 @@ $G$ aus \textit{(\ref{5.1.4})}:
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}[>=stealth']
-\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
 \tikzstyle{edge}=[draw,-]
 \tikzstyle{arrow}=[edge,->]
 \tikzstyle{every loop}=[]
@@ -248,18 +247,12 @@ $G$ aus \textit{(\ref{5.1.4})}:
 \path[arrow] (v_3) to (v_4) node[midway,fill=white] {$e_8$};
 \end{tikzpicture}
 \begin{tikzpicture}[>=stealth']
-\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
-\tikzstyle{edge}=[draw,-]
-\tikzstyle{arrow}=[edge,->]
 \tikzstyle{every loop}=[]
 \foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,3)/v_4}}
   \node[vertex] (\name) at \pos {$\name$};
 \path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
 \end{tikzpicture}
 \begin{tikzpicture}[>=stealth']
-\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
-\tikzstyle{edge}=[draw,-]
-\tikzstyle{arrow}=[edge,->]
 \tikzstyle{every loop}=[]
 \foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,3)/v_4}}
   \node[vertex] (\name) at \pos {$\name$};
@@ -301,25 +294,128 @@ Gefragt: Mindestbauzeit abhängig von Einzelausführungszeiten $\gamma_i$ von $A_i
 \gamma_7&=1
 \end{align*}
 \subsubsection*{Digraph (Abhängigkeiten)}
+
 \begin{center}
 \begin{tikzpicture}[>=stealth']
-\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
-\tikzstyle{edge}=[draw,-]
-\tikzstyle{arrow}=[edge,->]
-\tikzstyle{every loop}=[]
-\foreach \pos/\name in {{(2,2)/v_1},{(4,0)/v_2},{(0,0)/v_3},{(0,3)/v_4}}
-  \node[vertex] (\name) at \pos {$\name$};
-\path[edge,loop above] (v_1) to (v_1) node [midway] {$e_1$};
-\path[arrow,bend left] (v_1) to (v_2) node [midway,right] {$e_2$};
-\path[arrow,bend left] (v_2) to (v_1) node [midway,left] {$e_3$};
-\path[edge] (v_1) to (v_4) node[midway,above] {$e_4$};
-\path[arrow] (v_1) to (v_3) node[midway, right] {$e_5$};
-\path[edge,bend left] (v_3) to (v_4) node[midway,left] {$e_6$};
-\path[edge,bend left] (v_4) to (v_3) node[midway,right] {$e_7$};
-\path[arrow] (v_3) to (v_4) node[midway,fill=white] {$e_8$};
+\matrix[row sep=1cm,column sep=1cm]{
+ & \node (v_4) [vertex] {$v_4$}; & \node (v_6) [vertex] {$v_6$}; &
+     \node (v_8) [vertex] {$v_8$}; & \\
+ \node (v_1) [vertex] {$v_1$}; & \node (v_3) [vertex] {$v_3$}; & &
+     \node (v_7) [vertex] {$v_7$}; & \node (v_9) [vertex] {$v_9$}; \\
+  & \node (v_2) [vertex] {$v_2$}; & \node (v_5) [vertex] {$v_5$}; & & \\
+};
+\node [annotation,above left of=v_1]  {4};
+\node [annotation,below right of=v_2] {3};
+\node [annotation,above left of=v_3]  {2};
+\node [annotation,above left of=v_4]  {4};
+\node [annotation,below right of=v_5] {3};
+\node [annotation,above left of=v_6]  {2};
+\node [annotation,below right of=v_7] {1};
+\node [annotation,above left of=v_8]  {3};
+\node [annotation,below right of=v_9] {2};
+
+\foreach \from/\to in {
+    {1/2}, {1/3}, {1/4},
+    {2/3},
+    {3/5}, {3/6}, {3/7},
+    {4/6},
+    {5/7},
+    {6/8},
+    {7/6}, {7/9},
+    {8/9}}
+  \path [arrow] (v_\from) to (v_\to);
 \end{tikzpicture}
 \end{center}
+
 \subsubsection*{Modellierung mit Kantengewichte}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth']
+\def\doublevertex#1{\node (v_#1) [vertex] {$v_#1$};%
+  \node (w_#1) [vertex,right of=v_#1] {$w_#1$};%
+  \path [arrow] (v_#1) to (w_#1);}
+\matrix[row sep=1cm,column sep=1cm]{
+ & \doublevertex4 & \doublevertex6 & \doublevertex8 & \\
+ \doublevertex1 & \doublevertex3 & & \doublevertex7 & \doublevertex9 \\
+ & \doublevertex2 & \doublevertex5 & & \\
+};
+
+\foreach \n/\g/\pos in {
+    {1/4/above}, {2/3/above}, {3/2/above},
+    {4/4/above}, {5/3/above}, {6/2/above},
+    {7/1/below}, {8/3/above}, {9/2/above}}
+  \path [arrow] (v_\n) to node [midway,\pos,annotation] {\g} (w_\n);
+
+\foreach \from/\to in {
+    {1/2}, {1/3}, {1/4},
+    {2/3},
+    {3/5}, {3/6}, {3/7},
+    {4/6},
+    {5/7},
+    {6/8},
+    {7/6}, {7/9},
+    {8/9}}
+  \path [arrow] (w_\from) to (v_\to);
+  
+\begin{pgfonlayer}{background}
+  \foreach \n in {1,...,9}
+    \path [thick,draw=black!25,]
+        ($ (v_\n.south west)-(0.2,0.2) $) rectangle
+        ($ (w_\n.north east)+(0.2,0.2) $);
+\end{pgfonlayer}
+
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth']
+\def\doublevertex#1{\node (v_#1) [vertexpt] {};%
+  \node (w_#1) [vertexpt,right of=v_#1] {};%
+  \path [arrow] (v_#1) to (w_#1);}
+\matrix[row sep=1cm,column sep=1cm]{
+ & \doublevertex4 & \doublevertex6 & \doublevertex8 & \\
+ \doublevertex1 & \doublevertex3 & & \doublevertex7 & \doublevertex9 \\
+ & \doublevertex2 & \doublevertex5 & & \\
+};
+
+\foreach \from/\to in {
+    {1/2}, {1/3}, {1/4},
+    {2/3},
+    {3/5}, {3/6}, {3/7},
+    {4/6},
+    {5/7},
+    {6/8},
+    {7/6}, {7/9},
+    {8/9}}
+  \path [arrow] (w_\from) to (v_\to);
+
+\foreach \from/\to in {
+    {1/2}, {2/3}, {3/5}, {5/7},
+    {7/6}, {6/8}, {8/9}} {
+  \path [arrow,red,thick] (v_\from) to (w_\from);
+  \path [arrow,red,thick] (w_\from) to (v_\to);
+}
+\path [arrow,red,thick] (v_9) to (w_9);
+
+\foreach \n/\z in {
+  {1/4}, {3/9}, {4/8},
+  {6/15}, {7/13}, {8/18}, {9/20}}
+  \path (v_\n) to node [midway,yshift=12pt,annotation] {\textcolor{blue}{\z}} (w_\n);
+  
+\foreach \n/\z in {{2/7}, {5/12}}
+  \path (v_\n) to node [midway,yshift=-12pt,annotation] {\textcolor{blue}{\z}} (w_\n);
+
+\begin{pgfonlayer}{background}
+  \foreach \n in {1,...,9}
+    \path [thick,draw=black!25,]
+        ($ (v_\n.south west)-(0.2,0.2) $) rectangle
+        ($ (w_\n.north east)+(0.2,0.2) $);
+\end{pgfonlayer}
+\end{tikzpicture}\par
+  \small\emph{\textcolor{red}{kritischer~Pfad}},
+  \emph{\textcolor{blue}{Mindestausführungszeit}}
+\end{center}
+
 \subsubsection{Definition}\ssslbl
 Seien $G=(V,E)$ Graph / Digraph, $n:=\vert V\vert\geq1$, $\tau_V$ gegebene Ordnung auf $V$. Ferner
 \[\alpha_{ij}:=\begin{cases}1&\text{falls }\{v_i,v_j\}\in E\text{ bzw. }(v_i,v_j)\in E\\0&\text{sonst}\end{cases}\]
