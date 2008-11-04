@@ -10,7 +10,7 @@
 \usepackage{tikz}
 \usepackage{enumerate}
 \usepackage{makeidx}
-\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue!60!black]{hyperref}
 
 \makeindex
 
@@ -51,7 +51,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{Seite \thepage}
-\lhead{Optimierung 1 Mitschrift}
+\lhead{Optimierung 2 Mitschrift}
 \lfoot{WS 08/09}
 \cfoot{Jan Sommer}
 \rfoot{sommerj@in.tum.de}
@@ -574,7 +574,7 @@ $G=(V,E)$, $\vert V\vert\geq1$. Dann ist äquivalent
 \item $G$ zusammenhängend und $\vert E\vert=\vert V\vert-1$
 \end{enumerate}
 \subsubsection*{Beweis}
-$a\Rightarrow b\wedge c$: Korrolar \textit{(\ref{5.1.33})}\\[1ex]
+$a\Rightarrow b\wedge c$: Korollar \textit{(\ref{5.1.33})}\\[1ex]
 $b\Rightarrow a$: Sei $T=(V,E_T)$ kantenmaximaler kreisfreier Graph, der $G$ als Teilgraph enthält. Nach \textit{(\ref{5.1.32})(d)} ist $T$ Baum. Aus \textit{(\ref{5.1.33})} folgt $\vert E_T\vert=\vert V\vert-1=\vert E\vert$, also $T=G$\\[1ex]
 $c\Rightarrow a$: analog mit $T=(V,E_T)$ kantenminimaler zusammenhängender Teilgraph von $G$.
 \subsubsection{Korollar}\ssslbl
@@ -665,7 +665,7 @@ Sei $T:=(Y_k\cup Z_k,E_k\cup M_{k-1})$.\\[1ex]
 Konstruktion: $T$ zusammenhängend, kreisfrei, also Baum. Sei $W$ eindeutig bestimmt, $y_1-z_k$-Weg in $T$. $W$ kann nciht verlängert werden, dh. $z_k$ liegt in keiner Kante von $M$. Setze
 \[M^*=(M\setminus M_{k-1})\cup E_k\]
 $M^*$ ist Matching. $\vert M^*\vert=\vert M\vert+1$ Widerspruch, somit $\vert Y\vert=\vert M\vert$.
-\subsubsection{Korrolar: Heiratssatz}\ssslbl
+\subsubsection{Korollar: Heiratssatz}\ssslbl
 $G=(V,E)$ bipartit, $(V_1,V_2)$ zugehörige Partition von $V$. Es gilt genau dann perfektes Matchin in $G$, wenn für $i=1,2$ gilt
 \[U_i\subset V_i\:\Rightarrow\:\vert N(G,U_i)\vert\geq\vert U_i\vert\]
 \subsubsection*{Beweis}
@@ -686,6 +686,43 @@ $G=(V,E)$ Graph, $M$ Matching. $M$ ist genau dann Kardinalitätsmaximum, wenn es 
 \item[$\Leftarrow$] Sei $M$ nicht maximal. $M^*$ Matching mit $\vert M^*\vert>\vert M\vert$. Seien $F:=(M\setminus M^*)\cup(M^*\setminus M)$, $U=\bigcup_{e\in F}e$, $S:=(U,F)$ nicht leerer Teilgraph von $G$. Es gilt für $u\in U$:\\[1ex]
 $deg_S(u)\leq2$, dh. Zusammenhangskomponenten von $S$ sind Wege und Kreise. Kreise enthalten gleichviele Kanten von $M$ und $M^*$, bei Wegen ist die Differenz höchstens 1. Wegen $\vert M^*\vert\geq\vert M\vert+1$ gibt es Weg in $S$, der eine Kante mehr aus $M^*$ enthält als aus $M$. Das ist gesuchter Augmentationsweg.
 \end{itemize}
-
+\subsubsection{Beispiel}\ssslbl
+$G$ bipartit, $M$ Matching. Finde Augmentationsweg (Prolbem: es gibt ia. exponentiell viele Wege)\\[1ex]
+Augmentationsweg $W_1=(y_1,z_1,y_3,z_4,y_2,z_3)$, $W_2=(y_1,z_2,y_4,z_5)$\\[1ex]
+Was ist mit $\{y_4,z_4\}$? Gibt es Augmentationsweg durch $\{y_4,z_4\}$: $W=(y_1,z_2,y_4,z_4,y_2,z_3)$\\[1ex]
+Kreis $K=(y_1,z_2,y_4,y_4,z_1,y_1)$ der Länge 6.\\[1ex]
+Weil $W$ Augmentationsweg ist, $z_4$ vorher erreicht war ($W_1$) und weil $K$ gerade Länge hat, muss $W_1$ Augmentationsweg sein $\Rightarrow$ Suche auf Bäume beschränken
+\subsubsection{Lemma}\ssslbl
+$G=(V,E)$ bipartit, $v_1=w_1=v\in V$, $p,q\in\mathbb N$, $v_p=w_q=w\in V$, $W_1=(v_1,\dots,v_p)$, $W_2=(w_1,\dots,w_q)$ zwei $v-w$-Wege. Sind $u\in V$, $i\in[p]=:\{1,\dots,p\}$, $j\in[q]$, $u=v_i=w_j$, so gilt $i\equiv j\mod2$.
+\subsubsection{Widerspruchsbeweis}\ssslbl
+$W_1$, $W_2$ Gegenbeispiele minimaler symmetrischer Differenz der Kantenmengen. Insbesondere: $W_1$, $W_2$ kantendisjunkt. Sei $S$ der aus Knoten und Kanten von $W_1$, $W_2$ gebildete Teilgraph von $G$. $S$ enthält Kreis $K$. $W_1(K)$, $W_2(K)$ Kanten von $W_1$, $W_2$ in $K$. $G$ bipartit, dh. $K$ gerader Länge, dh. kantenzahl von $W_1(K)$, $W_2(K)$ gleiche Parität. Sei $W_1'$ der aus $W_1$ durch Ersetzung von $W_1(K)$ durch $W_2(K)$ entstandene Weg. Dann $W_1'$, $W_2$ immer noch Gegebeispiel, aber symmetrische Differenz kleiner $\Rightarrow$ Widerspruch
+\subsubsection{Definition}\ssslbl
+$G=(V,E)$ bipartit, Partition $(Y,Z)$ von $VV$, $y\in Y$, Matching $M$, das $y$ nicht überdeckt. Sei $T=(V_T,E_T)$ maximaler Baum in $G$ mit $y\in V_T$, so dass jeder $y$-Weg in $T$ alternierend ist. Dann heißt $T$ \textit{Augmentationsbaum}\index{Augmentationsbaum}\index{Baum!Augmentations-} zu $y$ in $G$.
+\subsubsection{Korollar}
+$G=(V,E)$ bipartit, $(Y,Z)$ zugehörige Partition, $y\in Y$, Matching $M$, das $y$ nicht überdeckt, $T=(V_T,E_T)$ Augmentationsbaum zu $y$. Es gibt genau dann einen Augmentationsweg bez. $M$ mit Endknoten $y$ wenn es einen solchen in $T$ gibt.
+\subsubsection*{Beweis}
+Sei $W$ Augmentationsweg, Endknoten $y,z$. Seien $w$ der von $y$ aus erste Knoten aus $W$, der nicht in $T$ liegt, $v$ sein Vorgänger, $e=\{v,w\}$. Nach \textit{(\ref{5.1.50})} hat $w$ gleichen Abstand $\mod2$ von $y$ wie in $T$. Der alternierende $y-v$-Weg kann somit mittels $e$ verängert werden im Widerspruch zur Maximalität von $T$. Also: alle Knoten von $W$ liegen in $T$, insbesondere $z$. Sei $W_T$ (eindeutig bestimmter) $y-z$-Weg. Da $W$ Augmentationsweg ist, ist nach \textit{(\ref{5.1.50})} auch $W_T$ Augmentationsweg.
+\subsubsection{Prozedur: Kantenmaximales Matching in bipartiten Graphen (Grundform)}\ssslbl
+INPUT: bipartiter Graph $G=(V,E)$, zugehörige Partition $(Y,Z)$ 0\\
+OUTPUT: Kantenmaximales Matching $M$ 0\\
+BEGIN $M\leftarrow\emptyset$, $A\leftarrow Y$ 0\\
+BEGIN WHILE $A\neq\emptyset$ DO 1\\
+BEGIN sei $y\in A$, $A\leftarrow A\setminus\{y\}$ 2\\
+Konstruiere einen Augmentationsbaum $T=(V_T,E_T)$ zu $y$ 3\\
+IF $T$ enthält Augmentationsweg $W$ THEN 3\\
+$M\leftarrow$ mittels $W$ augmentiertes Matching 4\\
+END 2\\
+END 1\\
+END
+\subsubsection{Satz}\ssslbl
+$G=(V,E)$ bipartit. Dann findet Prozedur \textit{(\ref{5.1.53})} ein kantenmaximales Matching.
+\subsubsection*{Beweis}
+Jeder Augmentationsweg hat Endknoten in $Y$ und $Z$, dh. Beschränkung auf $Y$ irrelevant. Sei $y$ nicht überdeckt. Augmentation führt zur Überdeckung von $y$; alle vorher überdeckten knoten bleiben überdeckt. Nach \textit{(\ref{5.1.52})} findet Algorithmus Augmentationsweg solange welche in $G$ existieren. Nach Lemma \textit{(\ref{5.1.48})} $M$ maximal, falls keine Augmentationswege existieren.\\[1ex]
+Was ist mit nicht-bipartiten Graphen? Problem: \textit{Fehlen} von Lemma \textit{(\ref{5.1.50})}
+\subsubsection{Beispiel}\ssslbl
+ladida
+\subsection{Von Basen zu diskreten Strukturen: Matroide}\sslbl
+\subsubsection{Definition}\ssslbl
+$E$ endliche Menge, $\mathcal I$ nichtleere Teilmenge von $2^E$. Das Paar $(E,\mathcal I)$ heißt \textit{Unabhängigkeitssystem}\index{Unabhängigkeitssystem}, wenn $\mathcal I$ abgeschlossen unter Inklusion ist, dh. ($I\in\mathcal I\wedge J\subset I$ $\Rightarrow$ $J\in\mathcal I$). $E$ \textit{Grundmenge}\index{Grundmenge}, Elemente von $\mathcal I$ \textit{unabhängige Mengen}\index{Mengen!unabhängige}, Elemente von $2^E\setminus\mathcal I$ \textit{abhängig}\index{Mengen!abhängig}. Gilt ferner ($I,J\in\mathcal I\wedge\vert I\vert+1=\vert J\vert$ $\Rightarrow$ $\exists(e\in J\setminus I):I\cup\{e\}\in\mathcal I$), so heißt $(E,\mathcal I)$ \textit{Matroid}\index{Matroid}
 \printindex
 \end{document}
