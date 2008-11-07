@@ -10,7 +10,7 @@
 \usepackage{tikz}
 \usepackage{enumerate}
 \usepackage{makeidx}
-\usepackage[colorlinks=true,linkcolor=blue!60!black]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
 
 \makeindex
 
@@ -673,7 +673,7 @@ $G=(V,E)$ bipartit, $(V_1,V_2)$ zugehörige Partition von $V$. Es gilt genau dann
 \subsubsection{Beispiel}\ssslbl
 Besitzt $G$ perfektes Matching? Nein, weil $N(G,\{z_3,z_5\})=\{y_4\}$ ladida
 \subsubsection{Definition}\ssslbl
-$G=(V,E)$, $M$ Matching $W$ eigentlicher Weg in $G$, Kantenmenge $E_W$, $A:=E_W\setminus M$. $W$ heißt \textit{alternierend}\index{Weg!alternierender} bezüglich $M$, wenn $A$ Matching ist. $W$ heißt \textit{Augmentationsweg}\index{Weg!Augmentations-}\index{Augmentationsweg} bezüglich $M$ in $G$, wenn $W$ alternierend ist.
+$G=(V,E)$, $M$ Matching, $W$ eigentlicher Weg in $G$, Kantenmenge $E_W$, $A:=E_W\setminus M$. $W$ heißt \textit{alternierend}\index{Weg!alternierender} bezüglich $M$, wenn $A$ Matching ist. $W$ heißt \textit{Augmentationsweg}\index{Weg!Augmentations-}\index{Augmentationsweg} bezüglich $M$ in $G$, wenn $W$ alternierend ist und die Endknoten nicht überdeckt werden.
 \subsubsection{Bemerkung}\ssslbl
 $G=(V,E)$ Graph, $M$ Matching, $W$ Augmentationsweg, Kantenmenge $E_W$, $A:=E_W\setminus M$, $M^*=(M\setminus E_W)\cup A$. Dann ist $M^*$ Matching, $\vert M^*\vert=\vert M\vert+1$.
 \subsubsection{Bezeichnung}\ssslbl
@@ -683,9 +683,9 @@ $G=(V,E)$ Graph, $M$ Matching. $M$ ist genau dann Kardinalitätsmaximum, wenn es 
 \subsubsection*{Beweis}
 \begin{itemize}
 \item[$\Rightarrow$] folgt aus \textit{(\ref{5.1.46})}
-\item[$\Leftarrow$] Sei $M$ nicht maximal. $M^*$ Matching mit $\vert M^*\vert>\vert M\vert$. Seien $F:=(M\setminus M^*)\cup(M^*\setminus M)$, $U=\bigcup_{e\in F}e$, $S:=(U,F)$ nicht leerer Teilgraph von $G$. Es gilt für $u\in U$:\\[1ex]
+\item[$\Leftarrow$] Sei $M$ nicht maximal. $M^*$ Matching mit $\vert M^*\vert>\vert M\vert$. Seien $F:=(M\setminus M^*)\cup(M^*\setminus M)$, $U=\bigcup_{e\in F}e$, $S:=(U,F)$ nicht leerer Teilgraph von $G$. Es gilt für $u\in U$:\\
 $deg_S(u)\leq2$, dh. Zusammenhangskomponenten von $S$ sind Wege und Kreise. Kreise enthalten gleichviele Kanten von $M$ und $M^*$, bei Wegen ist die Differenz höchstens 1. Wegen $\vert M^*\vert\geq\vert M\vert+1$ gibt es Weg in $S$, der eine Kante mehr aus $M^*$ enthält als aus $M$. Das ist gesuchter Augmentationsweg.
-\end{itemize}
+\end{itemize}\hfill\textbf{04.11.2008}
 \subsubsection{Beispiel}\ssslbl
 $G$ bipartit, $M$ Matching. Finde Augmentationsweg (Prolbem: es gibt ia. exponentiell viele Wege)\\[1ex]
 Augmentationsweg $W_1=(y_1,z_1,y_3,z_4,y_2,z_3)$, $W_2=(y_1,z_2,y_4,z_5)$\\[1ex]
