@@ -698,7 +698,7 @@ $G=(V,E)$ bipartit, $v_1=w_1=v\in V$, $p,q\in\mathbb N$, $v_p=w_q=w\in V$, $W_1=
 $W_1$, $W_2$ Gegenbeispiele minimaler symmetrischer Differenz der Kantenmengen. Insbesondere: $W_1$, $W_2$ kantendisjunkt. Sei $S$ der aus Knoten und Kanten von $W_1$, $W_2$ gebildete Teilgraph von $G$. $S$ enthält Kreis $K$. $W_1(K)$, $W_2(K)$ Kanten von $W_1$, $W_2$ in $K$. $G$ bipartit, dh. $K$ gerader Länge, dh. kantenzahl von $W_1(K)$, $W_2(K)$ gleiche Parität. Sei $W_1'$ der aus $W_1$ durch Ersetzung von $W_1(K)$ durch $W_2(K)$ entstandene Weg. Dann $W_1'$, $W_2$ immer noch Gegebeispiel, aber symmetrische Differenz kleiner $\Rightarrow$ Widerspruch
 \subsubsection{Definition}\ssslbl
 $G=(V,E)$ bipartit, Partition $(Y,Z)$ von $VV$, $y\in Y$, Matching $M$, das $y$ nicht überdeckt. Sei $T=(V_T,E_T)$ maximaler Baum in $G$ mit $y\in V_T$, so dass jeder $y$-Weg in $T$ alternierend ist. Dann heißt $T$ \textit{Augmentationsbaum}\index{Augmentationsbaum}\index{Baum!Augmentations-} zu $y$ in $G$.
-\subsubsection{Korollar}
+\subsubsection{Korollar}\ssslbl
 $G=(V,E)$ bipartit, $(Y,Z)$ zugehörige Partition, $y\in Y$, Matching $M$, das $y$ nicht überdeckt, $T=(V_T,E_T)$ Augmentationsbaum zu $y$. Es gibt genau dann einen Augmentationsweg bez. $M$ mit Endknoten $y$ wenn es einen solchen in $T$ gibt.
 \subsubsection*{Beweis}
 Sei $W$ Augmentationsweg, Endknoten $y,z$. Seien $w$ der von $y$ aus erste Knoten aus $W$, der nicht in $T$ liegt, $v$ sein Vorgänger, $e=\{v,w\}$. Nach \textit{(\ref{5.1.50})} hat $w$ gleichen Abstand $\mod2$ von $y$ wie in $T$. Der alternierende $y-v$-Weg kann somit mittels $e$ verängert werden im Widerspruch zur Maximalität von $T$. Also: alle Knoten von $W$ liegen in $T$, insbesondere $z$. Sei $W_T$ (eindeutig bestimmter) $y-z$-Weg. Da $W$ Augmentationsweg ist, ist nach \textit{(\ref{5.1.50})} auch $W_T$ Augmentationsweg.
@@ -723,6 +723,84 @@ Was ist mit nicht-bipartiten Graphen? Problem: \textit{Fehlen} von Lemma \textit
 ladida
 \subsection{Von Basen zu diskreten Strukturen: Matroide}\sslbl
 \subsubsection{Definition}\ssslbl
-$E$ endliche Menge, $\mathcal I$ nichtleere Teilmenge von $2^E$. Das Paar $(E,\mathcal I)$ heißt \textit{Unabhängigkeitssystem}\index{Unabhängigkeitssystem}, wenn $\mathcal I$ abgeschlossen unter Inklusion ist, dh. ($I\in\mathcal I\wedge J\subset I$ $\Rightarrow$ $J\in\mathcal I$). $E$ \textit{Grundmenge}\index{Grundmenge}, Elemente von $\mathcal I$ \textit{unabhängige Mengen}\index{Mengen!unabhängige}, Elemente von $2^E\setminus\mathcal I$ \textit{abhängig}\index{Mengen!abhängig}. Gilt ferner ($I,J\in\mathcal I\wedge\vert I\vert+1=\vert J\vert$ $\Rightarrow$ $\exists(e\in J\setminus I):I\cup\{e\}\in\mathcal I$), so heißt $(E,\mathcal I)$ \textit{Matroid}\index{Matroid}
+$E$ endliche Menge, $\mathcal I$ nichtleere Teilmenge von $2^E$. Das Paar $(E,\mathcal I)$ heißt \textit{Unabhängigkeitssystem}\index{Unabhängigkeitssystem}, wenn $\mathcal I$ abgeschlossen unter Inklusion ist, dh. ($I\in\mathcal I\wedge J\subset I$ $\Rightarrow$ $J\in\mathcal I$). $E$ \textit{Grundmenge}\index{Grundmenge}, Elemente von $\mathcal I$ \textit{unabhängige Mengen}\index{Mengen!unabhängige}, Elemente von $2^E\setminus\mathcal I$ \textit{abhängig}\index{Mengen!abhängige}. Gilt ferner ($I,J\in\mathcal I\wedge\vert I\vert+1=\vert J\vert$ $\Rightarrow$ $\exists(e\in J\setminus I):I\cup\{e\}\in\mathcal I$), so heißt $(E,\mathcal I)$ \textit{Matroid}\index{Matroid}\hfill\textbf{07.11.2008}
+\subsubsection{Bemerkung}\ssslbl
+$(E,\mathcal I)$ Unabhängigkeitssystem. Dann gilt
+\begin{enumerate}[(a)]
+\item $\emptyset\in\mathcal I$
+\item $(E,\mathcal I)$ Matroid, genau dann wenn
+\[I,J\in\mathcal I\:\wedge\:\vert I\vert<\vert J\vert\:\Rightarrow\:\exists(e\in J\setminus I):\:I\cup\{v\}\in\mathcal I\]
+\end{enumerate}
+\subsubsection*{Beweis}
+$\surd$
+\subsubsection{Lemma}\ssslbl
+$E_1,\dots,E_4$ endliche Mengen, $\mathcal I_i\subset2^{E_i}$ ($i\in[4]$) definiert durch
+\begin{enumerate}[(a)]
+\item $I_i:=2^{E_i}$
+\item $k\in\mathbb N_0$, $\mathcal I_2:=\{I\subset E_2\::\:\vert I\vert\leq k\}$
+\item $X$ endlichdimensionaler Vektorraum über Körper $K$, $E_3\subset X$, $\mathcal I_3$ Menge aller linear unanhängigen Teilmengen von $E_3$
+\item $s\in\mathbb N$, $\mathbb \Pi=(A_1,\dots,A_s)$ Partition von $E_4$, $\beta_1,\dots,\beta_s\in\mathbb N_0$
+\[\mathcal I_4:=\{I\subset E_4\::\:\vert I\cap A_i\vert\leq\beta_i\:(i=1,\dots,s)\}\]
+\end{enumerate}
+Dann sind $(E_i,\mathcal I_i)$ Matroide
+\subsubsection*{Beweis}
+\begin{itemize}
+\item Abgeschlossen bez. Inklusion
+\item Austauschbedingung klar für (a), (b), (c)
+\item Austauschbedingung für (d): $I,J\in\mathcal I_4$, $\vert I\vert+1=\vert J\vert$. Sei $k\in\mathbb N_0$, $A_1,\dots,A_s$ so nummeriert, dass $\vert I\cap A_i\vert=\beta_i$ ($i=1,\dots,k$), $\vert I\cap A_i\vert<\beta_i$ ($i=k+1,\dots,s$); $X:=A_1\cup\dots\cup A_k$, $Y:=A_{k+1}\cup\dots\cup A_s$.\\[1ex]
+Annahme: $J\setminus I\subset X$. Dann $k\geq1$, $J\cap Y=I$, also $\vert J\cap Y\vert\leq\vert I\cap Y\vert$. Vorraussetzung $\vert I\vert<\vert J\vert$ impliziert $\vert J\cap X\vert>\vert I\cap X\vert=\beta_1+\dots+\beta_k$. $J$ verletzt mindestens eine Bedingung. Widerspruch zu $J\in\mathcal I_4$. Also exisitert $i_0\in\{k+1,\dots,s\}$ mit $(J\setminus I)\cap A_{i_0}\neq\emptyset$. Sei $e\in(J\setminus I)\cap A_{i_0}$. Dann $\vert I\cup\{e\}\cap A_{i_0}\vert\leq\beta_{i_0}$, also $I\cup\{e\}\in\mathcal I_4$.
+\end{itemize}
+\subsubsection{Bezeichnung}\ssslbl
+$(E_i,\mathcal I_i)$ wie oben. $(E_1,\mathcal I_1)$ \textit{freies Matroid}\index{Matroid!freies}, $(E_2,\mathcal I_2)$ \textit{uniformes Matroid}\index{Matroid!uniformes}, $(E_3,\mathcal I_3)$ \textit{vektorielles Matroid}\index{Matroid!vektorielles}\index{Matroid!Matrix-}, $(E_4,\mathcal I_4)$ \textit{Partitionsmatroid}\index{Matroid!Partitions-}.
+\subsubsection{Bemerkung}\ssslbl
+$(E,\mathcal I)$ Unabhängigkeitssystem, $A\subset E$, $\mathcal I_A:=\{I\in\mathcal I\::\:I\subset A\}$
+\begin{enumerate}[(a)]
+\item $(A,\mathcal I_A)$ ist Unabhängigkeitssystem
+\item Ist $E,\mathcal I)$ Matroid, so auch $(A,\mathcal I_A)$
+\end{enumerate}
+\subsubsection*{Beweis}
+$\surd$
+\subsubsection{Bezeichnung}\ssslbl
+$(A,\mathcal I_A)$ durch $A$ \textit{induziertes Unabhängigkeitssystem / Matroid}\index{Matroid!induziertes}\index{Unabhängigkeitssystem!induziertes}
+\subsubsection{Bezeichnung}\ssslbl
+$X_1,X_2$ Mengen $\theta:X_1\rightarrow X_2$. Dann $\Theta:2^{X_1}\rightarrow2^{X_2}$ definiert durch $\Theta(I):=\{\theta(x)\::\:x\in I\}$ \textit{natürliche Erweiterung}\index{Erweiterung!natürliche} von $\theta$.
+\subsubsection{Bemerkung}\ssslbl
+$(E_1,\mathcal I_1)$ Unabhängigkeitssystem / Matroid, $E_2$ endliche menge $\theta:E_1\rightarrow E_2$ Bijektion, $\Theta$ natürliche Erweiterung, $\mathcal I_2:=\{\Theta(I)\::\:I\in\mathcal I_1\}$. Dann $(E_2,\mathcal I_2)$ Unabhängigkeitssystem / Matroid.
+\subsubsection*{Beweis}
+Bijektivität von $\theta$ überträgt sich auf $\Theta$.
+\subsubsection{Korollar}\ssslbl
+$G=(V,E)$ Graph, $V=\{v_1,\dots,v_n\}$, $E=\{e_1,\dots,e_m\}$, $m\geq1$, $Z\subset\mathbb Z_2^n$ Menge der Inzidenzvektoren der Kanten (Spalten von $S_G$). $\theta:Z\rightarrow E$ ordnet Inzidenzvektor seiner Kante zu, $(Z,\mathcal I)$ vektorielles Matroid, $\mathcal F:=\Theta(\mathcal I)$. Dann ist $(E,\mathcal F)$ ein Matroid.
+\subsubsection*{Beweis}
+direkt aus \textit{(\ref{5.2.8})}
+\subsubsection{Beispiel}
+ladida
+\subsubsection{Lemma}\ssslbl
+$G=(V,E)$, $(E,\mathcal F)$ zugehöriges vektorielles Matroid über $\mathbb Z_2$, $T\subset E$. $T$ ist genau dann unabhängig, wenn $(V,T)$ kreisfrei ist.
+\subsubsection*{Beweis}
+Übung
+\subsubsection{Bezeichnung}\ssslbl
+$(E,\mathcal F)$ wie oben: \textit{graphisches Matroid}\index{Matroid!graphisches}
+\subsubsection{Definition}\ssslbl
+$U=(E,\mathcal I)$ Unabhängigkeitssystem. Jede (inklusions-)maximale unabhängige Menge aus $\mathcal I$ heißt \textit{Basis}\index{Basis}. (inklusions-)minimale abhängige Mengen heißen \textit{Kreis}\index{Kreis}.
+\begin{align*}
+r_+(U)&:=\max\{\vert B\vert\::\:B\text{ Basis}\}\\
+r_-(U)&:=\min\{\vert B\vert\::\:B\text{ Basis}\}
+\end{align*}
+$r_+(U)$ \textit{oberer Rang}\index{Rang!oberer}, $r_-(U)$ \textit{unterer Rang}\index{Rang!unterer}\\[1ex]
+$r(U):=r_+(U)=r_-(U)$ \textit{Rang}\index{Rang}.
+\subsubsection{Lemma}\ssslbl
+$U=(E,\mathcal I)$ Unabhängigkeitssystem. $U$ Matroid genau dann wenn für jedes $A\subset E$ und $U_A=(A,\mathcal I_A)$ gilt $r_+(U_A)=r_-(U_A)$ (insbesondere alle Basen haben gleiche Kardinalität)
+\subsubsection*{Beweis}
+\begin{itemize}
+\item[$\Rightarrow$] folgt aus Austauschbedingung
+\item[$\Leftarrow$] Seien $I,J\in\mathcal I$, $\vert I\vert+1=\vert J\vert$. $A:=I\cup J$. Es gilt $I,J\in\mathcal I_A$. Wegen $\vert I\vert<\vert J\vert$ und $r_+(U_A)=r_-(U_A)$, kann $I$ nicht maximal unabhängig sein. Es existiert $e\in A\setminus I=J\setminus I$ mit $I\cup\{e\}\in\mathcal I_A\subset\mathcal I$
+\end{itemize}
+\subsubsection{Lemma}\ssslbl
+$M=(E,\mathcal I)$ Matroid, $I\in\mathcal I$, $e\in E$, $I\cup\{e\}\not\in\mathcal I$. Dann enthält $I\cup\{e\}$ genau einen Kreis.
+\subsubsection*{Beweis}
+Da $I\cup\{e\}$ abhängig, enthält $I\cup\{e\}$ Kreis. Seien $K_1,K_2$ zwei verschiedene Kreise in $I\cup\{e\}$. Da $I\in\mathcal I$ und $(K_1\cup K_2)\setminus\{e\}\subset I$ folgt $e\in K_1\cap K_2$, $(K_1\cup K_2)\setminus\{e\}\in\mathcal I$. Sei $a\in K_1\setminus K_2$. Dann $K_1\setminus\{a\}\in\mathcal I$. Austauschbedingung auf $K_1\setminus\{a\}$, $(K_1\cup K_2)\setminus\{e\}$ anwenden: liefert $J\in\mathcal I$: $K_1\setminus\{a\}\subset J\subset K_1\cup K_2$ und $\vert J\vert=\vert(K_1\cup K_2)\setminus\{e\}\vert$. Sei $\{b\}=(K_1\cup K_2)\setminus J$. Falls $b=a$ ($\in K_1\setminus K_2$) folgt $K_2\subset J$, dh. $K_2\in\mathcal I$ Widerspruch. Also $b\neq a$.\\[1ex]
+Wegen $a\in K_1$ folgt $a\in J$. Ferner $K_1\setminus\{a\}\subset J$, also $K_1\subset J$ Widerspruch zu $K_1\in 2^E\setminus\mathcal I$.
+\subsubsection{Definition}\ssslbl
+\textit{Maximierungsaufgabe}\index{Maximierungsaufgabe} über Unabhängigskeitssystem / Matroid spezifiziert Unabhängigkeitssystem bzw. Matroid $(E,\mathcal I)$, $\Phi:E\rightarrow[0,\infty[$. Sei $\varphi:\mathcal I\rightarrow[0,\infty[$ definiert durch $\varphi(I):=\sum_{e\in I}\Phi(e)$. Gesucht $I^*$ mit $\varphi(I^*)=\max_{I\in\mathcal I}\varphi(I)$.
 \printindex
 \end{document}
