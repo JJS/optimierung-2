@@ -10,6 +10,7 @@
 \usepackage{tikz}
 \usepackage{enumerate}
 \usepackage{makeidx}
+\usepackage{listings}
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
 
 \makeindex
@@ -690,40 +691,43 @@ $deg_S(u)\leq2$, dh. Zusammenhangskomponenten von $S$ sind Wege und Kreise. Krei
 $G$ bipartit, $M$ Matching. Finde Augmentationsweg (Prolbem: es gibt ia. exponentiell viele Wege)\\[1ex]
 Augmentationsweg $W_1=(y_1,z_1,y_3,z_4,y_2,z_3)$, $W_2=(y_1,z_2,y_4,z_5)$\\[1ex]
 Was ist mit $\{y_4,z_4\}$? Gibt es Augmentationsweg durch $\{y_4,z_4\}$: $W=(y_1,z_2,y_4,z_4,y_2,z_3)$\\[1ex]
-Kreis $K=(y_1,z_2,y_4,y_4,z_1,y_1)$ der Länge 6.\\[1ex]
+Kreis $K=(y_1,z_2,y_4,z_4,z_1,y_1)$ der Länge 6.\\[1ex]
 Weil $W$ Augmentationsweg ist, $z_4$ vorher erreicht war ($W_1$) und weil $K$ gerade Länge hat, muss $W_1$ Augmentationsweg sein $\Rightarrow$ Suche auf Bäume beschränken
 \subsubsection{Lemma}\ssslbl
 $G=(V,E)$ bipartit, $v_1=w_1=v\in V$, $p,q\in\mathbb N$, $v_p=w_q=w\in V$, $W_1=(v_1,\dots,v_p)$, $W_2=(w_1,\dots,w_q)$ zwei $v-w$-Wege. Sind $u\in V$, $i\in[p]=:\{1,\dots,p\}$, $j\in[q]$, $u=v_i=w_j$, so gilt $i\equiv j\mod2$.
 \subsubsection{Widerspruchsbeweis}\ssslbl
 $W_1$, $W_2$ Gegenbeispiele minimaler symmetrischer Differenz der Kantenmengen. Insbesondere: $W_1$, $W_2$ kantendisjunkt. Sei $S$ der aus Knoten und Kanten von $W_1$, $W_2$ gebildete Teilgraph von $G$. $S$ enthält Kreis $K$. $W_1(K)$, $W_2(K)$ Kanten von $W_1$, $W_2$ in $K$. $G$ bipartit, dh. $K$ gerader Länge, dh. kantenzahl von $W_1(K)$, $W_2(K)$ gleiche Parität. Sei $W_1'$ der aus $W_1$ durch Ersetzung von $W_1(K)$ durch $W_2(K)$ entstandene Weg. Dann $W_1'$, $W_2$ immer noch Gegebeispiel, aber symmetrische Differenz kleiner $\Rightarrow$ Widerspruch
 \subsubsection{Definition}\ssslbl
-$G=(V,E)$ bipartit, Partition $(Y,Z)$ von $VV$, $y\in Y$, Matching $M$, das $y$ nicht überdeckt. Sei $T=(V_T,E_T)$ maximaler Baum in $G$ mit $y\in V_T$, so dass jeder $y$-Weg in $T$ alternierend ist. Dann heißt $T$ \textit{Augmentationsbaum}\index{Augmentationsbaum}\index{Baum!Augmentations-} zu $y$ in $G$.
+$G=(V,E)$ bipartit, Partition $(Y,Z)$ von $V$, $y\in Y$, Matching $M$, das $y$ nicht überdeckt. Sei $T=(V_T,E_T)$ maximaler Baum in $G$ mit $y\in V_T$, so dass jeder $y$-Weg in $T$ alternierend ist. Dann heißt $T$ \textit{Augmentationsbaum}\index{Augmentationsbaum}\index{Baum!Augmentations-} zu $y$ in $G$.
 \subsubsection{Korollar}\ssslbl
 $G=(V,E)$ bipartit, $(Y,Z)$ zugehörige Partition, $y\in Y$, Matching $M$, das $y$ nicht überdeckt, $T=(V_T,E_T)$ Augmentationsbaum zu $y$. Es gibt genau dann einen Augmentationsweg bez. $M$ mit Endknoten $y$ wenn es einen solchen in $T$ gibt.
 \subsubsection*{Beweis}
-Sei $W$ Augmentationsweg, Endknoten $y,z$. Seien $w$ der von $y$ aus erste Knoten aus $W$, der nicht in $T$ liegt, $v$ sein Vorgänger, $e=\{v,w\}$. Nach \textit{(\ref{5.1.50})} hat $w$ gleichen Abstand $\mod2$ von $y$ wie in $T$. Der alternierende $y-v$-Weg kann somit mittels $e$ verängert werden im Widerspruch zur Maximalität von $T$. Also: alle Knoten von $W$ liegen in $T$, insbesondere $z$. Sei $W_T$ (eindeutig bestimmter) $y-z$-Weg. Da $W$ Augmentationsweg ist, ist nach \textit{(\ref{5.1.50})} auch $W_T$ Augmentationsweg.
+Sei $W$ Augmentationsweg, Endknoten $y,z$. Seien $w$ der von $y$ aus erste Knoten aus $W$, der nicht in $T$ liegt, $v$ sein Vorgänger, $e=\{v,w\}$. Nach \textit{(\ref{5.1.50})} hat $w$ gleichen Abstand $\mod2$ von $y$ wie in $T$. Der alternierende $y-w$-Weg kann somit mittels $e$ verängert werden im Widerspruch zur Maximalität von $T$. Also: alle Knoten von $W$ liegen in $T$, insbesondere $z$. Sei $W_T$ (eindeutig bestimmter) $y-z$-Weg. Da $W$ Augmentationsweg ist, ist nach \textit{(\ref{5.1.50})} auch $W_T$ Augmentationsweg.
 \subsubsection{Prozedur: Kantenmaximales Matching in bipartiten Graphen (Grundform)}\ssslbl
-INPUT: bipartiter Graph $G=(V,E)$, zugehörige Partition $(Y,Z)$ 0\\
-OUTPUT: Kantenmaximales Matching $M$ 0\\
-BEGIN $M\leftarrow\emptyset$, $A\leftarrow Y$ 0\\
-BEGIN WHILE $A\neq\emptyset$ DO 1\\
-BEGIN sei $y\in A$, $A\leftarrow A\setminus\{y\}$ 2\\
-Konstruiere einen Augmentationsbaum $T=(V_T,E_T)$ zu $y$ 3\\
-IF $T$ enthält Augmentationsweg $W$ THEN 3\\
-$M\leftarrow$ mittels $W$ augmentiertes Matching 4\\
-END 2\\
-END 1\\
+\lstset{mathescape=true}
+\begin{lstlisting}
+INPUT bipartiter Graph $G=(V,E)$, zugehörige Partition $(Y,Z)$
+OUTPUT Kantenmaximales Matching $M$
+BEGIN $M\leftarrow\emptyset$, $A\leftarrow Y$
+   BEGIN WHILE $A\neq\emptyset$ DO
+      BEGIN sei $y\in A$, $A\leftarrow A\setminus\{y\}$
+         Konstruiere einen Augmentationsbaum $T=(V_T,E_T)$ zu $y$
+         IF $T$ enthält Augmentationsweg $W$ THEN
+            $M\leftarrow$ mittels $W$ augmentiertes Matching
+      END
+   END
 END
+\end{lstlisting}
 \subsubsection{Satz}\ssslbl
 $G=(V,E)$ bipartit. Dann findet Prozedur \textit{(\ref{5.1.53})} ein kantenmaximales Matching.
 \subsubsection*{Beweis}
-Jeder Augmentationsweg hat Endknoten in $Y$ und $Z$, dh. Beschränkung auf $Y$ irrelevant. Sei $y$ nicht überdeckt. Augmentation führt zur Überdeckung von $y$; alle vorher überdeckten knoten bleiben überdeckt. Nach \textit{(\ref{5.1.52})} findet Algorithmus Augmentationsweg solange welche in $G$ existieren. Nach Lemma \textit{(\ref{5.1.48})} $M$ maximal, falls keine Augmentationswege existieren.\\[1ex]
-Was ist mit nicht-bipartiten Graphen? Problem: \textit{Fehlen} von Lemma \textit{(\ref{5.1.50})}
+Jeder Augmentationsweg hat Endknoten in $Y$ und $Z$, dh. Beschränkung auf $Y$ irrelevant. Sei $y$ nicht überdeckt. Augmentation führt zur Überdeckung von $y$; alle vorher überdeckten Knoten bleiben überdeckt. Nach \textit{(\ref{5.1.52})} findet Algorithmus Augmentationsweg solange welche in $G$ existieren. Nach Lemma \textit{(\ref{5.1.48})} $M$ maximal, falls keine Augmentationswege existieren.\\[1ex]
+Was ist mit nicht-bipartiten Graphen? Problem: Fehlen von Lemma \textit{(\ref{5.1.50})}
 \subsubsection{Beispiel}\ssslbl
 ladida
 \subsection{Von Basen zu diskreten Strukturen: Matroide}\sslbl
 \subsubsection{Definition}\ssslbl
-$E$ endliche Menge, $\mathcal I$ nichtleere Teilmenge von $2^E$. Das Paar $(E,\mathcal I)$ heißt \textit{Unabhängigkeitssystem}\index{Unabhängigkeitssystem}, wenn $\mathcal I$ abgeschlossen unter Inklusion ist, dh. ($I\in\mathcal I\wedge J\subset I$ $\Rightarrow$ $J\in\mathcal I$). $E$ \textit{Grundmenge}\index{Grundmenge}, Elemente von $\mathcal I$ \textit{unabhängige Mengen}\index{Mengen!unabhängige}, Elemente von $2^E\setminus\mathcal I$ \textit{abhängig}\index{Mengen!abhängige}. Gilt ferner ($I,J\in\mathcal I\wedge\vert I\vert+1=\vert J\vert$ $\Rightarrow$ $\exists(e\in J\setminus I):I\cup\{e\}\in\mathcal I$), so heißt $(E,\mathcal I)$ \textit{Matroid}\index{Matroid}\hfill\textbf{07.11.2008}
+$E$ endliche Menge, $\mathcal I$ nichtleere Teilmenge von $2^E$. Das Paar $(E,\mathcal I)$ heißt \textit{Unabhängigkeitssystem}\index{Unabhängigkeitssystem}, wenn $\mathcal I$ abgeschlossen unter Inklusion ist, dh. ($I\in\mathcal I\wedge J\subset I$ $\Rightarrow$ $J\in\mathcal I$). $E$ \textit{Grundmenge}\index{Grundmenge}, Elemente von $\mathcal I$ \textit{unabhängige Mengen}\index{Mengen!unabhängige}, Elemente von $2^E\setminus\mathcal I$ \textit{abhängig}\index{Mengen!abhängige}. Gilt ferner ($I,J\in\mathcal I\wedge\vert I\vert+1=\vert J\vert$ $\Rightarrow$ $\exists(e\in J\setminus I):I\cup\{e\}\in\mathcal I$), so heißt $(E,\mathcal I)$ \textit{Matroid}\index{Matroid}\\\hfill\textbf{07.11.2008}
 \subsubsection{Bemerkung}\ssslbl
 $(E,\mathcal I)$ Unabhängigkeitssystem. Dann gilt
 \begin{enumerate}[(a)]
@@ -736,10 +740,10 @@ $\surd$
 \subsubsection{Lemma}\ssslbl
 $E_1,\dots,E_4$ endliche Mengen, $\mathcal I_i\subset2^{E_i}$ ($i\in[4]$) definiert durch
 \begin{enumerate}[(a)]
-\item $I_i:=2^{E_i}$
+\item $\mathcal I_1:=2^{E_1}$
 \item $k\in\mathbb N_0$, $\mathcal I_2:=\{I\subset E_2\::\:\vert I\vert\leq k\}$
 \item $X$ endlichdimensionaler Vektorraum über Körper $K$, $E_3\subset X$, $\mathcal I_3$ Menge aller linear unanhängigen Teilmengen von $E_3$
-\item $s\in\mathbb N$, $\mathbb \Pi=(A_1,\dots,A_s)$ Partition von $E_4$, $\beta_1,\dots,\beta_s\in\mathbb N_0$
+\item $s\in\mathbb N$, $\Pi=(A_1,\dots,A_s)$ Partition von $E_4$, $\beta_1,\dots,\beta_s\in\mathbb N_0$
 \[\mathcal I_4:=\{I\subset E_4\::\:\vert I\cap A_i\vert\leq\beta_i\:(i=1,\dots,s)\}\]
 \end{enumerate}
 Dann sind $(E_i,\mathcal I_i)$ Matroide
@@ -756,16 +760,16 @@ $(E_i,\mathcal I_i)$ wie oben. $(E_1,\mathcal I_1)$ \textit{freies Matroid}\inde
 $(E,\mathcal I)$ Unabhängigkeitssystem, $A\subset E$, $\mathcal I_A:=\{I\in\mathcal I\::\:I\subset A\}$
 \begin{enumerate}[(a)]
 \item $(A,\mathcal I_A)$ ist Unabhängigkeitssystem
-\item Ist $E,\mathcal I)$ Matroid, so auch $(A,\mathcal I_A)$
+\item Ist $(E,\mathcal I)$ Matroid, so auch $(A,\mathcal I_A)$
 \end{enumerate}
 \subsubsection*{Beweis}
 $\surd$
 \subsubsection{Bezeichnung}\ssslbl
 $(A,\mathcal I_A)$ durch $A$ \textit{induziertes Unabhängigkeitssystem / Matroid}\index{Matroid!induziertes}\index{Unabhängigkeitssystem!induziertes}
 \subsubsection{Bezeichnung}\ssslbl
-$X_1,X_2$ Mengen $\theta:X_1\rightarrow X_2$. Dann $\Theta:2^{X_1}\rightarrow2^{X_2}$ definiert durch $\Theta(I):=\{\theta(x)\::\:x\in I\}$ \textit{natürliche Erweiterung}\index{Erweiterung!natürliche} von $\theta$.
+$X_1,X_2$ Mengen, $\theta:X_1\rightarrow X_2$. Dann $\Theta:2^{X_1}\rightarrow2^{X_2}$ definiert durch $\Theta(I):=\{\theta(x)\::\:x\in I\}$ \textit{natürliche Erweiterung}\index{Erweiterung!natürliche} von $\theta$.
 \subsubsection{Bemerkung}\ssslbl
-$(E_1,\mathcal I_1)$ Unabhängigkeitssystem / Matroid, $E_2$ endliche menge $\theta:E_1\rightarrow E_2$ Bijektion, $\Theta$ natürliche Erweiterung, $\mathcal I_2:=\{\Theta(I)\::\:I\in\mathcal I_1\}$. Dann $(E_2,\mathcal I_2)$ Unabhängigkeitssystem / Matroid.
+$(E_1,\mathcal I_1)$ Unabhängigkeitssystem / Matroid, $E_2$ endliche Menge $\theta:E_1\rightarrow E_2$ Bijektion, $\Theta$ natürliche Erweiterung, $\mathcal I_2:=\{\Theta(I)\::\:I\in\mathcal I_1\}$. Dann $(E_2,\mathcal I_2)$ Unabhängigkeitssystem / Matroid.
 \subsubsection*{Beweis}
 Bijektivität von $\theta$ überträgt sich auf $\Theta$.
 \subsubsection{Korollar}\ssslbl
@@ -801,6 +805,85 @@ $M=(E,\mathcal I)$ Matroid, $I\in\mathcal I$, $e\in E$, $I\cup\{e\}\not\in\mathc
 Da $I\cup\{e\}$ abhängig, enthält $I\cup\{e\}$ Kreis. Seien $K_1,K_2$ zwei verschiedene Kreise in $I\cup\{e\}$. Da $I\in\mathcal I$ und $(K_1\cup K_2)\setminus\{e\}\subset I$ folgt $e\in K_1\cap K_2$, $(K_1\cup K_2)\setminus\{e\}\in\mathcal I$. Sei $a\in K_1\setminus K_2$. Dann $K_1\setminus\{a\}\in\mathcal I$. Austauschbedingung auf $K_1\setminus\{a\}$, $(K_1\cup K_2)\setminus\{e\}$ anwenden: liefert $J\in\mathcal I$: $K_1\setminus\{a\}\subset J\subset K_1\cup K_2$ und $\vert J\vert=\vert(K_1\cup K_2)\setminus\{e\}\vert$. Sei $\{b\}=(K_1\cup K_2)\setminus J$. Falls $b=a$ ($\in K_1\setminus K_2$) folgt $K_2\subset J$, dh. $K_2\in\mathcal I$ Widerspruch. Also $b\neq a$.\\[1ex]
 Wegen $a\in K_1$ folgt $a\in J$. Ferner $K_1\setminus\{a\}\subset J$, also $K_1\subset J$ Widerspruch zu $K_1\in 2^E\setminus\mathcal I$.
 \subsubsection{Definition}\ssslbl
-\textit{Maximierungsaufgabe}\index{Maximierungsaufgabe} über Unabhängigskeitssystem / Matroid spezifiziert Unabhängigkeitssystem bzw. Matroid $(E,\mathcal I)$, $\Phi:E\rightarrow[0,\infty[$. Sei $\varphi:\mathcal I\rightarrow[0,\infty[$ definiert durch $\varphi(I):=\sum_{e\in I}\Phi(e)$. Gesucht $I^*$ mit $\varphi(I^*)=\max_{I\in\mathcal I}\varphi(I)$.
+\textit{Maximierungsaufgabe}\index{Maximierungsaufgabe} über Unabhängigskeitssystem / Matroid spezifiziert Unabhängigkeitssystem bzw. Matroid $(E,\mathcal I)$, $\Phi:E\rightarrow[0,\infty[$. Sei $\varphi:\mathcal I\rightarrow[0,\infty[$ definiert durch $\varphi(I):=\sum_{e\in I}\Phi(e)$. Gesucht $I^*$ mit $\varphi(I^*)=\max_{I\in\mathcal I}\varphi(I)$.\hfill\textbf{11.11.2008}
+\subsubsection{Prozedur: Greedy-Algorithmus\index{Greedy-Algorithmus}}\ssslbl
+\begin{lstlisting}
+INPUT Unabhängigkeitssystem $(E,\mathcal I)$, $\Phi:E\rightarrow[0,\infty[$
+OUTPUT $I^g\in\mathcal I$
+BEGIN $A\leftarrow E$, $I^g\leftarrow\emptyset$
+   WHILE $a\neq\emptyset$ DO
+      BEGIN
+         Wähle $a\in argmax\Phi(e)_{e\in A}$
+         $A\leftarrow A\setminus\{a\}$
+         IF $I^g\cup\{a\}\in\mathcal I$ THEN
+            $I^g\leftarrow I^g\cup\{a\}$
+      END
+END
+\end{lstlisting}
+\subsubsection{Bezeichnung}\ssslbl
+$I^g$ heißt \textit{Greedy-Lösung}\index{Greedy-Lösung}.
+\subsubsection*{Bemerkung}
+\begin{enumerate}[(1)]
+\item Wähle $a\in argmax$ kann durch Vorsortieren erledigt werden (in $\vert E\vert\log\vert E\vert$)
+\item Greedy-Algorithmus optimal lokal ohne Rücksicht darauf, welchen Einfluss diese Wahl auf spätere Entscheidungen hat.
+\end{enumerate}
+\subsubsection{Beispiel}\ssslbl
+ladida
+\subsubsection{Beispiel}\ssslbl
+$m\geq4$, $E=\{e_1,\dots,e_m\}$, $\mathcal I$ bestehe aus $\{e_1\}$ und Potenzmenge von $\{e_2,\dots,e_m\}$. $(E,\mathcal I)$ Unabhängigkeitssystem.\\[1ex]
+Sei $\gamma\in[0,\infty[$, $\Phi:E\rightarrow[0,\infty[$ definiert durch
+\[\Phi(e)=\begin{cases}\gamma+1&e=e_1\\\gamma&\text{sonst}\end{cases}\]
+$I^g=\{e_1\}$, $\varphi(I^g)=\gamma+1$, $I^*:=\{e_2,\dots,e_m\}$, $\varphi(I^*)=\gamma(m-1)$. Sei $\gamma>\frac1{m-2}$. Dann $I^*$ optimal. Es gilt
+\[\frac{\varphi(I^g)}{\varphi(I^*)}=\frac{\gamma+1}{\gamma(m-1)}=\left(1+\frac1{\gamma}\right)\frac1{m-1}\in\left]\frac1{m-1},1\right]\]
+Beachte $r_i(U)=1$, $r_+(U)=m-1$, $U=(E,\mathcal I)$.
+\subsubsection{Bezeichnung}\ssslbl
+$U=(E,\mathcal I)$ Unabhängigkeitssystem. Für $A\subset E$ setze
+\[\kappa(A)=\begin{cases}1&\text{falls }r_+(U_A)=0\\\frac{r_-(U_A)}{r_+(U_A)}&\text{sonst}\end{cases}\]
+Dann $\rho=\min\{\kappa(A)\::\:A\subset E\}$ \textit{Rangquotient}\index{Rangquotient} von $U$.
+\subsubsection{Lemma}\ssslbl
+Seien $E=\{e_1,\dots,e_m\}$, $I\in2^E$, $\Phi:E\rightarrow\mathbb R$; für $j=1,\dots,m$ setze $E_j=\{e_1,\dots,e_j\}$, $I_j=I\cap E_j$. Formale Setzung $\Phi(e_{m+1})=0$ für $e_{m+1}\not\in E$. Dann
+\[\sum_{e\in I}\Phi(e)=\sum_{j=1}^m\left(\Phi(e_j)-\Phi(e_{j+1})\right)\cdot\vert I_j\vert\]
+\subsubsection*{Beweis}
+Es gilt
+\[\vert I_j\vert-\vert I_{j-1}\vert=1\:\Leftrightarrow\:e_j\in I_j\setminus I_{j-1}\]
+Es folgt
+\[\sum_{e\in I}\Phi(e)=\sum_{j=1}^m\Phi(e_j)(\vert I_j\vert-\vert I_{j-1}\vert)=\sum_{j=1}^m(\Phi(e_j)-\Phi(e_{j+1}))\vert I_j\vert\]
+\subsubsection{Satz}\ssslbl
+$(E,\mathcal I,\Phi)$ spezifiziert Maximalitätsaufgabe über Anabhängigkeitssystem $U=(E,\mathcal I)$, $\varphi$ zugehörige Zielfunktion, $I^*$ optimale Lösung, $I^g$ Greedy-Lösung. Dann $\varphi(I^g)\geq\rho(U)\varphi(I^*)$. Es gibt $\Phi$ mit $=$.
+\subsubsection*{Beweis}
+oBdA $E\neq\emptyset$. Sei $E=\{e_1,\dots,e_m\}$ miz $\Phi(e_1)\geq\dots\geq\Phi(e_m)$. $E_j=\{e_1,\dots,e_j\}$, $U_j=U_{E_j}$. Für $I\in\mathcal I$: $I_j:=I\cap E_j$.\\[1ex]
+Nach Voraussetzung gilt für $j=1,\dots,m$ $r_-(U_j)\leq\vert I_j^g\vert$, $\vert I_j^*\vert\leq r_+(U_j)$.\\[1ex]
+Doppelte Anwendung von \textit{(\ref{5.2.22})}:
+\begin{align*}
+\varphi(I^g)=\sum_{j=1}^m\underbrace{(\Phi(e_j)-\Phi(e_{j+1}))}_{\geq0}\vert I_j^g\vert&\geq\sum_{j=1}^m(\Phi(e_j)-\Phi(e_{j+1}))r_-(U_j)\\
+&\geq\rho(U)\sum_{j=1}^m(\Phi(e_j)-\Phi(e_{j+1}))r_+(U_j)\\
+&\geq\rho(U)\sum_{j=1}^m(\Phi(e_j)-\Phi(e_{j+1}))\vert  I_j^*\vert\\
+&=\rho(U)\varphi(I^*)
+\end{align*}
+\subsubsection*{Beispiel $=$}
+Sei $A^*\subset E$ mit $\kappa(A^*)=\min\{\kappa(A)\::\:A\subset E\}$
+\[\Phi(e):=\begin{cases}1&e\in A^*\\0&e\in E\setminus A^*\end{cases}\]
+Seien $I,J$ Basen in $U_{A^*}$ mit $\vert I\vert=r_-(U_{A^*}$, $\vert J\vert=r_+(U_{A^*})$. Wird Reihenfolge der Elemente von $E$ so gewählt, dass zunächst die von $I$, dann die von $J\setminus I$ und dann die von $E\setminus A^*$ gewählt werden, so erzeugt der Greedy-Algorithmus $I$, obwohl $\vert J\vert$ optimal ist.
+\subsubsection{Bemerkung}\ssslbl
+Abschätzung auch dann nicht substantiell verbesserbar wenn Greedy-Algorithmus stets das Beste nächstmögliche Element wählt.
+\subsubsection*{Idee}
+$I=\{e_1,\dots,e_k\}$, $k=r_-(U_{A^*})$, $\vert J\vert=r_+(U_{A^*})$, $J\vert I=\{e_{k+1},\dots,e_l\}$, $E\setminus(I\cup J)=\{e_{l+1},\dots,e_m\}$, $\epsilon\in]0,1[$. Wir setzen
+\[\Phi(e_j)=\begin{cases}1+\epsilon^j&j=1,\dots,l\\0&j=l+1,\dots,m\end{cases}\]
+\subsubsection{Korollar: Edmonds-Rado Theorem\index{Theorem!Edmonds-Rado}}\ssslbl
+Sei $(E,\mathcal I)$ Unabhängigkeits System. $(E,\mathcal I)$ ist genau dann Matroid, wenn der Greedy-Algorithmus für jede $\Phi:E\rightarrow[0,\infty[$ ein Optimum der druch $(E,\mathcal I,\Phi)$ spezifizierte Maximierungsaufgabe über Unabhängigkeitssysteme findet.
+\subsubsection*{Beweis}
+\textit{(\ref{5.2.14}(}, \textit{(\ref{5.2.23})}
+\subsubsection{Beispiel}\ssslbl\index{Tobi!doofer}\index{Tobi!böser}\index{Tobi!fauler}
+maximales Matching, $G=(V,E,\Phi)$, $\alpha\in\mathbb N\setminus\{1,2\}$\\
+ladida\\
+Matching $\rightarrow$ Unabhängigkeitssystem
+\[\varphi(I^g)<\varphi(I^*)\]
+mit \textit{(\ref{5.2.24})} folgt: kein Matroid\\[1ex]
+Hier gilt: $\alpha+2=\varphi(I^g)\geq\frac12\varphi(I^*)=\alpha$\\
+ladida
+\subsubsection{Lemma}\ssslbl
+$G=(V,E,\Phi)$ gewichteter Graph mit $\Phi\geq0$, $\mathcal I$ Menge aller Matching von $G$, $\varphi(M)=\sum_{e\in M}\Phi(e)$ für $M\in\mathcal I$, $U=(E,\mathcal I)$. Ferner $I^*$ maximal (bez. $\varphi$), $I^g$ Greedy-Lösung. Dann gilt $2\varphi(I^g)\geq\varphi(I^*)$
+\subsubsection*{Beweis}
+Berechne Rangquotient
 \printindex
 \end{document}
