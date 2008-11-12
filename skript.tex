@@ -828,7 +828,36 @@ $I^g$ heißt \textit{Greedy-Lösung}\index{Greedy-Lösung}.
 \item Greedy-Algorithmus optimal lokal ohne Rücksicht darauf, welchen Einfluss diese Wahl auf spätere Entscheidungen hat.
 \end{enumerate}
 \subsubsection{Beispiel}\ssslbl
-ladida
+\begin{center}
+\begin{tikzpicture}
+\foreach \n/\pos in {{1/(0,2)}, {2/(2,0)}, {3/(2,4)}, {4/(4,1)}, {5/(4,3)}, {6/(6,0)}, {7/(6,4)}, {8/(7,2)}, {9/(8,0)}, {10/(8,4)}, {11/(10,2)}}
+  \node (v\n) [vertexpt] at \pos {};
+
+\path[edge] (v1) to (v2) node[midway,below left] {2};
+\path[edge] (v1) to (v4) node[midway,below] {1};
+\path[edge] (v1) to (v3) node[midway,above left] {1};
+\path[edge] (v4) to (v5) node[midway,left] {2};
+\path[edge] (v3) to (v5) node[midway,above right] {5};
+\path[edge] (v4) to (v6) node[midway,above right] {8};
+\path[edge] (v4) to (v8) node[midway,above] {1};
+\path[edge] (v5) to (v8) node[midway,above] {2};
+\path[edge] (v6) to (v9) node[midway,below] {2};
+\path[edge] (v8) to (v9) node[midway,above right] {2};
+\path[edge] (v7) to (v10) node[midway,above] {2};
+
+\path[edge,orange,very thick] (v1) to (v5) node[midway,above,orange] {$8_4$};
+\path[edge,orange,very thick] (v2) to (v4) node[midway,below right,orange] {$8_3$};
+\path[edge,orange,very thick] (v2) to (v6) node[midway,below,orange] {$9_1$};
+\path[edge,orange,very thick] (v5) to (v7) node[midway,above left,orange] {$5_6$};
+\path[edge,orange,very thick] (v3) to (v7) node[midway,above,orange] {$5_7$};
+\path[edge,orange,very thick] (v6) to (v8) node[midway,above left,orange] {$3_8$};
+\path[edge,orange,very thick] (v7) to (v8) node[midway,above right,orange] {$9_2$};
+\path[edge,orange,very thick] (v9) to (v11) node[midway,below right,orange] {$6_5$};
+\path[edge,orange,very thick] (v8) to (v11) node[midway,above,orange] {$2_9$};
+\path[edge,orange,very thick] (v10) to (v11) node[midway,above right,orange] {$2_{10}$};
+\end{tikzpicture}\vspace{1em}\\
+\emph{\textcolor{orange}{eine Greedy-Lösung}}
+\end{center}
 \subsubsection{Beispiel}\ssslbl
 $m\geq4$, $E=\{e_1,\dots,e_m\}$, $\mathcal I$ bestehe aus $\{e_1\}$ und Potenzmenge von $\{e_2,\dots,e_m\}$. $(E,\mathcal I)$ Unabhängigkeitssystem.\\[1ex]
 Sei $\gamma\in[0,\infty[$, $\Phi:E\rightarrow[0,\infty[$ definiert durch
@@ -872,15 +901,71 @@ $I=\{e_1,\dots,e_k\}$, $k=r_-(U_{A^*})$, $\vert J\vert=r_+(U_{A^*})$, $J\vert I=
 \subsubsection{Korollar: Edmonds-Rado Theorem\index{Theorem!Edmonds-Rado}}\ssslbl
 Sei $(E,\mathcal I)$ Unabhängigkeits System. $(E,\mathcal I)$ ist genau dann Matroid, wenn der Greedy-Algorithmus für jede $\Phi:E\rightarrow[0,\infty[$ ein Optimum der druch $(E,\mathcal I,\Phi)$ spezifizierte Maximierungsaufgabe über Unabhängigkeitssysteme findet.
 \subsubsection*{Beweis}
-\textit{(\ref{5.2.14}(}, \textit{(\ref{5.2.23})}
-\subsubsection{Beispiel}\ssslbl\index{Tobi!doofer}\index{Tobi!böser}\index{Tobi!fauler}
-maximales Matching, $G=(V,E,\Phi)$, $\alpha\in\mathbb N\setminus\{1,2\}$\\
-ladida\\
+\textit{(\ref{5.2.14})}, \textit{(\ref{5.2.23})}
+\subsubsection{Beispiel}\ssslbl
+maximales Matching, $G=(V,E,\Phi)$, $\alpha\in\mathbb N\setminus\{1,2\}$
+\begin{center}
+\begin{tikzpicture}
+\foreach \n in {0,...,3}
+  \node (v\n) [vertexpt] at (90*\n:1.5cm) {};
+
+\path[edge] (v0) to (v1) node[midway,above right] {$\alpha$};
+\path[edge] (v1) to (v2) node[midway,above left] {$\alpha+1$};
+\path[edge] (v2) to (v3) node[midway,below left] {$\alpha$};
+\path[edge] (v3) to (v0) node[midway,below right] {$1$};
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}
+\foreach \n in {0,...,3}
+  \node (v\n) [vertexpt] at (90*\n:1.5cm) {};
+
+\path[edge,orange,very thick] (v1) to (v2) node[midway,above left,orange] {$\alpha+1$};
+\path[edge,orange,very thick] (v3) to (v0) node[midway,below right,orange] {$1$};
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}
+\foreach \n in {0,...,3}
+  \node (v\n) [vertexpt] at (90*\n:1.5cm) {};
+
+\path[edge,red,very thick] (v0) to (v1) node[midway,above right,red] {$\alpha$};
+\path[edge,red,very thick] (v2) to (v3) node[midway,below left,red] {$\alpha$};
+\end{tikzpicture}
+\vspace{1em}\\
+\emph{\textcolor{orange}{$I^g$ ($\alpha+2$)} und \textcolor{red}{$I^*$ ($2\alpha$)}}
+\end{center}
 Matching $\rightarrow$ Unabhängigkeitssystem
 \[\varphi(I^g)<\varphi(I^*)\]
 mit \textit{(\ref{5.2.24})} folgt: kein Matroid\\[1ex]
-Hier gilt: $\alpha+2=\varphi(I^g)\geq\frac12\varphi(I^*)=\alpha$\\
-ladida
+Hier gilt: $\alpha+2=\varphi(I^g)\geq\frac12\varphi(I^*)=\alpha$\begin{center}
+\begin{tikzpicture}
+\foreach \n in {0,...,3}
+  \node (v\n) [vertexpt] at (90*\n:1.5cm) {};
+
+\path[edge] (v0) to (v1) {};
+\path[edge] (v1) to (v2) {};
+\path[edge] (v2) to (v3) {};
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}
+\foreach \n in {0,...,3}
+  \node (v\n) [vertexpt] at (90*\n:1.5cm) {};
+
+\path[edge,orange,very thick] (v0) to (v1) {};
+\path[edge] (v1) to (v2) {};
+\path[edge,orange,very thick] (v2) to (v3) {};
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}
+\foreach \n in {0,...,3}
+  \node (v\n) [vertexpt] at (90*\n:1.5cm) {};
+
+\path[edge] (v0) to (v1) {};
+\path[edge,red,very thick] (v1) to (v2) {};
+\path[edge] (v2) to (v3) {};
+\end{tikzpicture}
+\vspace{1em}\\
+\emph{Rangquotient $A$; \textcolor{orange}{$r_+(U_A)=2$} und \textcolor{red}{$r_-(U_A)=1$}}
+\end{center}
 \subsubsection{Lemma}\ssslbl
 $G=(V,E,\Phi)$ gewichteter Graph mit $\Phi\geq0$, $\mathcal I$ Menge aller Matching von $G$, $\varphi(M)=\sum_{e\in M}\Phi(e)$ für $M\in\mathcal I$, $U=(E,\mathcal I)$. Ferner $I^*$ maximal (bez. $\varphi$), $I^g$ Greedy-Lösung. Dann gilt $2\varphi(I^g)\geq\varphi(I^*)$
 \subsubsection*{Beweis}
