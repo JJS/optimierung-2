@@ -1127,7 +1127,36 @@ BEGIN Sei $w\in V$, $W\leftarrow\{w\}$, $T\leftarrow\emptyset$
 END
 \end{lstlisting}
 \subsubsection{Beispiel}\ssslbl
-ladida
+\begin{center}
+\begin{tikzpicture}
+\foreach \n/\pos in {{1/(0,2)}, {2/(2,0)}, {3/(2,4)}, {4/(4,1)}, {5/(4,3)}, {6/(6,0)}, {7/(6,4)}, {8/(7,2)}, {9/(8,0)}, {10/(8,4)}, {11/(10,2)}}
+  \node (v\n) [vertexpt,red] at \pos {};
+
+\path[edge,red,very thick] (v1) to (v2) node[midway,below left,black] {2};
+\path[edge,red,very thick] (v1) to (v4) node[midway,below,black] {1};
+\path[edge,red,very thick] (v1) to (v3) node[midway,above left,black] {1};
+\path[edge,red,very thick] (v4) to (v5) node[midway,left,black] {2};
+\path[edge,red,very thick] (v5) to (v8) node[midway,above,black] {2};
+\path[edge,red,very thick] (v6) to (v9) node[midway,below,black] {2};
+\path[edge,red,very thick] (v8) to (v9) node[midway,above right,black] {2};
+\path[edge,red,very thick] (v7) to (v10) node[midway,above,black] {2};
+\path[edge,red,very thick] (v10) to (v11) node[midway,above right,black] {2};
+\path[edge,red,very thick] (v8) to (v11) node[midway,above,black] {2};
+
+\path[edge] (v3) to (v5) node[midway,above right] {5};
+\path[edge] (v4) to (v6) node[midway,above right] {8};
+\path[edge] (v4) to (v8) node[midway,above] {1};
+\path[edge] (v1) to (v5) node[midway,above] {8};
+\path[edge] (v2) to (v4) node[midway,below right] {8};
+\path[edge] (v2) to (v6) node[midway,below] {9};
+\path[edge] (v5) to (v7) node[midway,above left] {5};
+\path[edge] (v3) to (v7) node[midway,above] {5};
+\path[edge] (v6) to (v8) node[midway,above left] {3};
+\path[edge] (v7) to (v8) node[midway,above right] {9};
+\path[edge] (v9) to (v11) node[midway,below right] {6};
+\end{tikzpicture}\vspace{1em}\\
+\emph{minimaler Spannbaum mit Prim}
+\end{center}
 \subsubsection{Satz}\ssslbl
 Algorithmus von Prim ist korrekt.
 \subsubsection*{Beweis}
