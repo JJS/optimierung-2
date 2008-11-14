@@ -1165,11 +1165,38 @@ Seien $W_{k+1}=W_k\cup\{v_{k+1}\}$, $T_{k+1}=T_k\cup\{e_k\}$, $B_{k+1}=(W_{k+1},
 Annahme: Es gibt Spannbaum $S=(V,F)$ mit $B_k\subset B$ und $e_k\not\in F$, der kürzer ist, als alle Spannbäume, die $B_{k+1}$ enthalten. $(V,F\cup\{e_k\})$ besitzt nach \textit{(\ref{5.2.15})} genau einen Kreis $K$. $K$ enthält eine von $e_k$ verschiedene Kante $e\in\delta(G,W_k)$. Nach Konstruktion gilt $\Phi(e)\geq\Phi(e_k)$ (sonst hätte Algorithmus nicht $e_k$ gewählt).\\[1ex]
 Mit $F'=\bigl(F\cup\{e_k\}\bigr)\setminus\{e\}$ folgt, dass $S'=(V,F')$ Spannbaum ist mit $\varphi(S')\leq\varphi(S)$ und $B_{k+1}\subset S'$. Widerspruch, es folgt Behaupung.
 \subsubsection{Beispiel}\ssslbl
-ladida\\[1ex]
+\begin{center}
+\begin{tikzpicture}
+\foreach \n in {0,1,2,3}
+  \node (v\n) [vertexpt] at (90*\n:1cm) {};
+
+\path[edge] (v0) to (v1) node[midway,above right] {2};
+\path[edge] (v1) to (v2) node[midway,above left] {$\alpha$};
+\path[edge] (v2) to (v3) node[midway,below left] {2};
+\path[edge] (v3) to (v0) node[midway,below right] {1};
+\end{tikzpicture}
+\end{center}
 $\alpha\in N$, $\alpha\geq4$. Gesucht minimales (bez. $\Phi$), maximales (bez. Kantenzahl) Mathcing in $G$.\\[1ex]
 Hier: minimales perfektes Matching\\[1ex]
-Greedy: ladida\\[1ex]
-Optimal: ladida\\[1ex]
+Greedy:
+\begin{center}
+\begin{tikzpicture}
+\foreach \n in {0,1,2,3}
+  \node (v\n) [vertexpt] at (90*\n:1cm) {};
+
+\path[edge,orange,very thick] (v1) to (v2) node[midway,above left] {$\alpha$};
+\path[edge,orange,very thick] (v3) to (v0) node[midway,below right] {1};
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}
+\foreach \n in {0,1,2,3}
+  \node (v\n) [vertexpt] at (90*\n:1cm) {};
+
+\path[edge,red,very thick] (v0) to (v1) node[midway,above right] {2};
+\path[edge,red,very thick] (v2) to (v3) node[midway,below left] {2};
+\end{tikzpicture}\\
+\emph{\textcolor{orange}{Greedy-Lösung ($\alpha+1$)}, \textcolor{red}{Optimallösung (4)}}
+\end{center}
 Fehler hängt von $\alpha$ ab: $\frac{\alpha+1}4\rightarrow\infty$ ($\alpha\rightarrow\infty$)
 \subsubsection{Bezeichnung}\ssslbl
 Für $j=1,\dots,k$ seien $U_j=(E,\mathcal I_j)$ Unabhängkeitssysteme auf derselben Grundmenge $E$. Ferner
