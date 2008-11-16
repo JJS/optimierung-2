@@ -986,7 +986,7 @@ Es folgt
 \subsubsection{Satz}\ssslbl
 $(E,\mathcal I,\Phi)$ spezifiziert Maximalitätsaufgabe über Unabhängigkeitssystem $U=(E,\mathcal I)$, $\varphi$ zugehörige Zielfunktion, $I^*$ optimale Lösung, $I^g$ Greedy-Lösung. Dann $\varphi(I^g)\geq\rho(U)\varphi(I^*)$. Es gibt $\Phi$ mit $=$.
 \subsubsection*{Beweis}
-oBdA $E\neq\emptyset$. Sei $E=\{e_1,\dots,e_m\}$ miz $\Phi(e_1)\geq\dots\geq\Phi(e_m)$. $E_j=\{e_1,\dots,e_j\}$, $U_j=U_{E_j}$. Für $I\in\mathcal I$: $I_j:=I\cap E_j$.\\[1ex]
+oBdA $E\neq\emptyset$. Sei $E=\{e_1,\dots,e_m\}$ mit $\Phi(e_1)\geq\dots\geq\Phi(e_m)$. $E_j=\{e_1,\dots,e_j\}$, $U_j=U_{E_j}$. Für $I\in\mathcal I$: $I_j:=I\cap E_j$.\\[1ex]
 Nach Voraussetzung gilt für $j=1,\dots,m$ $r_-(U_j)\leq\vert I_j^g\vert$, $\vert I_j^*\vert\leq r_+(U_j)$.\\[1ex]
 Doppelte Anwendung von \textit{(\ref{5.2.22})}:
 \begin{align*}
@@ -998,14 +998,14 @@ Doppelte Anwendung von \textit{(\ref{5.2.22})}:
 \subsubsection*{Beispiel $=$}
 Sei $A^*\subset E$ mit $\kappa(A^*)=\min\{\kappa(A)\::\:A\subset E\}$
 \[\Phi(e):=\begin{cases}1&e\in A^*\\0&e\in E\setminus A^*\end{cases}\]
-Seien $I,J$ Basen in $U_{A^*}$ mit $\vert I\vert=r_-(U_{A^*}$, $\vert J\vert=r_+(U_{A^*})$. Wird Reihenfolge der Elemente von $E$ so gewählt, dass zunächst die von $I$, dann die von $J\setminus I$ und dann die von $E\setminus A^*$ gewählt werden, so erzeugt der Greedy-Algorithmus $I$, obwohl $\vert J\vert$ optimal ist.
+Seien $I,J$ Basen in $U_{A^*}$ mit $\vert I\vert=r_-(U_{A^*})$, $\vert J\vert=r_+(U_{A^*})$. Wird Reihenfolge der Elemente von $E$ so gewählt, dass zunächst die von $I$, dann die von $J\setminus I$ und dann die von $E\setminus A^*$ gewählt werden, so erzeugt der Greedy-Algorithmus $I$, obwohl $\vert J\vert$ optimal ist.
 \subsubsection{Bemerkung}\ssslbl
 Abschätzung auch dann nicht substantiell verbesserbar wenn Greedy-Algorithmus stets das Beste nächstmögliche Element wählt.
 \subsubsection*{Idee}
 $I=\{e_1,\dots,e_k\}$, $k=r_-(U_{A^*})$, $\vert J\vert=r_+(U_{A^*})$, $J\vert I=\{e_{k+1},\dots,e_l\}$, $E\setminus(I\cup J)=\{e_{l+1},\dots,e_m\}$, $\epsilon\in]0,1[$. Wir setzen
 \[\Phi(e_j)=\begin{cases}1+\epsilon^j&j=1,\dots,l\\0&j=l+1,\dots,m\end{cases}\]
 \subsubsection{Korollar: Edmonds-Rado Theorem\index{Theorem!Edmonds-Rado}}\ssslbl
-Sei $(E,\mathcal I)$ Unabhängigkeits System. $(E,\mathcal I)$ ist genau dann Matroid, wenn der Greedy-Algorithmus für jede $\Phi:E\rightarrow[0,\infty[$ ein Optimum der druch $(E,\mathcal I,\Phi)$ spezifizierte Maximierungsaufgabe über Unabhängigkeitssysteme findet.
+Sei $(E,\mathcal I)$ Unabhängigkeits System. $(E,\mathcal I)$ ist genau dann Matroid, wenn der Greedy-Algorithmus für jede $\Phi:E\rightarrow[0,\infty[$ ein Optimum der durch $(E,\mathcal I,\Phi)$ spezifizierte Maximierungsaufgabe über Unabhängigkeitssysteme findet.
 \subsubsection*{Beweis}
 \textit{(\ref{5.2.14})}, \textit{(\ref{5.2.23})}
 \subsubsection{Beispiel}\ssslbl
@@ -1085,12 +1085,12 @@ $G=(V,E)$ Graph, $\mathcal I$ Menge aller $I\subset V$, so dass Matching existie
 \subsubsection*{Beweis}
 Übung
 \subsubsection{Definition}\ssslbl
-$(E,\mathcal I)$ Unabhängikeitssystem. $\mathcal B=\bigl\{I\in\mathcal I\::\:I\text{ Basis}\bigr\}$ $(E,\mathcal B)$ (zugehöriges) \textit{Basissystem}\index{System!Basis-}. \textit{Minimierungsaufgabe}\index{Minimierungsaufgabe} über Basissystem.\\[1ex]
+$(E,\mathcal I)$ Unabhängikeitssystem. $\mathcal B=\bigl\{I\in\mathcal I\::\:I\text{ Basis}\bigr\}$, $(E,\mathcal B)$ (zugehöriges) \textit{Basissystem}\index{System!Basis-}. \textit{Minimierungsaufgabe}\index{Minimierungsaufgabe} über Basissystem.\\[1ex]
 Gegeben: $(E,\mathcal I)$ Unabhängigkeitssystem, $\Phi:E\rightarrow\mathbb R$, zugehörige Zielfunktion $\varphi$.\\[1ex]
 Gesucht: $B^*\in argmin_{B\in\mathcal B}\varphi(B)$
 \subsubsection{Bemerkung}\ssslbl
-$U=(E,\mathcal I)$ Unabhängigkeitssystem, $(E,\mathcal B)$ zugehöriges Basissystem, $\Phi:E\rightarrow[0,\infty[$, $\varphi$ zugehörige Zielfunktion, $\beta:=\max\bigl\{0,\max_{e\in E}\Phi(e)\bigr\}$. Ferner $\psi:E\rightarrow[0,\infty[$ definiert durch $\psi(e):=\beta-\Phi(e)$ und $\Phi(I)=\sum_{e\in I}\psi(e)$ ($I\in\mathcal I$). Dann gilt
-\[\beta r_-(U)=\max_{I\in\mathcal I}\Psi(I)\leq\min_{B\in\mathcal B}\varphi(B)\leq\beta r_+(U)-\max_{I\in\mathcal I}\Psi(I)\]
+$U=(E,\mathcal I)$ Unabhängigkeitssystem, $(E,\mathcal B)$ zugehöriges Basissystem, $\Phi:E\rightarrow[0,\infty[$, $\varphi$ zugehörige Zielfunktion, $\beta:=\max\bigl\{0,\max_{e\in E}\Phi(e)\bigr\}$. Ferner $\psi:E\rightarrow[0,\infty[$ definiert durch $\psi(e):=\beta-\Phi(e)$ und $\Psi(I)=\sum_{e\in I}\psi(e)$ ($I\in\mathcal I$). Dann gilt
+\[\beta r_-(U)-\max_{I\in\mathcal I}\Psi(I)\leq\min_{B\in\mathcal B}\varphi(B)\leq\beta r_+(U)-\max_{I\in\mathcal I}\Psi(I)\]
 \subsubsection*{Beweis}
 Für $I\in\mathcal I$ gilt $\varphi(I)=\beta\vert I\vert-\Psi(I)$. Wegen $\beta\geq0$ folgt
 \[\min_{B\in\mathcal B}\varphi(B)=\min_{B\in\mathcal B}\bigl\{\beta\vert B\vert-\Psi(B)\bigr\}\leq\beta r_+(U)-\max_{B\in\mathcal B}\Psi(B)\]
@@ -1119,7 +1119,7 @@ BEGIN Sei $w\in V$, $W\leftarrow\{w\}$, $T\leftarrow\emptyset$
         BEGIN
           IF $v\in N(G,z)\setminus N(G,W)$ THEN
             $\mu(v)\leftarrow z$
-          IF $v\in N(G,z)\setminus N(G,W)$ UND $\Phi\bigl(\{v,\mu(v)\}\bigr)>\Phi\bigl(\{v,z\}\bigr\}$ THEN
+          IF $v\in N(G,z)\cap N(G,W)$ UND $\Phi\bigl(\{v,\mu(v)\}\bigr)>\Phi\bigl(\{v,z\}\bigr\}$ THEN
             $\mu(v)\leftarrow z$
         $W\leftarrow W\cup\{z\}$, $T\leftarrow T\cup\bigl\{\{z,\mu(z)\}\bigr\}$
         END
@@ -1135,17 +1135,17 @@ END
 \path[edge,red,very thick] (v1) to (v2) node[midway,below left,black] {2};
 \path[edge,red,very thick] (v1) to (v4) node[midway,below,black] {1};
 \path[edge,red,very thick] (v1) to (v3) node[midway,above left,black] {1};
-\path[edge,red,very thick] (v4) to (v5) node[midway,left,black] {2};
 \path[edge,red,very thick] (v5) to (v8) node[midway,above,black] {2};
 \path[edge,red,very thick] (v6) to (v9) node[midway,below,black] {2};
 \path[edge,red,very thick] (v8) to (v9) node[midway,above right,black] {2};
 \path[edge,red,very thick] (v7) to (v10) node[midway,above,black] {2};
 \path[edge,red,very thick] (v10) to (v11) node[midway,above right,black] {2};
 \path[edge,red,very thick] (v8) to (v11) node[midway,above,black] {2};
+\path[edge,red,very thick] (v4) to (v8) node[midway,above,black] {1};
 
+\path[edge] (v4) to (v5) node[midway,left] {2};
 \path[edge] (v3) to (v5) node[midway,above right] {5};
 \path[edge] (v4) to (v6) node[midway,above right] {8};
-\path[edge] (v4) to (v8) node[midway,above] {1};
 \path[edge] (v1) to (v5) node[midway,above] {8};
 \path[edge] (v2) to (v4) node[midway,below right] {8};
 \path[edge] (v2) to (v6) node[midway,below] {9};
@@ -1176,9 +1176,8 @@ Mit $F'=\bigl(F\cup\{e_k\}\bigr)\setminus\{e\}$ folgt, dass $S'=(V,F')$ Spannbau
 \path[edge] (v3) to (v0) node[midway,below right] {1};
 \end{tikzpicture}
 \end{center}
-$\alpha\in N$, $\alpha\geq4$. Gesucht minimales (bez. $\Phi$), maximales (bez. Kantenzahl) Mathcing in $G$.\\[1ex]
+$\alpha\in N$, $\alpha\geq4$. Gesucht minimales (bez. $\Phi$), maximales (bez. Kantenzahl) Matching in $G$.\\[1ex]
 Hier: minimales perfektes Matching\\[1ex]
-Greedy:
 \begin{center}
 \begin{tikzpicture}
 \foreach \n in {0,1,2,3}
