@@ -415,7 +415,6 @@ Seien $G=(V,E)$ Graph / Digraph, $n:=\vert V\vert\geq1$, $\tau_V$ gegebene Ordnu
 \[\alpha_{ij}:=\begin{cases}1&\text{falls }\{v_i,v_j\}\in E\text{ bzw. }(v_i,v_j)\in E\\0&\text{sonst}\end{cases}\]
 und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heißt $A_G$ \textit{Adjazenzmatrix}\index{Adjazenzmatrix} von $G$.
 \subsubsection{Beispiel}\ssslbl
-\begin{figure}
 \begin{center}
 \begin{tikzpicture}[>=stealth',node distance=1.5cm]
 \node (v_1) [vertex]                    {$v_1$};
@@ -445,11 +444,9 @@ und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heißt $A_G$ \textit{
 }
 \foreach \from/\to in {{1/4}, {3/4}, {4/5}}
   \path [arrow] (v_\from) to (v_\to);
-\end{tikzpicture}
+\end{tikzpicture}\\
+\emph{Graphen $G_1$ und $G_2$}
 \end{center}
-\caption{Zu \textit{(\ref{5.1.20})}: Graphen $G_1$ und $G_2$}
-\end{figure}
-\paragraph*{$G_1$}
 \[A_{G_1}=\underbrace{\left(\begin{array}{cccccc}
 0&1&1&0&1&0\\
 1&0&1&1&1&1\\
@@ -457,9 +454,8 @@ und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heißt $A_G$ \textit{
 0&1&1&0&0&0\\
 1&1&0&0&0&1\\
 0&1&0&0&1&0
-\end{array}\right)}_{\text{symmetrisch}}\]
-\paragraph*{$G_2$}
-\[A_{G_2}=\underbrace{\left(\begin{array}{ccccc}
+\end{array}\right)}_{\text{symmetrisch}}\quad,\qquad
+A_{G_2}=\underbrace{\left(\begin{array}{ccccc}
 0&1&1&1&0\\
 1&0&0&1&0\\
 1&0&0&1&1\\
@@ -469,9 +465,71 @@ und $A_G:=A_G(\tau_V):=(\alpha_{ij})_{i,j=1,\dots,n}$. Dann heißt $A_G$ \textit{
 \subsubsection{Bemerkung}\ssslbl
 $G=(V,E)$ Graph, $\tau_V$ Ordnung auf $V$. Dann ist $A_G$ symmetrisch.
 \subsubsection{Bemerkung}\ssslbl
-Durch Ersetzen jeder Kante $\{v,w\}$ durch $(v,w)$, $(w,v)$ kann man einen (ungerichteten) Graphen auch als gerichtet auffassen. Ist $G$ gewichtet, so überträgt sich das Gewicht von $\{v,w\}$ auf beide Kanten $(v,w)$, $(w,v)$.\\[2ex]
+Durch Ersetzen jeder Kante $\{v,w\}$ durch $(v,w)$, $(w,v)$ kann man einen (ungerichteten) Graphen auch als gerichtet auffassen. Ist $G$ gewichtet, so überträgt sich das Gewicht von $\{v,w\}$ auf beide Kanten $(v,w)$, $(w,v)$.
+\begin{center}
+\begin{tikzpicture}
+\node[vertexpt] (v0) at (0,0) {};
+\node[vertexpt] (v1) at (2,0) {};
+
+\path[edge] (v0) to (v1) node[midway,above] {$\alpha$};
+
+\path[arrow] (3,0) to (4,0);
+
+\node[vertexpt] (v2) at (5,0) {};
+\node[vertexpt] (v3) at (7,0) {};
+
+\path[arrow,bend left] (v2) to (v3) node[midway,above] {$\alpha$};
+\path[arrow,bend left] (v3) to (v2) node[midway,below] {$\alpha$};
+\end{tikzpicture}
+\end{center}
 Jetzt vorrangig (zunächst) ungerichtete Graphen.
-\subsubsection*{Straßennetz} ladida
+\subsubsection*{Straßennetz}
+\begin{center}
+\begin{tikzpicture}
+\foreach \pos/\name in {{(0,3)/1}, {(0.5,1.5)/2}, {(0.5,5)/3}, {(2.5,0)/4}, {(2.5,2)/5}, {(3,5.5)/6}, {(4,2.5)/8}, {(5,4)/9}}
+  \node[vertexpt] (v\name) at \pos {};
+\node[vertex] (v0) at (0.5,6.5) {$s$};
+\node[vertex] (v7) at (4,0.5) {$t$};
+
+\path[edge,blue,very thick] (v1) to (v2) {};
+\path[edge,blue,very thick] (v2) to (v5) {};
+\path[edge,blue,very thick] (v1) to (v3) {};
+
+\path[edge,orange,very thick] (v4) to (v5) {};
+\path[edge,orange,very thick] (v4) to (v7) {};
+
+\path[edge,red,very thick] (v6) to (v9) {};
+\path[edge,red,very thick] (v8) to (v9) {};
+
+\path[edge] (v0) to (v3) {};
+\path[edge] (v0) to (v6) {};
+\path[edge] (v3) to (v6) {};
+\path[edge] (v5) to (v8) {};
+\path[edge] (v7) to (v8) {};
+
+\draw[->] (5.5,4) -- (8,4) node[midway,above] {Preprocessing};
+
+\begin{scope}[xshift=8.5cm]
+\foreach \pos/\name in {{(0.5,5)/3}, {(2.5,2)/5}, {(3,5.5)/6}, {(4,2.5)/8}}
+  \node[vertexpt] (w\name) at \pos {};
+\node[vertex] (w0) at (0.5,6.5) {$s$};
+\node[vertex] (w7) at (4,0.5) {$t$};
+
+\path[edge,red,very thick] (w6) to (w8) {};
+
+\path[edge,blue,very thick] (w3) to (w5) {};
+
+\path[edge,orange,very thick] (w5) to (w7) {};
+
+\path[edge] (w0) to (w3) {};
+\path[edge] (w0) to (w6) {};
+\path[edge] (w3) to (w6) {};
+\path[edge] (w5) to (w8) {};
+\path[edge] (w7) to (w8) {};
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
 \subsubsection{Definition}\ssslbl
 Seien $G=(V,E)$ Graph, $S:=(U,F)$ Teilgraph von $G$ mit $\vert U\vert\geq1$, $S_i=(U_i,F_i)$ $i=1,\dots,k$ Zusammenhangskomponenten von $S$.\\[1ex]
 Ferner $Y=\{y_1,\dots,y_k\}$ zu $(V,U)\cup E$ disjunkte Menge der Kardinalität $k$ und
