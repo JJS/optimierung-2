@@ -753,7 +753,7 @@ Kreis $K=(y_1,z_2,y_4,z_4,z_1,y_1)$ der Länge 6.\\[1ex]
 Weil $W$ Augmentationsweg ist, $z_4$ vorher erreicht war ($W_1$) und weil $K$ gerade Länge hat, muss $W_1$ Augmentationsweg sein $\Rightarrow$ Suche auf Bäume beschränken
 \subsubsection{Lemma}\ssslbl
 $G=(V,E)$ bipartit, $v_1=w_1=v\in V$, $p,q\in\mathbb N$, $v_p=w_q=w\in V$, $W_1=(v_1,\dots,v_p)$, $W_2=(w_1,\dots,w_q)$ zwei $v-w$-Wege. Sind $u\in V$, $i\in[p]=:\{1,\dots,p\}$, $j\in[q]$, $u=v_i=w_j$, so gilt $i\equiv j\mod2$.
-\subsubsection{Widerspruchsbeweis}\ssslbl
+\subsubsection*{Widerspruchsbeweis}
 $W_1$, $W_2$ Gegenbeispiele minimaler symmetrischer Differenz der Kantenmengen. Insbesondere: $W_1$, $W_2$ kantendisjunkt. Sei $S$ der aus Knoten und Kanten von $W_1$, $W_2$ gebildete Teilgraph von $G$. $S$ enthält Kreis $K$. $W_1(K)$, $W_2(K)$ Kanten von $W_1$, $W_2$ in $K$. $G$ bipartit, dh. $K$ gerader Länge, dh. kantenzahl von $W_1(K)$, $W_2(K)$ gleiche Parität. Sei $W_1'$ der aus $W_1$ durch Ersetzung von $W_1(K)$ durch $W_2(K)$ entstandene Weg. Dann $W_1'$, $W_2$ immer noch Gegebeispiel, aber symmetrische Differenz kleiner $\Rightarrow$ Widerspruch
 \subsubsection{Definition}\ssslbl
 $G=(V,E)$ bipartit, Partition $(Y,Z)$ von $V$, $y\in Y$, Matching $M$, das $y$ nicht überdeckt. Sei $T=(V_T,E_T)$ maximaler Baum in $G$ mit $y\in V_T$, so dass jeder $y$-Weg in $T$ alternierend ist. Dann heißt $T$ \textit{Augmentationsbaum}\index{Augmentationsbaum}\index{Baum!Augmentations-} zu $y$ in $G$.
@@ -1160,7 +1160,7 @@ BEGIN Sortiere die Kanten nach aufsteigendem Gewicht, dh. $E=\{e_1,\dots,e_m\}$,
   $T\leftarrow\emptyset$
   FOR $i=1,\dots,m$ DO
   BEGIN
-    IF $T\cup\{e_1\}$ ist kreisfrei THEN
+    IF $T\cup\{e_i\}$ ist kreisfrei THEN
       $T\leftarrow T\cup\{e_i\}$
   END
 END
@@ -1266,6 +1266,85 @@ Sei $U=(E,\mathcal I)$ Unabhängigkeitssystem. Dann gibt es $k\in\mathbb N$ und M
 \[U=\bigcap_{j=1}kM_j\]
 \subsubsection*{Beiweis}
 Sei $\mathcal K$ Menge der Kreise in $U$, $K\in\mathcal K$, $\mathcal I(K)=\{I\subset E\::\:K\not\subset I\}$. es gilt $\mathcal I\subset\mathcal I(K)$.\\[1ex]
-Ferner $\bigl(E,\mathcal I(K)\bigr)$ Unabhängigkeitssystem, sogar Matroid.
+Ferner $\bigl(E,\mathcal I(K)\bigr)$ Unabhängigkeitssystem. Zeige: Matroid.\hfill\textbf{18.10.2008}\\[1ex]
+Seien $I,J\in\mathcal I(K)$, $\vert I\vert+1=\vert J\vert$. Nach Definition $K\not\subset I$, $K\not\subset J$\\[1ex]
+Annahme: Für jedes $e\in J\setminus I$ gilt $K\subset I\cup\{e\}$. Dann $\vert K\setminus I\vert=1$, $\vert J\setminus I\vert=1$, also $I\subset J$ und $K\subset J$ Widerspruch zu $J\in\mathcal I(K)$.\\
+Sei nun $S\subset E$ mit $S\not\in\mathcal I$ und $K\in\mathcal K$ mit $K\subset S$. Dann $S\not\in\mathcal I(K)$. Also
+\[\mathcal I=\bigcap_{K\in\mathcal K}\mathcal I(K)\]
+\subsubsection{Definition}\ssslbl
+$G=(V,E)$ Graph, $(V_1,\dots,V_k)$ Partition von $V$ und
+\[j\in[k]\:\wedge\:e\in E\:\Rightarrow\:\vert e\cap V_j\vert\leq1\]
+Dann heißt $G$ \textit{$k$-partit}\index{$k$-partit}
+\subsubsection{Beispiel}\ssslbl
+$G=(V,E)$, $(V_1,\dots,V_k)$ Partiton von $V$, $\mathcal I$ Menge aller Matchings in $G$, $U=(E,\mathcal I)$. Nach \textit{(\ref{5.2.38})} ist $U$ Durchschnitt von Matroiden. Tatsächlich ist $U$ Durchschnitt von $k$ \textit{Partitionsmatroiden}\index{Matroid!Partitions-}.\\[1ex]
+Sei für $j\in[k]$
+\[\Pi_j=\bigl\{\delta(G,v)\::\:v\in V_j\bigr\}\cup\bigl(E\setminus\delta(G,V_j)\bigr)\]
+$\Pi_j$ ist Partition von $E$ (Partition von $\delta(G,V)$, Rest)\\
+Schranken $\beta_{ji}=1$ für $\delta(G,v)$, Schranke $\vert E\vert$ für $E\setminus\delta(G,V_j)$.\\[1ex]
+$M_1,\dots,M_j$ zugehörige Partitionsmatroide; es gilt
+\[U=\bigcap_{j=1}^kM_j\]
+Insbesondere Matching in bipartiten Graphen entspricht dem Durchschnitt von 2 Matroiden.
+\subsubsection{Beispiel}\ssslbl
+\begin{center}
+\begin{tikzpicture}
+\foreach \i/\n/\j in {{0/$\beta_{1,1}=2$/1}, {1/3/2}, {2/1/3}}
+  \path[edge,dashed] (-0.5,\i)  node[left,orange] {\n} to (3.5,\i) node[right,orange] {$T_{1,\j}$};
+\foreach \i/\n in {{0/1}, {1/2}, {2/2}, {3/1}}
+  \path[edge,dashed] (\i,-0.5) to (\i,2.5) node[above,orange] {\n};
+
+\foreach \i/\j in {{2/0}, {2/2}, {2/3}, {1/0}, {0/1}, {0/3}}
+    \node[vertexpt] (v\i\j) at (\j,\i) {};
+\foreach \i/\j in {{0/0}, {0/2}, {1/1}, {1/2}, {1/3}, {2/1}}
+	\node[vertexpt,blue] (v\i\j) at (\j,\i) {};
+\node[orange,right] at (5,0.75) {Gegeben};
+\node[blue,right] at (5,1.25) {Gesucht};
+\end{tikzpicture}
+\end{center}
+\begin{itemize}
+\item Existiert Lösung?
+\item Lösung eindeutig?
+\item Stabilität
+\end{itemize}
+Gitterrichtungen $z_1,\dots,z_m\in\mathbb Z^n\setminus\{0\}$ (Messrichtungen, $n=3$)\\[1ex]
+$j=1,\dots,m$, $T_{j,1},\dots,T_{j,k_j}$ Gittergeraden parallel zu $z_j$, Träger der Messungen. Dessdaten $\beta_{j,1},\dots,\beta_{j,k_j}$. Sei $K=\mathbb Z^3\cap\bigcap_{j=1}^m\bigcup_{i=1}^{k_j}T_{j,i}$. Setze
+\[\mathcal I_j=\bigl\{I\in2^K\::\:\vert I\cap T_{j,1}\vert\leq\beta_{j,1},\dots,\vert I\cap T_{j,k_j}\vert\leq\beta_{j,k_j}\bigr\}\]
+$M_j=(K,\mathcal I_j)$, $U:=M_1\cap\dots\cap M_m$\\[1ex]
+Rekonstruktionsproblem entspricht einer Maximierung über $U$, Gewichte 1. Es existiert genau dann eine mit den Messdaten kompatible Lösung, wenn es in $U$ eine unabhängige Menge $I^*$ gibt mit
+\[\vert I^*\vert=\sum_{i=1}^{k_1}\beta_{1,i}=\dots=\sum_{i=1}^{k_m}\beta_{m,i}\]
+\subsubsection{Definition}\ssslbl
+\textit{Maximierungsaufgabe über Durchschnitt von $k$ Matroiden}\index{Maximierungsaufgabe!über Durchschnitt} ist spezifiziert durch Matroide $M_1=(E_1,\mathcal I_1),\dots,M_k=(E,\mathcal I_k)$, $\Phi:E\rightarrow[0,\infty[$. Seien $U=(E,\mathcal I):=M_1\cap\dots\cap M_k$, $\varphi:\mathcal I\rightarrow[0,\infty[$ definiert durch $\varphi(I)=\sum_{e\in I}\Phi(e)$. Gesucht $I^*\in argmax_{I\in\mathcal I}\varphi(I)$.\\
+(Schwierigkeit: $k=1$: Greedy, $k=2$: effizient möglich (in P), $k\geq3$ schwierig (in NP))
+\subsubsection*{Frage}
+Wie gut ist Greedy-Algorithmus auf Durchschnitt von $k$ Matroiden?
+\subsubsection{Bemerkung}\ssslbl
+Seien $k\in\mathbb N$, $M_1,\dots,M_k$ Matroide, $U=(E,\mathcal I)$ ihr Durchschnitt, $I\in\mathcal I$, $e\in E$ mit $I\cup\{e\}\not\in\mathcal I$. Dann enthält $I\cup\{e\}$ höchstens $k$ Kreise.
+\subsubsection*{Beweis}
+Sei $K\subset I\cup\{e\}$ Kreis in $U$. Dann gibt es $j_0\in\{1,\dots,k\}$, so dass $K$ in $M_{j_0}$ abhängig ist. Nach \textit{(\ref{5.2.15})} enthält $I\cup\{e\}$ genau einen Kreis in $M_{j_0}$. Also kann $I\cup\{e\}$ höchstens $k$ Kreise in $U$ enthalten.
+\subsubsection{Lemma}\ssslbl
+Durch $(M_1,\dots,M_k,\Phi)$ sei Maximierungsaufgabe über Durchschnitt $U=(E,\mathcal I)$ von $k$ matroiden spezifiziert. Dann gilt
+\[k\rho(U)\geq1\]
+\subsubsection*{Beweis}
+Seien $A^*\subset E$, $I,J$ Basen in $U_{A^*}$ mit $r_-(U_{A^*})=\vert I\vert$, $r_+(U_{A^*})=\vert J\vert$, $r_-(U_{A^*})=\rho(U)r_+(U_{A^+})$.\\[1ex]
+oBdA $\vert I\vert\geq1$. Seien $s\in\mathbb N$ und $I\setminus J=\{e_1,\dots,e_s\}$. nach \textit{(\ref{5.2.43})} enthält $J\cup\{e_1\}$ höchstens $k$ Kreise. Da $I$ unabhängig ist, schneidet jeder solche Kreise $J\setminus I$. Es gibt $A_1\subset J\setminus I$ mit $\vert A_1\vert\leq k$, $(J\setminus A_1)\cup\{e_1\}\in\mathcal I$. Sei $J_1:=(J\setminus A_1)\cup\{e_1\}$. Dann $I\setminus J_1=\{e_2,\dots,e_k\}$.\\[1ex]
+Fahre suksessive fort: nach $s$ Schritten erhalten wir $A\subset J\setminus I$ mit $\vert A\vert\leq ks$, $(J\setminus A)\cup\{e_1,\dots,e_s\}\in\mathcal I$. Es folgt:
+\[I=(I\cap J)\cup(I\setminus J)\subset(J\setminus A)\cup(I\setminus J)\in\mathcal I\]
+Da $I$ Basis: $I=(J\setminus A)\cup(I\setminus J)$.\\[1ex]
+Daher $J\setminus I=J\setminus\bigl((J\setminus A)\cup(I\setminus J)\bigr)=A\cap J=A$, also $\vert J\setminus I\vert\leq ks=k\cdot\vert I\setminus J\vert$. Es folgt
+\[\vert J\vert=\vert J\cap I\vert+\vert J\setminus I\vert\leq\vert I\cap J\vert+k\vert I\setminus J\vert\leq k\vert I\vert\]
+Somit $\vert I\vert\leq\rho(U)\vert J\vert\leq k\rho(U)\vert I\vert$ und damit die Behauptung.
+\subsubsection{Satz}\ssslbl
+Gegeben Maximierungsaufgabe $(M_1,\dots,M_k;\Phi)$ über Durchschnitt von $k$ Matroiden, $\varphi$ zugehörigen Zielfunktion. Dann
+\[\varphi(I^*)\leq k\varphi(I^g)\]
+\subsubsection*{Beweis}
+\textit{(\ref{5.2.44})}, \textit{(\ref{5.2.23})}
+\section{Algorithmen und Komplexität}\slbl
+\subsubsection*{Fragen}
+\begin{itemize}
+\item Laufzeit von Algorithmen, Güte
+\item mathematisches Konzept?
+\item elementare Operationen ($+,-,\cdot,\%,\leq,=,\geq,\leftarrow$)
+\item Größe der beteiligten Zahlen
+\end{itemize}
+\subsection{Algorithmische Berechnungen: Erste effiziente Methoden}\sslbl
 \printindex
 \end{document}
