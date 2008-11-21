@@ -14,6 +14,8 @@
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
 
 \makeindex
+\newcommand{\size}{\text{size}}
+\newcommand{\ggT}{\text{ggT}}
 
 \usetikzlibrary{arrows,shapes,calc,backgrounds,fit}
 \tikzset{
@@ -693,7 +695,7 @@ $P_1,\dots,P_4$ Geschlecht $\Gamma_1$, $Q_1,\dots, Q_3$, $\Gamma_2$, $\Gamma_1\n
 $G=(V,E)$ Graph. $G$ bipartit, wenn $G$ keinen Kreis ungerader Länge enthält.\hfill\textbf{31.10.2008}
 \subsubsection*{Beweis}
 \begin{itemize}
-\item[$\Rightarrow$] $\surd$
+\item[$\Rightarrow$] $\checkmark$
 \item[$\Leftarrow$] Konstruiere Partition, oBdA. $G$ zusammenhängend. Nach \textit{(\ref{5.1.35})} besitzt $G$ Spannbaum $T=(V,E_T)$. Sei $s\in T$. Nach \textit{(\ref{5.1.32})(b)} gibt es zu jedem $v\in V$ genau einen $s-v$-Weg in $T$; $p(v)$ sei seine Länge, setze für $k=0,1$:
 \[V_{k+1}:=\{v\in V\::\:p(v)\equiv k\mod2\}\]
 $(V_1,V_2)$ Partition.\\[1ex]
@@ -714,7 +716,7 @@ $G=(V,E)$ bipartit, $(Y,Z)$ zugehörige Partitionen von $V$. Dann äquivalent:
 \item Für jede Teilmenge $U\subset Y$ gilt $\vert N(G,U)\vert\geq\vert U\vert$
 \end{enumerate}
 \subsubsection*{Beweis}
-(a) $\Rightarrow$ (b): $\surd$\\[1ex]
+(a) $\Rightarrow$ (b): $\checkmark$\\[1ex]
 (b) $\Rightarrow$ (a): $M$ kardinalitätsmaximales Matching, aber $\vert M\vert<\vert Y\vert$. Sei $y_1\in Y$, in keiner Kante von $M$ enthalten. Sei $Y_1=\{y_1\}$. Es gilt $\vert N(G,Y_1)\geq\vert Y_1\vert=1$. Seien $z_1\in N(G,Y_1)$, $Z_1=\{z_1\}$, $e_1=\{y_1,z_1\}$, $E_1=\{e_1\}$.\\[1ex]
 Wäre $z_1$ in keiner Matchingkante enthalten, so wäre $M\cup\{e\}$ größeres Matching $\Rightarrow$ Widerspruch.\\[1ex]
 Seien $y_2\in Y\setminus Y_1$, $m_1=\{y_2,z_1\}\in M$, $Y_2=Y_1\cup\{y_2\}$, $M_1=\{m_1\}$. Nach Voraussetzung gilt $\vert N(G,Y_2)\vert\geq\vert Y_2\vert=2>\vert Z_1\vert$.\\[1ex]
@@ -794,7 +796,7 @@ $(E,\mathcal I)$ Unabhängigkeitssystem. Dann gilt\hfill\textbf{07.11.2008}
 \[I,J\in\mathcal I\:\wedge\:\vert I\vert<\vert J\vert\:\Rightarrow\:\exists(e\in J\setminus I):\:I\cup\{v\}\in\mathcal I\]
 \end{enumerate}
 \subsubsection*{Beweis}
-$\surd$
+$\checkmark$
 \subsubsection{Lemma}\ssslbl
 $E_1,\dots,E_4$ endliche Mengen, $\mathcal I_i\subset2^{E_i}$ ($i\in[4]$) definiert durch
 \begin{enumerate}[(a)]
@@ -821,9 +823,9 @@ $(E,\mathcal I)$ Unabhängigkeitssystem, $A\subset E$, $\mathcal I_A:=\{I\in\math
 \item Ist $(E,\mathcal I)$ Matroid, so auch $(A,\mathcal I_A)$
 \end{enumerate}
 \subsubsection*{Beweis}
-$\surd$
+$\checkmark$
 \subsubsection{Bezeichnung}\ssslbl
-$(A,\mathcal I_A)$ durch $A$ \textit{induziertes Unabhängigkeitssystem / Matroid}\index{Matroid!induziertes}\index{Ssystem!Unabhängigkeits-!induziertes}.
+$(A,\mathcal I_A)$ durch $A$ \textit{induziertes Unabhängigkeitssystem / Matroid}\index{Matroid!induziertes}\index{System!Unabhängigkeits-!induziertes}.
 \subsubsection{Bezeichnung}\ssslbl
 $X_1,X_2$ Mengen, $\theta:X_1\rightarrow X_2$. Dann $\Theta:2^{X_1}\rightarrow2^{X_2}$ definiert durch $\Theta(I):=\{\theta(x)\::\:x\in I\}$ \textit{natürliche Erweiterung}\index{Erweiterung!natürliche} von $\theta$.
 \subsubsection{Bemerkung}\ssslbl
@@ -1346,5 +1348,103 @@ Gegeben Maximierungsaufgabe $(M_1,\dots,M_k;\Phi)$ über Durchschnitt von $k$ Mat
 \item Größe der beteiligten Zahlen
 \end{itemize}
 \subsection{Algorithmische Berechnungen: Erste effiziente Methoden}\sslbl
+\begin{itemize}
+\item Was ist ein effiziente Algorithmus? $\sim$ elementaren Operationen, Bitgröße, asymptotisch\hfill\textbf{21.11.2008}
+\item Wann ist das Problem leicht? Es existiert effizienter Algorithmus, Äquivalenzklassen gleich schwieriger Probleme
+\item Was ist ein Problem? (Relation (Input, Output))
+\end{itemize}
+\subsubsection{Bezeichnung}\ssslbl
+Addition ($+$), Subtraktion ($-$), Multiplikation ($\cdot$), Division ($\%$) (ggf. mit Rest) heißen \textit{elementare arithmetische Operationen}\index{Operation!elementare arithmetische},\\[1ex]
+Vergleiche ($\leq$, $\geq$, $=$, $\neq$) \textit{elementare Vergleichsoperationen}\index{Operation!elementare Vergleichs-},\\[1ex]
+Zuweisungen ($\leftarrow$) von Werten an Variable.\\[1ex]
+elementare arithmetische / Vergleichsoperationen bzw. Zuweisungen: \textit{elementare Operationen}\index{Operation!elementare}\\[1ex]
+Befehle $\leftarrow$, \texttt{WHILE DO END}, \texttt{HALT} heißen \textit{elementare Programmbefehle}\index{Programmbefehl!elementar}
+\subsubsection{Definition (informell}\ssslbl 
+\textit{Algorithmus}\index{Algorithmus} $\mathcal A$ besteht aus Folge (zu Beginn mit 0 initialisierten) Variablen und \textit{endlichen Sequenz}\index{Sequenz!endliche} elementarer Programmbefehle. Diese machen: Zuwesung von Symbolen des Inputs an Variable, elementare arithmetische Berechnungen, dh. Zuweisung von Ergebnissen arithmetischer Operationen zwischen Variablen an Variable, Zuweisung von Variablenwerten an Output.\\[1ex]
+Algorithmus $\mathcal A$ löst Program $\Pi$, wenn $\mathcal A$ für jeden Input noch nach endlich vielen elementaren Operationen einen zugehörigen korrekten Output $\mathcal O$ bestimmt oder entscheidet, dass kein solcher existiert.
+\subsubsection*{Frage}
+Auf welchen Zahlen / Symbolen sollen Rechnungen erlaubt sein? Hier (fast immer) rationale Zahlen
+\subsubsection{Bezeichnung}\ssslbl
+Jede endliche Sequenz $\mathcal I:=(\sigma,\sigma_r,\dots,\sigma_1)$ mit $\sigma\in\{+,-\}$, $r\in\mathbb N_0$, $\sigma_1,\dots,\sigma_r\in\{0,1\}$ heißt \textit{(Binär-)String}\index{String!Binär-} [($+$), ($-$) Strings identifizieren mit Zahl 0]
+\[\eta:=\sigma\sum_{i=0}^{r-1}\sigma_{i+1}2^i\:\rightarrow\:(\sigma,\sigma_r,\dots,\sigma_1)\]
+Darstellung ganzer Zahlen
+\subsubsection{Definition}\ssslbl
+Sei $\eta\in\mathbb Z$. Dann heißt $\size(\eta):=1+\left\lceil\log(\vert\eta+1)\right\rceil$ \textit{Kodierungslänge}\index{Kodierungslänge!in $\mathbb N$}. Seien $\rho\in\mathbb Q$, $\eta\in Z$, $\mu\in\mathbb N$, $\rho=\frac{\eta}{\mu}$. Dann heißt $(\eta,\mu)$ eine \textit{(ganzzahlige) Darstellung}\index{Darstellung!ganzzahlige} von $\rho$\\[1ex]
+Sind $\eta$, $\mu$ teilerfremd, so heißt $(\eta,\mu)$ \textit{teilerfremde Darstellung}\index{Darstellung!teilerfremde}. $\size(\eta)+\size(\mu)$ \textit{Kodierungslänge}\index{Kodierungslänge! in $\mathbb Q$} der durch $(\eta,\mu)$ gegebenen rationalen zahl $\rho$, Abkürzung oft $\size(\rho)$ (bei klar gegebener Darstellung $(\eta,\mu)$\\[1ex]
+Seien $m,n\in\mathbb N$, $A=(\alpha_{ij})_{\substack{i=1,\dots,m\\j=1,\dots,n}}\in\mathbb Q^{m\times n}$. Dann
+\[\size(A):=\sum_{i=1}^m\sum_{j=1}^n\size(\alpha_{ij})\]
+\textit{Kodierungslänge}\index{Kodierungslänge!für Matrizen} von $A$\\[1ex]
+Sei Input einer Aufgabe durch $(\rho_1,\dots,\rho_k)$ spezifiziert mit $\rho_i\in\mathbb Q$. Dann
+\[\size(\mathcal I):=\sum_{i=1}^k\size(\rho_i)\]
+\textit{(binäre) Inputgröße}\index{Inputgröße!binäre}
+\subsubsection{Bemerkung}\ssslbl
+Sei $\mathcal I:=(m,n,A,b,c)$ spezifizierte lineare Optimierungsaufgabe mit rationalem Input. Dann
+\[\size(\mathcal I)=\size(m)+\size(n)+\size(A)+\size(b)+\size(c)\geq(m+1)(n+1)+1\]
+\subsubsection*{Beweis}
+Zur Kodierung von $m,n,A,b,c$ werden $2+m\cdot n+n+m$ Trenn- bzw. Vorzeichenbits benötigt.
+\subsubsection{Lemma}\ssslbl
+\begin{enumerate}[(a)]
+\item Sei $\mu\in\mathbb Z$. Dann 
+\[1+\log\bigl(\vert\mu\vert+1\bigr)\leq\size(\mu)\leq2+\log\bigl(\vert\mu\vert+1\bigr)\]
+\item Seien $\alpha,\beta\in\mathbb Z$. Dann
+\[\size(\alpha+\beta)\leq\size(\alpha)+\size(\beta)\]
+\item Seien $\rho_1,\rho_2\in\mathbb Q$ (mit geg. Darstellung), dann:
+\[\size(\rho_1\cdot\rho_2)\leq\size(\rho_1)+\size(\rho_2)\]
+\item Seien $\rho\in\mathbb Q$, $A\in\mathbb Q^{m\times n}$. Dann
+\[\size(\rho\cdot A)\leq m\cdot n\cdot\size(\rho)+\size(A)\]
+\end{enumerate}
+\subsubsection*{Beweis}
+\begin{enumerate}[(a)]
+\item $\checkmark$
+\item
+\begin{align*}
+\size(\alpha+\beta)&=1+\left\lceil\log\bigl(\vert\alpha+\beta\vert+1\bigr)\right\rceil\\
+&\leq1+\left\lceil\log\bigl(\vert\alpha\vert+\vert\beta\vert+1\bigr)\right\rceil\\
+&\leq1+\left\lceil\log\bigl(\vert\alpha\vert+1\bigr)\bigl(\vert\beta\vert+1\bigr)\right\rceil\\
+&\leq\size(\alpha)+\size(\beta)
+\end{align*}
+\item Seien zunächst $\alpha,\beta\in\mathbb Z$. Dann
+\begin{align*}
+\size(\alpha\beta)&=1+\left\lceil\log\bigl(\vert\alpha\beta\vert+1\bigr)\right\rceil\\
+&\leq1+\left\lceil\log\bigl(\vert\alpha\vert+1\bigr)\bigl(\vert\beta\vert+1\bigr)\right\rceil\\
+&\leq\size(\alpha)+\size(\beta)
+\end{align*}
+$\eta_i\in\mathbb Z$, $\mu_i\in\mathbb N$ ($i=1,2$), $\rho_i=\frac{\eta_i}{\mu_i}$. Dann
+\[\size(\rho_1\cdot\rho_2)=\size(\eta_1\cdot\eta_2)+\size(\mu_1\cdot\mu_2)\leq\dots=\size(\rho_1)+\size(\rho_2)\]
+\item
+\[\size(\rho A)=\sum_{i=1}^m\sum_{j=1}^n\size(\rho\cdot\alpha_{ij})\leq\sum_{i=1}^m\sum_{j=1}^n\bigl(\size(\rho)+\size(\alpha_{ij})\bigr)=m\cdot n\cdot\size(\rho)+\size(A)\]
+\end{enumerate}
+\subsubsection{Definition}\ssslbl
+Seien $\Pi$ Problem, $\mathcal A$ Algorithmus von $\Pi$. Existiert Polynom $\pi:\mathbb N_0\rightarrow\mathbb N_0$, so dass für jeden Input das Produkt aus Anzahl elementarer Operationen von $\mathcal A$ bei Anwendung auf $\mathcal I$ und dem Maximum der Größen der beteiligten Zahlen durch $\pi\bigl(\size(\mathcal I)\bigr)$ nach oben beschränkt ist, so heißt $\mathcal A$ \textit{polynomiell}\index{Algorithmus!polynomieller}\index{polynomiell}.\\[1ex]
+Im folgenden: polynomiell $\approx$ effizient\\[1ex]
+Vorsicht: $\size(\mathcal I)n$, $n^{1.000.000.000}$ polynomiell, $n^{\log(\log(\log n)))}$ nicht polynomiell. Also polynomiell \textit{mathematisches Konstrukt}, nicht identisch mit praktikabel, meistens aber doch!
+\subsubsection{Bemerkung}\ssslbl
+Seien $\mathcal A,\mathcal B$ Algorithmen. Ist $\mathcal B$ polynomiell und benötigt $\mathcal A$ polynomiell viele elementare Operationen und zusätzlich polynomiell viele Aufrufe von $\mathcal B$ als Subroutine, so ist $\mathcal A$ polynomiell.
+\subsubsection*{Beweis}
+Polynome unter Komposition abgeschlossen
+\subsubsection{Prozedur: Euklidischer Algorithmus\index{Algorithmus!Euklidischer}}
+\begin{lstlisting}
+INPUT $\mu,\nu\in\mathbb N$
+OUTPUT $\ggT(\mu,\nu)$
+BEGIN WHILE $\mu\geq1$ AND $\nu\geq1$ DO
+  BEGIN
+    IF $\mu\geq\nu$ THEN
+      $\mu\leftarrow\mu-\Bigl\lfloor\frac{\mu}{\nu}\Bigr\rfloor\nu$
+    ELSE
+      $\nu\leftarrow\nu-\Bigl\lfloor\frac{\nu}{\mu}\Bigr\rfloor\mu$
+  END
+  $\ggT(\mu,\nu)\leftarrow\max\{\nu,\mu\}$
+END
+\end{lstlisting}
+\subsubsection{Lemma}\ssslbl
+Seien $\mu,\nu\in\mathbb N$. Dann findet der euklidische Algorithmus den $\ggT(\mu,\nu)$ in polynomieller Zeit. Genauer: höchstens $\left\lfloor\log(\mu\cdot\nu)\right\rfloor+1$ Iterationen, konstant viele Operationen pro Iteration auf Zahlen der Größe $O\left(\max\bigl\{\log\mu,\log\nu\bigr\}\right)$
+\subsubsection*{Beweis}
+Übung
+\subsubsection{Korollar}\ssslbl
+Aus gegebener Darstellung $(\eta,\mu)$ einer rationalen Zahl $\rho$ kann ihre teilerfremde Darstelleung in polynomieller Zeit berechnet werden.
+\subsubsection*{Beweis}
+$\nu:=\vert\eta\vert$, $\kappa:=\ggT(\mu,\nu)$. Dann $\left(\frac{\eta}2,\frac{\mu}2\right)$ teilerfremde Darstellung, \textit{(\ref{6.1.10})}: $\kappa$ in polynomieller Zeit berechenbar. Dann nach 2 Divisionen.\\[2ex]
+Jetzt: Lösen linearer Gleichungssysteme in polynomieller Zeit\\[1ex]
+Gauß-Elimination polynomiell viele Schritte, Frage: Bleiben Zwischenergebnisse klein, dh. ihre binäre Größe polynomiell in $\size(A)+\size(b)$ beschränkt.
 \printindex
 \end{document}
