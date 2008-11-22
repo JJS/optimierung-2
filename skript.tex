@@ -538,7 +538,7 @@ Ferner $Y=\{y_1,\dots,y_k\}$ zu $(V,U)\cup E$ disjunkte Menge der Kardinalität $
 \begin{align*}
 K&=\left\{\{v,w\}\::\:v,w\in V\setminus U\right\}\cap E\\
 &\cup\bigcup_{\overset{i,j=1}{i\neq j}}^k\left\{\{y_i,y_j\}\::\:\exists(u_i\in U_i\:\wedge\:u_j\in U_j)\::\:\{u_i,u_j\}\in E\right\}\\
-&\cup\bigcup_{i=1}^k\left\{\{y_i,v\}\::\:v\in V\setminus U\:\wedge\:\exists u_i\in U_i\::\:\{u_i,v\}\in E\right\}d
+&\cup\bigcup_{i=1}^k\left\{\{y_i,v\}\::\:v\in V\setminus U\:\wedge\:\exists u_i\in U_i\::\:\{u_i,v\}\in E\right\}
 \end{align*}
 Dann heißt $((V\setminus U)\cup Y,K)$ \textit{Kontraktion}\index{Kontraktion}\index{Kontraktion} von $S$ in $G$. Bezeichnung $G/S$
 \subsubsection{Lemma}\ssslbl
@@ -756,7 +756,9 @@ Weil $W$ Augmentationsweg ist, $z_4$ vorher erreicht war ($W_1$) und weil $K$ ge
 \subsubsection{Lemma}\ssslbl
 $G=(V,E)$ bipartit, $v_1=w_1=v\in V$, $p,q\in\mathbb N$, $v_p=w_q=w\in V$, $W_1=(v_1,\dots,v_p)$, $W_2=(w_1,\dots,w_q)$ zwei $v-w$-Wege. Sind $u\in V$, $i\in[p]=:\{1,\dots,p\}$, $j\in[q]$, $u=v_i=w_j$, so gilt $i\equiv j\mod2$.
 \subsubsection*{Widerspruchsbeweis}
-$W_1$, $W_2$ Gegenbeispiele minimaler symmetrischer Differenz der Kantenmengen. Insbesondere: $W_1$, $W_2$ kantendisjunkt. Sei $S$ der aus Knoten und Kanten von $W_1$, $W_2$ gebildete Teilgraph von $G$. $S$ enthält Kreis $K$. $W_1(K)$, $W_2(K)$ Kanten von $W_1$, $W_2$ in $K$. $G$ bipartit, dh. $K$ gerader Länge, dh. kantenzahl von $W_1(K)$, $W_2(K)$ gleiche Parität. Sei $W_1'$ der aus $W_1$ durch Ersetzung von $W_1(K)$ durch $W_2(K)$ entstandene Weg. Dann $W_1'$, $W_2$ immer noch Gegebeispiel, aber symmetrische Differenz kleiner $\Rightarrow$ Widerspruch
+$W_1$, $W_2$ Gegenbeispiele minimaler symmetrischer Differenz der Kantenmengen. Insbesondere: $W_1$, $W_2$ kantendisjunkt. Sei $S$ der aus Knoten und Kanten von $W_1$, $W_2$ gebildete Teilgraph von $G$. $S$ enthält Kreis $K$.\\[1ex]
+$W_1(K)$, $W_2(K)$ Kanten von $W_1$, $W_2$ in $K$. $G$ bipartit, dh. $K$ gerader Länge, dh. Kantenzahl von $W_1(K)$, $W_2(K)$ gleiche Parität.\\[1ex]
+Sei $W_1'$ der aus $W_1$ durch Ersetzung von $W_1(K)$ durch $W_2(K)$ entstandene Weg. Dann $W_1'$, $W_2$ immer noch Gegebeispiel, aber symmetrische Differenz kleiner $\Rightarrow$ Widerspruch
 \subsubsection{Definition}\ssslbl
 $G=(V,E)$ bipartit, Partition $(Y,Z)$ von $V$, $y\in Y$, Matching $M$, das $y$ nicht überdeckt. Sei $T=(V_T,E_T)$ maximaler Baum in $G$ mit $y\in V_T$, so dass jeder $y$-Weg in $T$ alternierend ist. Dann heißt $T$ \textit{Augmentationsbaum}\index{Augmentationsbaum}\index{Baum!Augmentations-} zu $y$ in $G$.
 \subsubsection{Korollar}\ssslbl
@@ -1154,6 +1156,7 @@ $U=(E,\mathcal I)$ Unabhängigkeitssystem, $(E,\mathcal B)$ zugehöriges Basissyst
 \subsubsection*{Beweis}
 Für $I\in\mathcal I$ gilt $\varphi(I)=\beta\vert I\vert-\Psi(I)$. Wegen $\beta\geq0$ folgt
 \[\min_{B\in\mathcal B}\varphi(B)=\min_{B\in\mathcal B}\bigl\{\beta\vert B\vert-\Psi(B)\bigr\}\leq\beta r_+(U)-\max_{B\in\mathcal B}\Psi(B)\]
+Analog für $\min_{B\in\mathcal B}\varphi(B)$
 \subsubsection{Prozedur: Algorithmus von Kruskal\index{Algorithmus!Kruskal-}}\ssslbl
 \begin{lstlisting}
 INPUT Zusammenhängender gewichteter Graph $G=(V,E,\Phi)$ mit $\vert E\vert=m$
@@ -1359,7 +1362,7 @@ Vergleiche ($\leq$, $\geq$, $=$, $\neq$) \textit{elementare Vergleichsoperatione
 Zuweisungen ($\leftarrow$) von Werten an Variable.\\[1ex]
 elementare arithmetische / Vergleichsoperationen bzw. Zuweisungen: \textit{elementare Operationen}\index{Operation!elementare}\\[1ex]
 Befehle $\leftarrow$, \texttt{WHILE DO END}, \texttt{HALT} heißen \textit{elementare Programmbefehle}\index{Programmbefehl!elementar}
-\subsubsection{Definition (informell}\ssslbl 
+\subsubsection{Definition (informell)}\ssslbl 
 \textit{Algorithmus}\index{Algorithmus} $\mathcal A$ besteht aus Folge (zu Beginn mit 0 initialisierten) Variablen und \textit{endlichen Sequenz}\index{Sequenz!endliche} elementarer Programmbefehle. Diese machen: Zuwesung von Symbolen des Inputs an Variable, elementare arithmetische Berechnungen, dh. Zuweisung von Ergebnissen arithmetischer Operationen zwischen Variablen an Variable, Zuweisung von Variablenwerten an Output.\\[1ex]
 Algorithmus $\mathcal A$ löst Program $\Pi$, wenn $\mathcal A$ für jeden Input noch nach endlich vielen elementaren Operationen einen zugehörigen korrekten Output $\mathcal O$ bestimmt oder entscheidet, dass kein solcher existiert.
 \subsubsection*{Frage}
