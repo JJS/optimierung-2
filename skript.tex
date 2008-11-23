@@ -11,6 +11,7 @@
 \usepackage{enumerate}
 \usepackage{makeidx}
 \usepackage{listings}
+\usepackage{mathpazo}
 \usepackage[colorlinks=true,linkcolor=blue]{hyperref}
 
 \makeindex
@@ -1261,25 +1262,32 @@ Hier: minimales perfektes Matching\\[1ex]
 \end{center}
 Fehler hängt von $\alpha$ ab: $\frac{\alpha+1}4\rightarrow\infty$ ($\alpha\rightarrow\infty$)
 \subsubsection{Bezeichnung}\ssslbl
-Für $j=1,\dots,k$ seien $U_j=(E,\mathcal I_j)$ Unabhängkeitssysteme auf derselben Grundmenge $E$. Ferner
+Für $j=1,\dots,k$ seien $U_j=(E,\mathcal I_j)$ Unabhängigkeitssysteme auf derselben Grundmenge $E$. Ferner
 \[\mathcal I:=\bigcap_{j=1}^k\mathcal I_j\:,\qquad U:=(E,\mathcal I)\]
 Dann heißt $U$ \textit{Durchschnitt}\index{Durchschnitt} von $U_1,\dots,U_k$
 \subsubsection{Bemerkung}\ssslbl
 Durchschnitt von Unabhängigkeitssystemen ist Unabhängigkeitssystem.
+\subsubsection*{Beweis}
+Sei $I\in\mathcal I$, $J\subset I$.
+\begin{align*}
+I\in\mathcal I\:&\Rightarrow\:I\in\mathcal I_j&j=1,\dots,k\\
+&\Rightarrow\:J\in\mathcal I_j&j=1,\dots,k\\
+&\Rightarrow\:J\in\bigcap_{j=1}^k\mathcal I_j=\mathcal I
+\end{align*}
 \subsubsection{Lemma}\ssslbl
-Sei $U=(E,\mathcal I)$ Unabhängigkeitssystem. Dann gibt es $k\in\mathbb N$ und Matroide $M_1,\dots,M-k$ mit
-\[U=\bigcap_{j=1}kM_j\]
+Sei $U=(E,\mathcal I)$ Unabhängigkeitssystem. Dann gibt es $k\in\mathbb N$ und Matroide $M_1,\dots,M_k$ mit
+\[U=\bigcap_{j=1}^kM_j\]
 \subsubsection*{Beiweis}
 Sei $\mathcal K$ Menge der Kreise in $U$, $K\in\mathcal K$, $\mathcal I(K)=\{I\subset E\::\:K\not\subset I\}$. es gilt $\mathcal I\subset\mathcal I(K)$.\\[1ex]
 Ferner $\bigl(E,\mathcal I(K)\bigr)$ Unabhängigkeitssystem. Zeige: Matroid.\hfill\textbf{18.10.2008}\\[1ex]
-Seien $I,J\in\mathcal I(K)$, $\vert I\vert+1=\vert J\vert$. Nach Definition $K\not\subset I$, $K\not\subset J$\\[1ex]
+Seien $I,J\in\mathcal I(K)$, $\vert I\vert+1=\vert J\vert$. Nach Definition $K\not\subset I$, $K\not\subset J$.\\[1ex]
 Annahme: Für jedes $e\in J\setminus I$ gilt $K\subset I\cup\{e\}$. Dann $\vert K\setminus I\vert=1$, $\vert J\setminus I\vert=1$, also $I\subset J$ und $K\subset J$ Widerspruch zu $J\in\mathcal I(K)$.\\
 Sei nun $S\subset E$ mit $S\not\in\mathcal I$ und $K\in\mathcal K$ mit $K\subset S$. Dann $S\not\in\mathcal I(K)$. Also
 \[\mathcal I=\bigcap_{K\in\mathcal K}\mathcal I(K)\]
 \subsubsection{Definition}\ssslbl
 $G=(V,E)$ Graph, $(V_1,\dots,V_k)$ Partition von $V$ und
 \[j\in[k]\:\wedge\:e\in E\:\Rightarrow\:\vert e\cap V_j\vert\leq1\]
-Dann heißt $G$ \textit{$k$-partit}\index{$k$-partit}
+Dann heißt $G$ \textit{$k$-partit}\index{$k$-partit}.
 \subsubsection{Beispiel}\ssslbl
 $G=(V,E)$, $(V_1,\dots,V_k)$ Partiton von $V$, $\mathcal I$ Menge aller Matchings in $G$, $U=(E,\mathcal I)$. Nach \textit{(\ref{5.2.38})} ist $U$ Durchschnitt von Matroiden. Tatsächlich ist $U$ Durchschnitt von $k$ \textit{Partitionsmatroiden}\index{Matroid!Partitions-}.\\[1ex]
 Sei für $j\in[k]$
@@ -1326,7 +1334,7 @@ Seien $k\in\mathbb N$, $M_1,\dots,M_k$ Matroide, $U=(E,\mathcal I)$ ihr Durchsch
 \subsubsection*{Beweis}
 Sei $K\subset I\cup\{e\}$ Kreis in $U$. Dann gibt es $j_0\in\{1,\dots,k\}$, so dass $K$ in $M_{j_0}$ abhängig ist. Nach \textit{(\ref{5.2.15})} enthält $I\cup\{e\}$ genau einen Kreis in $M_{j_0}$. Also kann $I\cup\{e\}$ höchstens $k$ Kreise in $U$ enthalten.
 \subsubsection{Lemma}\ssslbl
-Durch $(M_1,\dots,M_k,\Phi)$ sei Maximierungsaufgabe über Durchschnitt $U=(E,\mathcal I)$ von $k$ matroiden spezifiziert. Dann gilt
+Durch $(M_1,\dots,M_k,\Phi)$ sei Maximierungsaufgabe über Durchschnitt $U=(E,\mathcal I)$ von $k$ Matroiden spezifiziert. Dann gilt
 \[k\rho(U)\geq1\]
 \subsubsection*{Beweis}
 Seien $A^*\subset E$, $I,J$ Basen in $U_{A^*}$ mit $r_-(U_{A^*})=\vert I\vert$, $r_+(U_{A^*})=\vert J\vert$, $r_-(U_{A^*})=\rho(U)r_+(U_{A^+})$.\\[1ex]
