@@ -17,6 +17,8 @@
 \makeindex
 \newcommand{\size}{\text{size}}
 \newcommand{\ggT}{\text{ggT}}
+\newcommand{\rang}{\text{rang}}
+\newcommand{\sgn}{\text{sgn}}
 
 \usetikzlibrary{arrows,shapes,calc,backgrounds,fit}
 \tikzset{
@@ -1456,6 +1458,118 @@ Aus gegebener Darstellung $(\eta,\mu)$ einer rationalen Zahl $\rho$ kann ihre te
 \subsubsection*{Beweis}
 $\nu:=\vert\eta\vert$, $\kappa:=\ggT(\mu,\nu)$. Dann $\left(\frac{\eta}2,\frac{\mu}2\right)$ teilerfremde Darstellung, \textit{(\ref{6.1.10})}: $\kappa$ in polynomieller Zeit berechenbar. Dann nach 2 Divisionen.\\[2ex]
 Jetzt: Lösen linearer Gleichungssysteme in polynomieller Zeit\\[1ex]
-Gauß-Elimination polynomiell viele Schritte, Frage: Bleiben Zwischenergebnisse klein, dh. ihre binäre Größe polynomiell in $\size(A)+\size(b)$ beschränkt.
+Gauß-Elimination polynomiell viele Schritte, Frage: Bleiben Zwischenergebnisse klein, dh. ihre binäre Größe polynomiell in $\size(A)+\size(b)$ beschränkt.\hfill{25.11.2008}\\[1ex]
+$Ax=b$, $A\in\mathbb Q^{n\times n}$, $\rang(A)=n$, $x^*=A^{-1}b$, $A=(a_1,\dots,a_n)$\\
+Cramersche Regel:
+\[\xi_i^*=\frac{\det(a_1,\dots,a_{i-1},b,a_{i+1,},\dots,a_n)}{\det(A)}\]
+\subsubsection{Lemma}\ssslbl
+Sei $A\in\mathbb Q^{n\times n}$. Dann gibt es Darstellung von $\det(A)$ mit
+\[\size\bigl(\det(A)\bigr)\leq2\size(A)\]
+\subsubsection*{Beweis}
+Sei $(\eta,\mu)$ teilerfremde Darstellung von $\det(A)$. Für $i,j=1,\dots,n$ seien $\eta_{i,j}\in\mathbb Z$, $\mu_{i,j}\in\mathbb N$, $\alpha_{i,j}=\frac{\eta_{i,j}}{\mu_{i,j}}$, $A=(\alpha_{i,j})_{i,j\in[n]}$.\\
+Es gilt: $\mu\leq\prod_{i,j=1}^n\mu_{i,j}$
+\begin{align*}
+\left\vert\det A\right\vert&=\left\vert\sum_{\sigma\in S_n}\sgn(\sigma)\prod_{i=1}^n\alpha_{i,\sigma(i)}\right\vert&S_n\text{ Permutationen}\\
+&\leq\sum_{\sigma\in S_n}\prod_{i=1}^n\left\vert\alpha_{i,\sigma(i)}\right\vert\\
+&\leq\prod_{i,j=1}^n\bigl(\vert\eta_{i,j}\vert+1\bigr)
+\end{align*}
+Also
+\[\vert\eta\vert=\mu\bigl\vert\det(A)\bigr\vert\leq\prod_{i,j=1}^n\Bigl(\bigl(\vert\eta_{i,j}\vert+1\bigr)\mu_{i,j}\Bigr)\]
+Es folgt:
+\begin{align*}
+\size\bigl(\det(A)\bigr)&=\size(\eta)+\size(\mu)\\
+&\leq\sum_{i,j=1}^n\size\bigl(\vert\eta_{i,j}\vert+1\bigr)+2\sum_{i,j=1}^n\size(\mu_{i,j})\\
+&\leq2\size(A)
+\end{align*}
+Ist Gauß-Elimination polynomiell? Vollständige Gauß-Elimination:
+\[A\rightarrow\left(\begin{array}{cc}D&C\\0&0\end{array}\right)\]
+$D$ Diagonalmatrix, voller Rang.
+\[\underset{\rightarrow\text{Lösen eines GL-Systems}}{A=(A',b)}\:,\qquad\underset{\text{Inverse berechnen}}{A=(A',E_m)}\]
+\subsubsection{Satz}\ssslbl
+Angewandt auf
+\[A=\left(\alpha_{i,j}\right)_{\substack{i\in[m]\\j\in[n]}}\in\mathbb Z^{m\times n}\]
+benötigt Gauß-Elimination $O(m^2n)$ elementare Operationen. Die teilerfremden Darstellungen der auftretenden rationalen Zahlen haben Kodierungslänge $O\bigl(\size(A)\bigr)$.
+\subsubsection*{Beweis}
+Nach höchstens $m-1$ Schritten ist Matrix $\left(\begin{array}{cc}B'&C\\0&0\end{array}\right)$ erreicht, wobei $B'$ eine $\rang(A)\times\rang(A)$ obere Dreiecksmatrix ist. Nach weiteren höchstens $m-1$ Schritten erhalten wir gesuchte Gestalt.\\[1ex]
+Pro Schritt ggf 2 Permutationen. Aktualisierung (Nummerierung angepasst):
+\[\alpha_{i,j}\leftarrow\alpha_{i,j}\frac{\alpha_{i,j}\alpha_{k,j}}{\alpha_{k,k}}\]
+Insgesamt $O(m^2n)$ Operationen.\\[1ex]
+Abschätzung binäre Größe der Koeffizienten (Vorwärtselimination, Rückwärtseliminiation analog)\\[1ex]
+Sei $A_k$ Matrix nach $k$-tem Vorwärtsschritt
+\[A_k=\left(\begin{array}{cc}B_k&C_k\\0&M_k\end{array}\right)\]
+mit
+\[B_k\in\mathbb Q^{k\times k}\:,\qquad C_k=\left(\gamma_{i,j}^{(k)}\right)_{\substack{i=1,\dots,k\\j=k+1,\dots,n}}\in\mathbb Q^{k\times(n-k)}\:,\qquad M_k\left(\mu_{i,j}^{(k)}\right)_{\substack{i=k+1,\dots,m\\j=k+1,\dots,n}}\in\mathbb Q^{(m-k)\times(n-k)}\]
+Seien $i_0\in\{k+1,\dots,m\}$, $j_0\in\{k+1,\dots,n\}$, $c_k\left(\gamma_{1,j_0},\dots,\gamma_{k,j_0}\right)^T$\\[1ex]
+Es gilt
+\[\mu_{i_0,j_0}^{(k)}=\frac{\det\left(\begin{array}{cc}B_k&C_k\\0&\mu_{i_0,j_0}^{(k)}\end{array}\right)}{\det B_k}\]
+Da Determinante unter elementaren Zeilenoperationen invariant bleiben, gilt
+\[\mu_{i_0,j_0}^{(k)}=\frac{\det(\alpha_{i,j})_{\substack{i\in[k]\cup\{i_0\}\\j\in[k]\cup\{j_0\}}}}{\det(\alpha_{i,j})_{i,j\in[k]}}\]
+Nach \textit{(\ref{6.1.12})} folgt für teilerfremde Darstellungen:
+\[\size\left(\mu_{i_0,j_0}^{(k)}\right)\leq4\size(A)\]
+\subsubsection{Korollar}\ssslbl
+Die folgenden Probleme lassen sich in polynomieller Zeit lösen:
+\begin{enumerate}[(a)]
+\item Gegeben: $A=(\alpha_{i,j})_{\substack{i\in[m]\\j\in[n]}}\in\mathbb Q^{m\times n}$, $b\in\mathbb Q^m$; finde eine Lösung $x^*$ von $Ax=b$ oder entscheide, dass die Gleichung unlösbar ist.
+\item Gegeben: $A\in\mathbb Q^{m\times n}$, bestimme $\rang(A)$
+\item Gegeben: $v_1,\dots,v_k\in\mathbb Q^n$, entscheide, ob $v_1,\dots,v_k$ linerar unabhängig sind.
+\item Gegeben: $A\in\mathbb Q^{m\times n}$, bestimme Basis von $Ax=0$.
+\item Gegeben: $A\in\mathbb Q^{m\times n}$, bestimme $\det(A)$.
+\item Gegeben: $A\in\mathbb Q^{n\times n}$, bestimme $A^{-1}$ oder entscheide, dass $A$ singulär ist.
+\end{enumerate}
+\subsubsection*{Beweis}
+$\checkmark$
+\subsubsection{Bemerkung}\ssslbl
+Sei $p$ Primzahl. der Gauß-Algorithmus über $\mathbb Z_p$ läuft in polynomieller Zeit.
+\subsubsection*{Beweis}
+Abschätzung elementarer Operationen analog. Kodierungslängen konstant (Repräsentantensystemen $\{0,\dots,p-1\}$)\\[1ex]
+Korollar gilt analog.
+\subsubsection*{Die Tropfrinnen\index{Tropfrinnen!türkische} sind tückisch}
+\subsubsection{Satz}\ssslbl
+Am Ende der Breitensuche mit Markierungsregel $\mu(v)\leftarrow\mu(u)+1$ angewendet auf (Di-)Graphen $G=(V,e)$ mit Startknoten $s$ gibt die Markierung $\mu(v)$ für jeden Knoten $v\in V$ die Länge eines $s-v$-Weges minimaler Kantenzahl in $G$ an (wobei $\mu(v)=\infty$ bedeutet, dass kein $s-v$-Weg existiert).
+\subsubsection{Bezeichnung}\ssslbl
+Das Problem:\\[1ex]
+Gegeben: $n\in\mathbb N$, $a\in\mathbb N^n$, $\beta\in\mathbb N$, bestimme $x\in\mathbb N_0^n$ mit $a^Tx=\beta$ oder entscheide, dass es kein solches gibt\\[1ex]
+heißt \textit{Intervallpflasterung}\index{Intervallpflasterung} (auch \textit{integer knapsack})
+\[\left[\begin{aligned}a^Tx&=\beta\\x&\geq0\\x&\in\mathbb Z^n\end{aligned}\right]\quad\left[\begin{aligned}a=\left(\begin{array}{c}\alpha_1\\\vdots\\\alpha_n\end{array}\right)\:,\:a^Tx=\sum_{i=1}^n\alpha_i\xi_i=\beta\:,\:\xi_i\in\mathbb N_0\end{aligned}\right]\]
+\subsubsection{Beispiel}\ssslbl
+$n=3$, $a=(3,5,7)^T$, $\beta=10$, Lösung: $x_1=\left(\begin{array}{c}0\\2\\0\end{array}\right)$, $x_2=\left(\begin{array}{c}1\\0\\1\end{array}\right)$.\\[1ex]
+Konstruiere Digraph $V:=\{0,1,\dots,10\}$, $E=\{(0,3),(1,4),\dots,(2,9),(3,10)\}$\\
+\begin{center}
+\begin{tikzpicture}
+\foreach \i in {0,...,10}
+  \node[vertex] (v\i) at (\i,0) {\i};
+\foreach \i in {1,...,6} {
+  \pgfmathparse{\i+3}
+  \pgfmathdectobase{\pgfmathresult}{\pgfmathresult}{16}
+  \pgfmathbasetodec{\pgfmathresult}{\pgfmathresult}{16}
+  \path[arrow,bend left] (v\i) to (v\pgfmathresult);
+}
+\foreach \i in {1,...,4} {
+  \pgfmathparse{\i+5}
+  \pgfmathdectobase{\pgfmathresult}{\pgfmathresult}{16}
+  \pgfmathbasetodec{\pgfmathresult}{\pgfmathresult}{16}
+  \path[arrow,bend right] (v\i) to (v\pgfmathresult);
+}
+\foreach \i in {1,...,2} {
+  \pgfmathparse{\i+7}
+  \pgfmathdectobase{\pgfmathresult}{\pgfmathresult}{16}
+  \pgfmathbasetodec{\pgfmathresult}{\pgfmathresult}{16}
+  \path[arrow,bend right=45] (v\i) to (v\pgfmathresult);
+}
+
+\path[arrow,bend right,very thick,orange] (v0) to (v5);
+\path[arrow,bend right,very thick,orange] (v5) to (v10);
+
+\path[arrow,bend left, very thick,red] (v0) to (v3);
+\path[arrow,bend right=45,very thick,red] (v3) to (v10);
+
+\path[arrow,bend right=45,very thick, blue] (v0) to (v7);
+\path[arrow,bend left,very thick, blue] (v7) to (v10);
+\end{tikzpicture}\\
+\emph{Lösung für 0-10-Weg: \textcolor{orange}{$x_1$}, \textcolor{red}{$x_2$}, \textcolor{blue}{$x_2$}}
+\end{center}
+\subsubsection{Satz}\ssslbl
+Es gibt einen Algorithmus für Intervallpflasterung, dessen Laufzeit linear in der Inputgröße und in $\beta$ ist.\\[1ex]
+Problem: $\beta\sim2^{\size(\beta)}$ Laufzeit exponentiell in $\size(\mathcal I)$.
 \printindex
 \end{document}
