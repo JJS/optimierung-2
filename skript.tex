@@ -954,7 +954,7 @@ $G=(V,E)$, $(E,\mathcal F)$ zugehöriges vektorielles Matroid über $\mathbb Z_2$,
 $(E,\mathcal F)$ wie oben: \textit{graphisches Matroid}\index{Matroid!graphisches}.
 \subsubsection{Definition}\ssslbl
 $U=(E,\mathcal I)$ Unabhängigkeitssystem. Jede (inklusions-)maximale unabhängige Menge aus $\mathcal I$ heißt \textit{Basis}\index{Basis}.\\
-Jede (inklusions-)minimale abhängige Mengen heißen \textit{Kreis}\index{Kreis}.
+Jede (inklusions-)minimale abhängige Menge heißt \textit{Kreis}\index{Kreis}.
 \begin{align*}
 r_+(U)&:=\max\{\vert B\vert\::\:B\text{ Basis}\}\\
 r_-(U)&:=\min\{\vert B\vert\::\:B\text{ Basis}\}
@@ -964,7 +964,7 @@ $r(U):=r_+(U)=r_-(U)$ \textit{Rang}\index{Rang}.
 \subsubsection{Lemma}\ssslbl
 $U=(E,\mathcal I)$ Unabhängigkeitssystem. $U$ Matroid genau dann wenn für jedes $A\subset E$ und $U_A=(A,\mathcal I_A)$ gilt
 \[r_+(U_A)=r_-(U_A)\]
-Insbesondere haben alle Basen haben gleiche Kardinalität.
+Insbesondere haben alle Basen gleiche Kardinalität.
 \subsubsection*{Beweis}
 \begin{itemize}
 \item[$\Rightarrow$] folgt aus Austauschbedingung
@@ -1570,6 +1570,88 @@ Konstruiere Digraph $V:=\{0,1,\dots,10\}$, $E=\{(0,3),(1,4),\dots,(2,9),(3,10)\}
 \end{center}
 \subsubsection{Satz}\ssslbl
 Es gibt einen Algorithmus für Intervallpflasterung, dessen Laufzeit linear in der Inputgröße und in $\beta$ ist.\\[1ex]
-Problem: $\beta\sim2^{\size(\beta)}$ Laufzeit exponentiell in $\size(\mathcal I)$.
+Problem: $\beta\sim2^{\size(\beta)}$ Laufzeit exponentiell in $\size(\mathcal I)$.\hfill\textbf{28.11.2008}
+\subsubsection*{Beweis}
+$\mathcal I=(n,a,\beta)$ Aufgabe von Intervallpflasterung., $a=(\alpha_1,\dots,\alpha_n)^T$. Definiere $G=(V,E)$ durch $V=\{0,\dots\beta\}$, $E=\bigl\{(i,j)\::\:i,j\in V\:,\:j-i\in\{\alpha_1,\dots,\alpha_n\}\bigr\}$\\[1ex]
+Für $e=(i,j)\in E$ sei $\lambda(e)=j-i$, $\Lambda_i:=\bigl\{e\in E\::\:\lambda(e)=\alpha_i\bigr\}$\\[1ex]
+Weg $W=(e_1,\dots,e_p)$ mit Anfangsknoten 0 ist genau dann $0-\beta$-Weg, wenn
+\[\sum_{i=1}^\lambda(e_i)=\beta\]
+Setze
+\[\xi_i=\bigl\vert\{e_1,\dots,e_p\}\cap\Lambda_i\}\bigr\vert\qquad(i\in[n]\]
+$x_W=(\xi_1,\dots,x_n)^T$. Dann $x_W$ ist Lösung. Umkehrung gilt ebenfalls. Intervallpflasterung wird zurückgeführt auf Finden eines $0-\beta$-Weges in $G$. Benutze Breitensuche.\\[1ex]
+Algorithmus: $O\bigl(\size(\mathcal I)2^{\size(\mathcal I)}\bigr)$ nicht polynomiell
+\subsubsection{Definition}\ssslbl
+Sei $\mathcal A$ Algorithmus, der $\mathcal I=(p,\rho_1,\dots,\rho_p)$ als Input akzeptiert mit $p\in\mathbb N$, $\rho_1,\dots,\rho_n\in\mathbb Z$. Sei $\kappa(\mathcal I)=\max\bigl\{\vert\rho_1\vert,\dots\vert\rho_n\vert\bigr\}$. Existiert Polynom $\pi:\mathbb N\times\mathbb N\rightarrow\mathbb N$, so dass $\pi\bigl(\size(\mathcal I),\kappa(\mathcal I)\bigr)$ eine obere Schranke für Produkt der Anzahl der elementaren Operationen die $\mathcal A$ für Input $\mathcal I$ durchführt, und der Größe der beteiligten Zahlen ist, so heißt $\mathcal A$ \textit{pseudopolynomiell}\index{polynomiell!pseudo-}
+\subsubsection{Korollar}\ssslbl
+Intervallpflasterung ist in pseudopolynomieller Zeit lösbar.
+\subsubsection*{Frage}
+Gibt es polynomiellen Algorithmus für Intervallpflasterung?\\[1ex]
+bis heute unbekannt (P+NP). Ausweg: Vergleich mit anderen Problemen modulo polynomieller Oerpationen.
+\subsubsection{Definition}\ssslbl
+Seien $\Pi_1$, $\Pi_2$ Probleme. Eine Funktion $\omega$, die jeder Aufgabe $\mathcal I$ von $\Pi_2$ eine Lösung $\mathcal O$ zuordnet, heißt \textit{Orakel}\index{Orakel} für $\Pi_2$, wenn es Polyom $\pi:\mathbb N_0\rightarrow\mathbb N_0$ gibt, so dass
+\[\size(\mathcal O)\leq\pi\bigl(\size(\mathcal I)\bigr)\]
+gilt.\\[1ex]
+Man sagt, dass Algorithmus $\mathcal A$ für $\Pi_1$ ein \textit{Orakel} $\omega$ für $\Pi_2$ \textit{aufruft}\index{Orakel!aufrufen}, wenn $\mathcal A$ einen Input $\mathcal I$ von $\Pi_2$ berechnet und ihm dann das Ergebnis $\omega(\mathcal I)$ zur Verfügung stellt.\\[1ex]
+$\Pi_1$ heißt \textit{polynomiell reduzierbar}\index{polynomiell!reduzierbar}\index{reduzierbar!polynomiell} auf $\Pi_2$, wenn es Algorithmus $\mathcal A$ gibt, der mittels polynomiell vieler elementarer Operationen und Aufrufen eines Orakels $\omega$ für $\Pi_2$ auf Zahlen polynomieller Größe löst, $\mathcal A$ heißt dann \textit{polynomielle Reduktion}\index{Reduktion!polynomielle} von $\Pi_1$ auf $\Pi_2$.\\[1ex]
+$\Pi_1$, $\Pi_2$ heißen \textit{polynomiell äquivalent}\index{äquivalent!polynomiell}, wenn $\Pi_1$ polynomiell auf $\Pi_2$ und $\Pi_2$ polynomiell auf $\Pi_1$ reduzierbar ist.
+\subsubsection{Satz}\ssslbl
+Die folgenden Klassen linearer Optimierungsprobleme auf rationalen Inputs lassen sich polynomiell aufeinander reduzieren:
+\begin{center}
+allgemeines LP, LP in Standardform, LP in kanonischer Form, LP in natürlicher Form
+\end{center}
+\subsubsection*{Ansatz}
+Problem schwierig, wenn sich viele andere polynomiell darauf reduzieren lassen. Jetzt präzisiere viele: Entscheidungsproblem
+\subsubsection{Bezeichnung}\ssslbl
+Das Problem
+\begin{center}
+Gegeben Graph $G$; ist $G$ hamiltonsch
+\end{center}
+wird als \textit{Hamiltonkreis}\index{Hamiltonkreis} bezeichnet.
+Output: ja / nein
+\subsubsection{Bezeichnung (informell)}\ssslbl
+Sei $\Pi$ Problem, dess Output nur aus \textit{ja} oder \textit{nein} (bzw 1,0) besteht. Dann heißt $\Pi$ \textit{Entscheidungsproblem}\index{Entscheidungsproblem}.
+\subsubsection*{Frage}
+Wie allgemein sind Entscheidungsprobleme?
+\subsubsection{Bemerkung}\ssslbl
+Das Problem
+\begin{center}
+Gegeben Graph $G$; bestimme Hamiltonkreis oder entscheide dass keiner existiert
+\end{center}
+ist polynomiell reduzierbar auf Hamiltonkreis.
+\subsubsection*{Beweis}
+Sei $\mathcal A$ Algorithmus für Hamiltonkreis. Sei $G=(V,E)$, $E=\{e_1,\dots,e_m\}$. Rufe $\mathcal A$ für $G$ auf.\\[1ex]
+Antwort \textit{nein}: fertig\\[1ex]
+Sei Antwort \textit{ja}. Wende $\mathcal A$ auf $(V,E\setminus\{e_m\})$. Antwort \textit{nein}: Jeder Hamiltonkreis enthält $e_m$. Setze $E_m=E$. Antwort \textit{ja}: setze $E_m=E\setminus\{e_m\}$\\
+Fahre sukzessive fort: $H:=(V,E_1)$ ist gesuchter Hamiltonkreis. $\mathcal A$ wurde höchstens $m+1$ mal aufgerufen.\\[2ex]
+Geht das auch für Entscheidungsversion von Intervallpflasterung?
+\begin{center}
+Gegeben $n\in\mathbb N$, $\alpha_1,\dots,\alpha_n\in\mathbb N$, $\beta\in\mathbb N$, existiert $\xi_1,\dots,\xi_n\in\mathbb N_0$ mit $\sum_{i=1}^n\alpha_i\xi_i=\beta$
+\end{center}
+Idee: Wende $\mathcal A$ für Entscheidungsproblem auf reduzierte Instanzen $(n,\alpha_1,\dots,\alpha_n,\beta-\eta\cdot\alpha_n)$ ($\eta\in\mathbb N$) an. Problem: Anzahl Aufrufe für $i$ ist $\left\lfloor\frac{\beta}{\alpha_i}\right\rfloor$, dh. neuer Ansatz nicht polynomiell.
+\subsubsection{Bezeichnung}\ssslbl
+Seien $\eta^*\in\mathbb Z$ und $\mathcal O_{\leq}$ (bzw $\mathcal I_{\geq}$ analog) ein Algorithmus mit Output in $\{ja,\:nein\}$, der als Input ganze Zahlen $\tau$ akzeptiert und der genau \textit{ja} ausgibt, wenn $\tau\leq\eta^*$ ist. Dann heißt $\mathcal I_{\leq}$ Orakel für $\eta^*$. Schreibweise:
+\[\mathcal O_{\leq}=ja\text{ bzw }nein\]
+Bsp Intervallpflasterung: $\eta^*=\max\bigl\{\eta\::\:\text{reduzierte Aufgabe lösbar}\bigr\}$
+\subsubsection{Prozedur: Binäre Suche\index{Suche!Binäre}}\ssslbl
+\begin{lstlisting}
+INPUT $\mu,\nu\in\mathbb Z$, $\mu<\nu$, Orakel $\mathcal O_{\leq}$ für ein $\eta^*\in\mathbb Z$ mit $\mu\leq\eta^*\leq\nu$
+OUTPUT $\eta^*$
+BEGIN WHILE $\mu<\nu$ DO
+  $\tau\leftarrow\left\lfloor\frac{\mu+\nu}2\right\rfloor$
+  IF $\mathcal O_{\leq}(\tau)=ja$ THEN
+    $\nu\leftarrow\tau$
+  ELSE
+    $\mu\leftarrow\tau$
+END
+$\eta^*\leftarrow\mu$
+\end{lstlisting}
+\subsubsection{Lemma}\ssslbl
+Laufzeit der binären Suche $O\bigl(\log(\nu-\mu)\bigr)$
+\subsubsection*{Beweis}
+Übung
+\subsubsection{Korollar}\ssslbl
+Sei $\Pi$ ein Evaluationsproblem\index{Evaluationsproblem} (gesucht Optimum der Ziefunktion) mit Eigenschaft, dass stets Unzulässigkeit vorliegt oder Optimum ganzzahlig ist, bekannt jeweils obere / untere Schranke mit Kodierungslänge polynomiell in $\size(\mathcal I)$. Sei $\Gamma$ zugehöriges Entscheideungsproblem. Besitzt $\Gamma$ einen polynomiellen Algorithmus, so auch $\Pi$.
+\subsubsection*{Beweis}
+folgt aus \textit{(\ref{6.1.29})}.
 \printindex
 \end{document}
