@@ -1523,7 +1523,6 @@ Sei $p$ Primzahl. der Gauß-Algorithmus über $\mathbb Z_p$ läuft in polynomieller
 \subsubsection*{Beweis}
 Abschätzung elementarer Operationen analog. Kodierungslängen konstant (Repräsentantensystemen $\{0,\dots,p-1\}$)\\[1ex]
 Korollar gilt analog.
-\subsubsection*{Die Tropfrinnen\index{Tropfrinnen!türkische} sind tückisch}
 \subsubsection{Satz}\ssslbl
 Am Ende der Breitensuche mit Markierungsregel $\mu(v)\leftarrow\mu(u)+1$ angewendet auf (Di-)Graphen $G=(V,e)$ mit Startknoten $s$ gibt die Markierung $\mu(v)$ für jeden Knoten $v\in V$ die Länge eines $s-v$-Weges minimaler Kantenzahl in $G$ an (wobei $\mu(v)=\infty$ bedeutet, dass kein $s-v$-Weg existiert).
 \subsubsection{Bezeichnung}\ssslbl
@@ -1641,7 +1640,7 @@ BEGIN WHILE $\mu<\nu$ DO
   IF $\mathcal O_{\leq}(\tau)=ja$ THEN
     $\nu\leftarrow\tau$
   ELSE
-    $\mu\leftarrow\tau$
+    $\mu\leftarrow\tau+1$
 END
 $\eta^*\leftarrow\mu$
 \end{lstlisting}
@@ -1652,6 +1651,95 @@ Laufzeit der binären Suche $O\bigl(\log(\nu-\mu)\bigr)$
 \subsubsection{Korollar}\ssslbl
 Sei $\Pi$ ein Evaluationsproblem\index{Evaluationsproblem} (gesucht Optimum der Ziefunktion) mit Eigenschaft, dass stets Unzulässigkeit vorliegt oder Optimum ganzzahlig ist, bekannt jeweils obere / untere Schranke mit Kodierungslänge polynomiell in $\size(\mathcal I)$. Sei $\Gamma$ zugehöriges Entscheideungsproblem. Besitzt $\Gamma$ einen polynomiellen Algorithmus, so auch $\Pi$.
 \subsubsection*{Beweis}
-folgt aus \textit{(\ref{6.1.29})}.
+folgt aus \textit{(\ref{6.1.29})}.\hfill\textbf{02.12.2008}
+\subsubsection{Definition}\ssslbl
+Die Klasse $NP$  besteht aus allen Entscheidungsproblemen $\Pi$ mit folgenden Eigenschaften: Es gibt Polynom $\pi$ und polynomiellen Algorithmus $\mathcal A$, der als Input Paare $(\mathcal I,\mathcal Z)$ akzeptiert, bestehend aus Aufgabe $\mathcal I$ von $\Pi$ und einer Sequenz $\mathcal Z$ rationaler Zahlen mit
+\[\size(\mathcal Z)\leq\pi\bigl(\size(\mathcal I)\bigr)\]
+$\mathcal Z$ \textit{Zertifikat}\index{Zertifikat} und einen Wert $\pi(\mathcal I,\mathcal Z)$ berechnet, so dass gilt:
+\begin{enumerate}[(a)]
+\item Ist $\mathcal I$ eine Nein-Instanz von $\Pi$, so gilt $\tau(\mathcal I,\mathcal Z)=0$ für alle solchen Zertifikate
+\item Ist $\mathcal I$ Ja-Instanz von $\Pi$, so existiert ein Zertifikat $\mathcal Z$ mit $\tau(\mathcal I,\mathcal Z)=1$
+\end{enumerate}
+Ein Problem $\Pi$ heißt \textit{$NP$-schwierig}\index{NP!-schwierig}, falls jedes Problem aus $NP$ polynomiell auf $\Pi$ reduzierbar ist. $\Pi$ heißt \textit{$NP$-leicht}\index{NP!-leicht}, falls es Problem $\Pi'$ aus $NP$ gibt, auf das $\Pi$ polynomiell reduzierbar ist. $\Pi$ heißt \textit{$NP$-äquivalent}\index{NP!-äquivalent}, falls $\Pi$ $NP$-leicht und $NP$-schwierig ist.
+\subsubsection{Beispiel}\ssslbl
+Hamiltonkreis: Polynomiell lösbar? Offen\\[1ex]
+Hamiltonkreis $\in NP$. Zertifikat: Kodierung (String) eines Hamiltonkreises:\\[1ex]
+$\mathcal A$: überprüft, ob gegebener String Hamiltonkreis kodiert.
+\subsubsection{Bezeichnung}\ssslbl
+Boolsche Variable v: Werte 'wahr' (1) oder 'falsch' (0); Funktion $\omega:V\rightarrow\{\text{wahr},\text{falsch}\}$ \textit{Wahrheitswertezuweisung}\index{Wahrheitswertezuweisung}, $V$ Menge Boolescher Variablen.\\[1ex]
+Operationen: $\wedge,\vee,\neg$ \textit{elementare Boolesche Operationen}\index{Operation!Boolesche!elementare}, $v$ Boolesche Variable: $v$, $\neg v$ \textit{Literal}\index{Literal}\\[1ex]
+\textit{Boolescher Ausdruck}\index{Ausdruck!Boolescher}: mittels $\wedge,\vee$ Klammerung von Literalen gebildet\\[1ex]
+\textit{Boolescher Ausdruck erfüllbar}\index{Ausdruck!Boolescher!erfüllbarer}: es gibt Wahrheitswertezuweisung, für die Ausdruck wahr wird.\\[1ex]
+Seien $V$ eine endliche Menge Boolescher Variablen, $k\in\mathbb N$, $x_1,\dots,x_k$ Literale (über $V$). Dann heißt $(x_1\vee x_2\vee\dots\vee x_k)$ \textit{Klausel}\index{Klausel} über $V$. Sind $C_1,\dots,C_m$ Klauseln über $V$, so heißt $C_1\wedge C_2\wedge\dots\wedge C_m$ Boolescher Ausdruck in konjunktiver Normalform.
+\subsubsection{Bezeichnung}\ssslbl
+Das Problem \textit{Satisfiability}\index{Satisfiability} oder \textit{Erfüllbarkeit}\index{Erfüllbarkeit} Boolescher Ausdrücke besteht aus folgenden Aufgaben:
+\begin{itemize}
+\item Gegeben: $m,n\in\mathbb N$, $V=\{v_1,\dots,v_n\}$ Boolesche Variablen, $\zeta=\{C_1,\dots,C_m\}$ Klauseln über $V$
+\item Frage: Existiert eine alle Klauseln von $\zeta$ erfüllende Wahrheitswertezuordnung?
+\end{itemize}
+\subsubsection{Satz. Satz von Cook\index{Cook!Satz von}}\ssslbl
+Satisfiability ist $NP$-schwierig.
+\subsubsection{Bezeichung}\ssslbl
+Partition ist das folgende Problem:
+\begin{itemize}
+\item Gegeben: $n\in\mathbb N$, $\alpha_1,\dots,\alpha_n\in\mathbb N$
+\item Frage: Gibt es Partition $(I,J)$ von $[n]$ mit $\sum_{i\in I}\alpha_i=\sum_{j\in J}\alpha_j$
+\end{itemize}
+\subsubsection{Satz}\ssslbl
+Partition ist $NP$-schwierig
+\subsubsection{Bezeichung}\ssslbl
+Das Problem:
+\begin{itemize}
+\item Gegeben: $n,m\in\mathbb N$, $A\in\mathbb Z^{m\times n}$, $b\in\mathbb Z$
+\item Auftrag: $\max\sum_{i=1}^n\xi_i^2$ bezüglich $Ax\leq b$, heißt \textit{NormMax}\index{NormMax}
+\end{itemize}
+ladida
+\subsubsection{Korollar}\ssslbl
+NormMax ist $NP$-schwierig
+\subsubsection*{Beweis}
+Seien $\mathcal I:=(i,\alpha_1,\dots,\alpha_n)$ eine Aufgabe von Partition und $a=(\alpha_1,\dots,\alpha_n)^T$\\[1ex]
+Es gilt:
+\[x\in[-1,1]^n\:\Rightarrow\:\sum_{i=1}^n\xi_i^2\leq n\]
+mit
+\[=\:\Leftrightarrow\:x\in\{-1,1\}^n\]
+Daher ist $\mathcal I$ genau dann Ja-Instanz von Partition, wenn
+\[\max\left\{\sum_{i=1}^n\xi_i^2\::\:a^Tx=0\:\wedge\:-1\leq x\leq1\right\}=n\]
+Mit $A^T=(a,-a,E_n,-E_n)$, $b=(0,\dots,0,1,\dots,1)^T$, $\gamma=n$  ist Existenz von $x$ mit $Ax\leq b$, $\Vert x\Vert^2\geq\gamma$ äquivalent zur Tatsache, dass $\mathcal I$ Ja-Instanz von Partition ist.
+\subsubsection{Satz}\ssslbl
+Intervallpflasterung ist $NP$-schwierig.\\[1ex]
+$\alpha_1,\dots,\alpha_n$, $a=(\alpha_1,\dots,\alpha_n)^T$, $a^tx=\beta$, $x\geq0$, $x\in\mathbb Z^n$ ILP $NP$-schwierig.
+\subsection{Mehrstufige Entscheidungsprozesse: Dynamische Optimierung, kürzeste Wege und weitere Probleme}\sslbl
+\subsubsection{Beispiel}\ssslbl
+Gegeben: Montagestraße, Montagestationen wreden als Knoten $v_1,\dots,v_{11}$ eines Digraphen modelliert. $s=v_1,$, $t=v_{11}$, Kanten geben mögliche Abläufe von Station zu Station an. Fertigung muss alle Stufen durchlaufen. Gesamtmontagen entsprechen $s-t$-Weg
+\begin{center}
+\begin{tikzpicture}
+\tikzstyle{every label}=[red]
+\foreach \n/\i/\j/\k in {{2/4/-2/1}, {3/4/0/1}, {4/4/2/2}, {5/8/-2/1}, {6/8/0/2}, {7/8/2/2}, {8/12/-2/3}, {9/12/0/1}, {10/12/2/2}}
+  \node[vertex,label=below:$\k$] (v\n) at (\i,\j) {$v_{\n}$} node[below,red] {$2$};
+\node[vertex] (v1) at (0,0) {$s$};
+\node[vertex] (v11) at (16,0) {$t$};
+\foreach \i/\j/\g in {{1/2/3}, {1/3/5}, {1/4/3}, {2/5/1}, {4/7/1}, {5/8/2}, {6/9/2}, {7/10/1}, {8/11/2}, {9/11/1}, {10/11/2}}
+  \path[arrow] (v\i) to (v\j) node[color = green!60!black, midway, above] {$\g$};
+  
+\path[arrow] (v2) to (v6) node[color = green!60!black,near start, above] {$3$};
+\path[arrow] (v3) to (v5) node[color = green!60!black,near start, above] {$2$};
+\path[arrow] (v3) to (v7) node[color = green!60!black,near start, above] {$1$};
+\path[arrow] (v4) to (v6) node[color = green!60!black,near start, above] {$2$};
+
+\path[arrow] (v5) to (v9) node[color = green!60!black,near start, above] {$1$};
+\path[arrow] (v6) to (v8) node[color = green!60!black,near start, above] {$1$};
+\path[arrow] (v6) to (v10) node[color = green!60!black,near start, above] {$1$};
+\path[arrow] (v7) to (v9) node[color = green!60!black,near start, above] {$3$};
+
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (3.5,-3) rectangle (4.5,3);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (7.5,-3) rectangle (8.5,3);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (11.5,-3) rectangle (12.5,3);
+
+\draw[rounded corners=7pt, orange!80!white] (-1,0) -- (4,-3) -- (9,0) -- (4,3) -- cycle;
+\draw[rounded corners=7pt, orange!80!black] (7,0) -- (12,-3) -- (17,0) -- (12,3) -- cycle;
+\end{tikzpicture}\\
+\emph{\textcolor{red}{Montagekosten}, \textcolor{green!60!black}{Transferkosten}, \textcolor{orange!80!white}{$s-v_6$-Weg}, \textcolor{orange!80!black}{$v_6-t$-Weg}}
+\end{center}
+Gesucht: minimale Gesamtkosten (Ausführungszeit, $\dots$). Betrachte Weg durch $v_6$: Gesucht ist optimaler $s-v_6$-Weg und $v_6-t$-Weg.
 \printindex
 \end{document}
