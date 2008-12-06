@@ -1710,14 +1710,14 @@ Intervallpflasterung ist $NP$-schwierig.\\[1ex]
 $\alpha_1,\dots,\alpha_n$, $a=(\alpha_1,\dots,\alpha_n)^T$, $a^tx=\beta$, $x\geq0$, $x\in\mathbb Z^n$ ILP $NP$-schwierig.
 \subsection{Mehrstufige Entscheidungsprozesse: Dynamische Optimierung, kürzeste Wege und weitere Probleme}\sslbl
 \subsubsection{Beispiel}\ssslbl
-Gegeben: Montagestraße, Montagestationen wreden als Knoten $v_1,\dots,v_{11}$ eines Digraphen modelliert. $s=v_1,$, $t=v_{11}$, Kanten geben mögliche Abläufe von Station zu Station an. Fertigung muss alle Stufen durchlaufen. Gesamtmontagen entsprechen $s-t$-Weg
+Gegeben: Montagestraße, Montagestationen werden als Knoten $v_1,\dots,v_{11}$ eines Digraphen modelliert. $s=v_1,$, $t=v_{11}$, Kanten geben mögliche Abläufe von Station zu Station an. Fertigung muss alle Stufen durchlaufen. Gesamtmontagen entsprechen $s-t$-Weg
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[>=stealth']
 \tikzstyle{every label}=[red]
 \foreach \n/\i/\j/\k in {{2/4/-2/1}, {3/4/0/1}, {4/4/2/2}, {5/8/-2/1}, {6/8/0/2}, {7/8/2/2}, {8/12/-2/3}, {9/12/0/1}, {10/12/2/2}}
-  \node[vertex,label=below:$\k$] (v\n) at (\i,\j) {$v_{\n}$} node[below,red] {$2$};
-\node[vertex] (v1) at (0,0) {$s$};
-\node[vertex] (v11) at (16,0) {$t$};
+  \node[vertex,label=below:$\k$] (v\n) at (\i,\j) {$v_{\n}$};
+\node[vertex,label=below:0] (v1) at (0,0) {$s$};
+\node[vertex,label=below:0] (v11) at (16,0) {$t$};
 \foreach \i/\j/\g in {{1/2/3}, {1/3/5}, {1/4/3}, {2/5/1}, {4/7/1}, {5/8/2}, {6/9/2}, {7/10/1}, {8/11/2}, {9/11/1}, {10/11/2}}
   \path[arrow] (v\i) to (v\j) node[color = green!60!black, midway, above] {$\g$};
   
@@ -1737,9 +1737,115 @@ Gegeben: Montagestraße, Montagestationen wreden als Knoten $v_1,\dots,v_{11}$ ei
 
 \draw[rounded corners=7pt, orange!80!white] (-1,0) -- (4,-3) -- (9,0) -- (4,3) -- cycle;
 \draw[rounded corners=7pt, orange!80!black] (7,0) -- (12,-3) -- (17,0) -- (12,3) -- cycle;
+
+\path[arrow,blue,thick] (v1) to (v2);
+\path[arrow,blue,thick] (v2) to (v5);
+\path[arrow,blue,thick] (v5) to (v9);
+\path[arrow,blue,thick] (v9) to (v11);
 \end{tikzpicture}\\
-\emph{\textcolor{red}{Montagekosten}, \textcolor{green!60!black}{Transferkosten}, \textcolor{orange!80!white}{$s-v_6$-Weg}, \textcolor{orange!80!black}{$v_6-t$-Weg}}
+\emph{\textcolor{red}{Montagekosten $\nu_i$}, \textcolor{green!60!black}{Transferkosten $\tau_{i,j}$}, \textcolor{orange!80!white}{$s-v_6$-Weg}, \textcolor{orange!80!black}{$v_6-t$-Weg}, \textcolor{blue}{optimaler Montageplan}}
 \end{center}
 Gesucht: minimale Gesamtkosten (Ausführungszeit, $\dots$). Betrachte Weg durch $v_6$: Gesucht ist optimaler $s-v_6$-Weg und $v_6-t$-Weg.
+\hfill\textbf{05.12.2008}\\
+\begin{align*}
+\alpha(v_i) &= \text{minimale (Zeit-)Kosten bis einschließlich $v_i$}\\
+\alpha(s) &= 0\\
+\alpha(v_2) &= 3 + 1 = 4\\
+\alpha(v_i) &= \alpha(v_1) + \tau_{1,i} + \nu_i \qquad(i=2,3,4)\\
+\alpha(v_5) &= \min\{\alpha(v_i)+\tau_{i,5}+\nu_5:\ i=2,3\}\\
+  &= \min\{4+1+1, 6+2+1\} = 6\\
+\alpha(v_6) &= \min\{4+3+2,5+2+2\}=9\\
+\alpha(t) &= 9 \qquad\text{(optimaler Montageplan)}
+\end{align*}
+\textbf{Wichtig:} \textit{Schichtstruktur}, Vergangenheit (wie genau kommt man zu Knoten der Stufe $k-1$) irrelevant, relevant nur "`wie schnell"'. Entscheidungen hängen nur von Daten ($\alpha(v_i)$) der Vorgängerstufe und den verursachten Zeiten ($\tau_{i,j}, \nu_i$) ab (\textit{Markoff-Eigenschaft}\index{Markoff-Eigenschaft}).
+\subsubsection{Definition}\ssslbl
+Seien $G = (V,E)$ ein gerichteter Graph, $p \in \mathbb N_p$. Dann heißt $G$ \textit{Schicht-} oder \textit{Stufengraph}\index{Graph!Schicht-}\index{Graph!Stufen-}, wenn es $s, t \in V$ sowie \textit{zugehörige Partitionen} $(V_0,\dots,V_p)$ von $V$, $(E_1,\dots,E_p)$ von $E$ gibt mit $V_0 = \{s\}$, $V_p = \{t\}$ und $E_k \subset V_{k-1} \times V_k$ $(k \in [p])$. $V_k$ heißt \textit{$k$-te Stufe (Schicht)}\index{Stufe}\index{Schicht}.
+\subsubsection{Definition}\ssslbl
+Seien $G = (V,E)$ Schichtgraph, $(V_0,\dots,V_p)$, $(E_0,\dots,E_p)$ zugehörige Partitionen von $V$ bzw. $E$. $V_k$ \textit{Menge aller Zustände}, $E_k$ \textit{Menge aller Entscheidungen}.
+\[\psi_k: E_k \to \mathbb R \quad (k \in [p]) \qquad \text{$k$-te \textit{Stufenkostenfunktion}}\]
+Sei $X$ Menge aller Tupel $x = (e_1,\dots,e_p) \in E_1 \times \cdots \times E_p$, deren Kanten einen $s$-$t$-Weg in $G$ bilden. $x \in X$ heißt \textit{Politik}\index{Politik}.\\
+Zielfunktion $\varphi: X \to \mathbb R$ ist für $x = (e_1,\dots,e_p) \in X$ definiert durch
+\[\varphi(x) := \sum_{k=1}^p \psi_k(e_k).\]
+Minimierung von $\varphi$: \textit{$p$-stufiger Entscheidungsprozess}\index{Entscheidungsprozess} \textit{(Modell der (diskreten) dynamischen Optimierung)}
+\subsubsection{Satz \textit{(Bellmansches Optimalitätsprinzip)}\index{Optimalitätsprinzip!Bellmansches}}\ssslbl
+Gegeben: $p$-stufiger Entscheidungsprozess, $x^* = (e_1^*,\dots,e_p^*) \in X$ optimale Politik, $e_k^* = v_{k-1}^*, v_k^*)$. $x_{k,1}^* = (e_1^*,\dots,e_k^*)$, $x_{k,2}^* = (e_{k+1}^*,\dots,e_p^*)$.\\
+Seien $G_{k,1}$, $G_{k,2}$ die durch $\{v_k^*\} \cup \bigcup_{i=0}^{k-1} V_i$ bzw. $\{v_k^*\} \cup \bigcup_{i=k+1}^{p} V_i$ induzierten Teilgraphen von $G$. Dann sind $x_{k,1}^*$ bzw. $x_{k,2}^*$ optimale Politiken für den durch $G_{k,1}$ bzw. $G_{k,2}$ gegebenen Entscheidungsprozess.
+\subsubsection*{Beweis}
+Da $x^*$ optimal ist, gibt es eine optimale Politik, die sich in Stufe $k$ in Zustand $v_k^*$ befindet. Gäbe es $s$-$v_k^*$-Weg $x_1$ mit kleineren Kosten als $x_{k,1}^*$, so wäre $(x_1, x_{k,2}^*$ eine bessere Politik als $x^*$.
+\subsubsection{Prozedur: Dynamische Optimierung (Vorwärtsrekursion)\index{Optimierung!dynamische}}\ssslbl
+\lstset{mathescape=true}
+\begin{lstlisting}
+INPUT Spezifikation $(p,V_0,\dots,V_p,E_1,\dots,E_p,\psi_1,\dots,\psi_p)$ eines
+      mehrstufigen Entscheidungsprozesses mit $V_0=\{s\}$, $V_p=\{t\}$
+OUTPUT Minimum $\alpha(t)$ der zugehörigen Zielfunktion $\varphi$
+BEGIN $\alpha(s)\leftarrow 0$
+   FOR ALL $v \in V \setminus \{s\}$ DO $\alpha(v) \leftarrow \infty$
+   FOR $k=1,\dots,p$ DO
+      BEGIN
+         FOR ALL $w \in V_k$ DO
+            $\alpha(w) \leftarrow \min\{\alpha(v)+\psi_k(v,w):\ (v,w) \in E_k\}$
+      END
+END
+\end{lstlisting}
+\subsubsection{Bezeichnung}\ssslbl
+Das Problem:\\[1ex]
+Gegeben: $n\in\mathbb N, \tau_1,\dots,\tau_n,\rho\in\mathbb N, \gamma_1,\dots,\gamma_n\in\mathbb N$.\\
+Auftrag: Finde $I^*\subset[n]$ mit $I^* \in argmax_{I\subset[n]}\left\{\sum_{i\in I}\gamma_i:\ \sum_{i\in I}\tau_i\leq\rho\right\}$
+\\[1ex]
+heißt \textit{Rucksack-Problem}\index{Problem!Rucksack-} \textit{(englisch: knapsack)}.
+\subsubsection{Beispiel}\ssslbl
+Gegenstände $G_1,G_2,G_3,G_4$, Gewichte $\tau_1=2,\tau_2=3,\tau_3=4,\tau_4=6$, Nutzen $\gamma_1=1,\gamma_2=4,\gamma_3=5,\gamma_4=1$, Fassungsvermögen $\rho=9$.\\
+\textit{Entscheidungen}: Soll $G_k$ in den Rucksack gepackt werden?\\
+\textit{Zustände}: Restkapazität.\\
+\textit{Mastergraph}:
+\begin{center}
+\begin{tikzpicture}[>=stealth']
+\foreach \j in {0,...,9} {
+  \node[left] at (0,4.5-0.5*\j) {\scriptsize\j};
+  \draw[help lines] (0,4.5-0.5*\j) to (4,4.5-0.5*\j);
+  \foreach \i in {1,2,3,4}
+    \node[vertexpt] (v\i\j) at (\i,4.5-0.5*\j) {};
+}
+\node[vertexpt] (v09) at (0,0) {};
+\node[vertexpt] (v50) at (5,2.25) {};
+\foreach \i in {1,2,3,4}
+  \path (\i-1,4.5) to node[above] {$G_\i$} (\i,4.5);
+\foreach \i in {0,...,5}
+  \path (\i,0) node[below] {\scriptsize\i};
+\path (0,-0.5) to node {\scriptsize Stufe ($i$)} (5,-0.5);
+\path (-0.5,0) to node[rotate=90] {\scriptsize Restkapazität ($j$)} (-0.5,4.5);
+\foreach \a/\b in {09/17,09/19,
+                   17/24,17/27,19/26,19/29,
+                   24/30,24/34,26/32,26/36,27/33,27/37,29/35,29/39,
+                   30/40,32/42,33/43,34/44,35/45,36/40,36/46,37/41,37/47,39/43,39/49,
+                   40/50,41/50,42/50,43/50,44/50,45/50,46/50,47/50,48/50,49/50}
+  \path[arrow] (v\a) to (v\b);
+\foreach \a/\b in {09/17,17/24,24/30,30/40,40/50}
+  \path[arrow,blue,thick] (v\a) to (v\b);
+\end{tikzpicture}
+\end{center}
+
+Knoten $v_{i,j}$, $s = v_{0,9}$
+\begin{align*}
+E_1 &= \{(v_{0,9},v_{1,9}),(v_{0,9},v_{1,7})\}\\
+E_5 &= \{(v_{4,i},v_{5,0}):\ i\}
+\end{align*}
+Für $k = 2,3,4$:
+\begin{align*}
+E_k' &=\{(v_{k-1,i},v_{k,i}):\ i\}\\
+E_k'' &=\{(v_{k-1,i},v_{k,j}):\ i, j=i-\tau_k\geq0\}\\
+E_k &= E_k' \cup E_k''\\
+\end{align*}
+\[\psi_k(e) := \begin{cases}\gamma_k & e \in E_k\\0 & \text{sonst}\end{cases}\]
+$\alpha(w) \leftarrow \max\{\alpha(v) + \psi_k(v,w):\ (v,w)\in E_k\}$\\
+Vorwärtsrekursion:
+\begin{align*}
+\alpha(v_{0,9}) &= 0\\
+\alpha(v_{1,7}) &= 1 &\alpha(v_{1,9}) &= 0\\
+\alpha(v_{2,4}) &= 5 &\alpha(v_{2,6}) &= 4 &\alpha(v_{2,7}) &= 1 &\alpha(v_{2,9}) &= 0\\
+&\vdots\\
+\alpha(v_{5,0}) &= 10
+\end{align*}
+Auswahl: $\{G_1,G_2,G_3\}$
 \printindex
 \end{document}
