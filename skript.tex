@@ -1693,7 +1693,6 @@ Das Problem:
 \item Gegeben: $n,m\in\mathbb N$, $A\in\mathbb Z^{m\times n}$, $b\in\mathbb Z$
 \item Auftrag: $\max\sum_{i=1}^n\xi_i^2$ bezüglich $Ax\leq b$, heißt \textit{NormMax}\index{NormMax}
 \end{itemize}
-ladida
 \subsubsection{Korollar}\ssslbl
 NormMax ist $NP$-schwierig
 \subsubsection*{Beweis}
@@ -1846,6 +1845,433 @@ Vorwärtsrekursion:
 &\vdots\\
 \alpha(v_{5,0}) &= 10
 \end{align*}
-Auswahl: $\{G_1,G_2,G_3\}$
+Auswahl: $\{G_1,G_2,G_3\}$\hfill\textbf{09.12.2008}
+\subsubsection{Prozedur: Knapsack-Algorithmus\index{Algorithmus!Knapsack}}\ssslbl
+\begin{lstlisting}
+INPUT Aufgabe $(n,\tau_1,\dots,\tau_n\rho,\gamma_1,\dots,\gamma_n)$ des Rucksackproblems
+OUTPUT Maximaler Gesamtnutzen $\zeta^*$ (Güterauswahl)
+BEGIN $\alpha(0,\rho)\leftarrow0$
+  FOR $k=0,\dots,n$ DO $V_k\leftarrow\{\rho\}$
+  FOR $k=1,\dots,n$ DO
+    BEGIN
+      FOR ALL $\eta\in V_{k-1}$ DO
+        IF $\eta\geq\tau_k$ THEN
+          $V_k\leftarrow V_k\cup\{\eta-\tau_k\}$
+        END
+      END
+      FOR ALL $\eta\in V_k$ DO
+        $\alpha(k,\eta)\leftarrow\max\bigl\{\{\alpha(k-1,\eta)\::\:\eta\in V_{k-1}\}\cup\{\alpha(k-1,\eta+\tau_k)+\gamma_k\::\:\eta-\tau_k\in V_k\}\bigl\}$
+      END
+    END
+  END
+  $\zeta^*\leftarrow\max\{\alpha(n,\eta)\::\:\eta\in V_n\}$
+END
+\end{lstlisting}
+\subsubsection{Satz}\ssslbl
+Für jede durch $\mathcal I:=(n,\tau_1,\dots,\tau_n,\rho,\gamma_1,\dots,\gamma_n)$ spezifizierte Aufgabe von Knapsack löst Prozedur \textit{(\ref{6.2.8})} das Rucksackproblem in $\mathcal O(n\rho)$ Operationen. Die Größe der auftretenden Zahlen ist durch $\mathcal O\bigl(\size(\mathcal I)\bigr)$ beschränkt.
+\subsubsection*{Beweis}
+Übung\\[1ex]
+Algorithmus ist nur pseudopolynomiell, Knapsack ist NP-schwer.
+\subsubsection{Definition}\ssslbl
+Eine Aufgabe \textit{Kürzester Kantenzug}\index{Kantenzug!kürzester} ist spezifiziert durch: $G=(V,E,\nu)$ allgemeiner Graph, $s,t\in V$, $\Phi:E\rightarrow\mathbb R$. Seien $\mathcal K$ die Menge aller $s-t$-Kantenzüge, $\varphi:\mathcal K\rightarrow\mathbb R$ zugehörige Zielfunktion definiert durch
+\[\varphi(W)=\sum_{i=1}^p\Phi(e_i)\:,\qquad W=(s,e_1,\dots,e_p,t)\in\mathcal K\]
+Ziel: minimiere $\varphi$ über $\mathcal K$.\\[1ex]
+Wird statt über $\mathcal K$ über die Menge $\mathcal E$ aller einfachen Kantenzüge bzw. über die Menge $\mathcal W$ aller $s-t$-Wege optimiert, so spricht man von \textit{Aufgabe kürzester einfacher Kantenzug}\index{Kantenzug!kürzester!einfacher} bzw. Wege.\\[1ex]
+[Abk.: SPP: shortest path problem: $\mathcal W$]
+\subsubsection{Beispiel}\ssslbl
+\begin{center}
+\begin{tikzpicture}
+\node[vertex] (v1) at (0,0) {$s$};
+\node[vertex] (v2) at (1.5,1.5) {$v_2$};
+\node[vertex] (v3) at (0,3) {$v_3$};
+\node[vertex] (v4) at (3,3) {$v_4$};
+\node[vertex] (v5) at (3,0) {$t$};
+
+\path[arrow] (v1) to (v2) node[midway, above] {\begin{small}$1$\end{small}};
+\path[arrow] (v2) to (v3) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow] (v3) to (v4) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow] (v4) to (v2) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow] (v2) to (v5) node[midway, above] {\begin{small}$1$\end{small}};
+\end{tikzpicture}\\
+\emph{Graph $G$}\\
+\begin{tikzpicture}
+\node[vertex] (v1) at (0,0) {$s$};
+\node[vertex] (v2) at (1.5,1.5) {$v_2$};
+\node[vertex] (v3) at (0,3) {$v_3$};
+\node[vertex] (v4) at (3,3) {$v_4$};
+\node[vertex] (v5) at (3,0) {$t$};
+
+\path[arrow, orange, very thick] (v1) to (v2) node[midway, above] {\begin{small}$1$\end{small}};
+\path[arrow] (v2) to (v3) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow] (v3) to (v4) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow] (v4) to (v2) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow, orange, very thick] (v2) to (v5) node[midway, above] {\begin{small}$1$\end{small}};
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}
+\node[vertex] (v1) at (0,0) {$s$};
+\node[vertex] (v2) at (1.5,1.5) {$v_2$};
+\node[vertex] (v3) at (0,3) {$v_3$};
+\node[vertex] (v4) at (3,3) {$v_4$};
+\node[vertex] (v5) at (3,0) {$t$};
+
+\path[arrow, red, very thick] (v1) to (v2) node[midway, above] {\begin{small}$1$\end{small}};
+\path[arrow, red, very thick] (v2) to (v3) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow, red, very thick] (v3) to (v4) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow, red, very thick] (v4) to (v2) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow, red, very thick] (v2) to (v5) node[midway, above] {\begin{small}$1$\end{small}};
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}
+\node[vertex] (v1) at (0,0) {$s$};
+\node[vertex] (v2) at (1.5,1.5) {$v_2$};
+\node[vertex] (v3) at (0,3) {$v_3$};
+\node[vertex] (v4) at (3,3) {$v_4$};
+\node[vertex] (v5) at (3,0) {$t$};
+
+\path[arrow, blue, very thick] (v1) to (v2) node[midway, above] {\begin{small}$1$\end{small}};
+\path[arrow, blue, very thick] (v2) to (v3) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow, blue, very thick] (v3) to (v4) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow, blue, very thick] (v4) to (v2) node[midway, above] {\begin{small}$-1$\end{small}};
+\path[arrow, blue, very thick, dotted] (v2) to (v5) node[midway, above] {\begin{small}$1$\end{small}};
+\draw[->, blue, very thick] (1.5,2.75) arc(90:-250:0.3cm);
+\end{tikzpicture}\\
+\emph{\textcolor{orange}{Optimum bez. $\mathcal W$: 2}, \textcolor{red}{Optimum bez. $\mathcal E$: -1}, \textcolor{blue}{Optimum bez. $\mathcal K$ existiert nicht, bzw. $-\infty$}}
+\end{center}
+\subsubsection{Lemma}\ssslbl
+Durch $(G,s,t,\Phi)$ sei Aufgabe kürzester Kantenzüge oder einfacher Kantenzüge bzw. Wege spezifiziert, $\varphi$ zugehörige Zielfunktion, $\mathcal K$, $\mathcal E$, $\mathcal W$ wie in \textit{(\ref{6.2.10})}. Dann gilt:
+\begin{enumerate}[(a)]
+\item Das Minimum von $\varphi$ über $\mathcal E$ bzw. $\mathcal W$ existiert genau dann, wenn $\mathcal W\neq\emptyset$ ist.
+\item Das Minimum über $\mathcal K$ existiert genau dann, wenn $\mathcal K\neq\emptyset$ ist, aber kein Kantenzug von $s$ nach $t$ einen Knoten enthält, der in einem geschlossenen Kantenzug negativer Länge liegt.
+\item Wird Minimum über $\mathcal K$ angenommen, so existiert ein $s-t$-Weg gleicher minimaler Länge.
+\item Ist $\mathcal K\neq\emptyset$, $\Phi>0$, so ist jeder minimaler $s-t$-Kantenzug ein Weg.
+\end{enumerate}
+\subsubsection*{Beweis}
+$\checkmark$\\[2ex]
+Für $\Phi\geq0$ Graph vereinfachen schlingenfrei, $\dots$: Dynamsiche Optimierung
+\subsubsection{Beispiel}\ssslbl
+\begin{center}
+\begin{tikzpicture}
+\node[vertex] (v1) at (0,0) {$s$};
+\node[vertex] (v2) at (2,-1.5) {$v_2$};
+\node[vertex] (v3) at (2,1.5) {$v_3$};
+\node[vertex] (v4) at (4,0) {$t$};
+
+\path[arrow] (v1) to (v2) node[midway, below] {$e_2$} node[midway,above,red,very thick] {4};
+\path[arrow] (v1) to (v3) node[midway, below] {$e_1$} node[midway,above,red,very thick] {1};
+\path[arrow] (v2) to (v4) node[midway, below] {$e_6$} node[midway,above,red,very thick] {1};
+\path[arrow] (v3) to (v4) node[midway, below] {$e_5$} node[midway,above,red,very thick] {5};
+\path[arrow, bend left] (v2) to (v3) node[midway, left] {$e_3$} node[midway, right,red,very thick] {$\tau$};
+\path[arrow, bend left] (v3) to (v2) node[midway, right] {$e_4$} node[midway, left,red,very thick] {3};
+\end{tikzpicture}\\
+\emph{Digraph $G$, \textcolor{red}{$\tau\in\mathbb Z$}}
+\end{center}
+$G$ besitzt genau einen Kreis $(e_3,e_4)$ der Länge
+\[\begin{cases}>0&\tau\geq-2\\=0&\tau=-3\\<0&\tau\leq-4\end{cases}\]
+\begin{center}
+\begin{tikzpicture}
+\node (v1) at (-1,3) {$v_1$};
+\node (v2) at (-1,2) {$v_2$};
+\node (v3) at (-1,1) {$v_3$};
+\node (v4) at (-1,0) {$v_4$};
+\node[vertexpt,label={[red,very thick]below:0},label={[blue,very thick]above:0}] (v01) at (0,3) {};
+\node[vertexpt,label={[red,very thick]below:4},label={[blue,very thick]above:4}] (v12) at (2,2) {};
+\node[vertexpt,label={[red,very thick]below:1},label={[blue,very thick]above:1}] (v13) at (2,1) {};
+\node[vertexpt,label={[red,very thick]below:4},label={[blue,very thick]above:4}] (v22) at (4,2) {};
+\node[vertexpt,label={[red,very thick]below:5},label={[blue,very thick]above:-2}] (v23) at (4,1) {};
+\node[vertexpt,label={[red,very thick]below:5},label={[blue,very thick]above:5}] (v24) at (4,0) {};
+\node[vertexpt,label={[red,very thick]below:8},label={[blue,very thick]above:1}] (v32) at (6,2) {};
+\node[vertexpt,label={[red,very thick]below:5},label={[blue,very thick]above:-2}] (v33) at (6,1) {};
+\node[vertexpt,label={[red,very thick]below:5},label={[blue,very thick]above:3}] (v34) at (6,0) {};
+\node[vertexpt,label={[red,very thick]below:8},label={[blue,very thick]above:1}] (v42) at (8,2) {};
+\node[vertexpt,label={[red,very thick]below:9},label={[blue,very thick]above:-5}] (v43) at (8,1) {};
+\node[vertexpt,label={[red,very thick]below:5},label={[blue,very thick]above:2}] (v44) at (8,0) {};
+\node[vertexpt,label={[red,very thick]below:12},label={[blue,very thick]above:-2}] (v52) at (10,2) {};
+\node[vertexpt,label={[red,very thick]below:9},label={[blue,very thick]above:-5}] (v53) at (10,1) {};
+\node[vertexpt,label={[red,very thick]below:5},label={[blue,very thick]above:0}] (v54) at (10,0) {};
+\node[vertexpt,label={[red,very thick]below:5},label={[blue,very thick]above:-1}] (v64) at (12,0) {};
+
+\path[arrow] (v01) to (v12);
+\path[arrow] (v01) to (v13);
+
+\path[arrow] (v12) to (v23);
+\path[arrow] (v12) to (v24);
+\path[arrow] (v13) to (v22);
+\path[arrow] (v13) to (v24);
+
+\path[arrow] (v22) to (v33);
+\path[arrow] (v22) to (v34);
+\path[arrow] (v23) to (v32);
+\path[arrow] (v23) to (v34);
+\path[arrow] (v24) to (v34);
+
+\path[arrow] (v32) to (v43);
+\path[arrow] (v32) to (v44);
+\path[arrow] (v33) to (v42);
+\path[arrow] (v33) to (v44);
+\path[arrow] (v34) to (v44);
+
+\path[arrow] (v42) to (v53);
+\path[arrow] (v42) to (v54);
+\path[arrow] (v43) to (v52);
+\path[arrow] (v43) to (v54);
+\path[arrow] (v44) to (v54);
+
+\path[arrow] (v52) to (v64);
+\path[arrow] (v53) to (v64);
+\path[arrow] (v54) to (v64);
+
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (-0.5,-0.5) rectangle (0.5,3.5);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (1.5,-0.5) rectangle (2.5,3.5);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (3.5,-0.5) rectangle (4.5,3.5);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (5.5,-0.5) rectangle (6.5,3.5);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (7.5,-0.5) rectangle (8.5,3.5);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (9.5,-0.5) rectangle (10.5,3.5);
+\filldraw[nearly transparent, rounded corners=2pt, fill=blue!80!white,draw=blue] (11.5,-0.5) rectangle (12.5,3.5);
+\foreach \i/\j in {0/0,1/2,2/4,3/6,4/8,5/10,6/12}
+  \node at (\j,-1) {\i};
+\end{tikzpicture}\\
+\emph{\textcolor{red}{$\tau=1$}, \textcolor{blue}{$\tau=-6$}}
+\end{center}
+$V_0=\{v_{0,1}\}$, $V_1=\{v_{1,2},v_{1,3}\}$, $V_6=\{v_{6,4}\}$, $V_k=\{v_{k,2},v_{k,3},v_{k,4}\}$ $k=2,\dots,5$, Kanten entsprechend\\[2ex]
+Operationen $\mathcal O(n^2p)$, $n=\vert V\vert$, $p$ maximale Länge der Kantenzüge\\[1ex]
+Keine Kreise negativer Länge, wähle $p=n$ $\rightarrow$ $\mathcal O(n^3)$\\[1ex]
+Jetzt $\Phi\geq0$ Ziel $O(n^2)$ Algorithmus (spare Updates in Dynamischer Optimierung)
+\subsubsection{Beispiel}\ssslbl
+\begin{center}
+\begin{tikzpicture}
+\node[vertex] (v1) at (0,0) {$s$};
+\node[vertexpt] (v2) at (2,-2) {};
+\node[vertexpt] (v3) at (2,0) {};
+\node[vertexpt] (v4) at (2,2) {};
+\node[vertexpt] (v5) at (4,-1) {};
+\node[vertexpt] (v6) at (4,1) {};
+\node[vertex] (v7) at (6,0) {$t$};
+
+\path[arrow] (v1) to (v2) node[midway,below] {2};
+\path[arrow] (v1) to (v3) node[midway,above] {1};
+\path[arrow] (v1) to (v4) node[midway,above] {3};
+\path[arrow] (v2) to (v3) node[midway,right] {1};
+\path[arrow] (v3) to (v4) node[midway,right] {1};
+\path[arrow] (v2) to (v5) node[midway,below] {1};
+\path[arrow] (v4) to (v6) node[midway,above] {3};
+\path[arrow] (v5) to (v6) node[midway,right] {1};
+\path[arrow] (v5) to (v7) node[midway,below] {6};
+\path[arrow] (v6) to (v7) node[midway,above] {2};
+\end{tikzpicture}
+\end{center}
+\hfill\textbf{12.12.2008}\\
+$S^{(0)}=\{v_1\}$, jeweils aktuelle Knotenmenge $S^{(k)}$, Abbruch: $t=v_7\in S^{(k)}$\\[1ex]
+Label $\xi^{(k)}(v)$ Länge eines kürzesten $s-v$-Weges, der ausschließlich Zwischenknoten aus $S^{(k)}$ enthält.\\[1ex]
+Gibt ($v\in S^{(k)}$ $\Rightarrow$ $\xi^{(k)}(v)$ Länge kürzester $s-v$-Wege)\\
+\begin{center}
+\begin{tikzpicture}
+\node[vertexpt,label={[blue,very thick]left:0}] (v1) at (0,0) {};
+\node[vertexpt,label={[red,very thick]below:2}] (v2) at (1,-1) {};
+\node[vertexpt,label={[red,very thick]right:1}] (v3) at (1,0) {};
+\node[vertexpt,label={[red,very thick]above:3}] (v4) at (1,1) {};
+\node[vertexpt,label={[red,very thick]below:$\infty$}] (v5) at (2,-0.5) {};
+\node[vertexpt,label={[red,very thick]above:$\infty$}] (v6) at (2,0.5) {};
+\node[vertexpt,label={[red,very thick]right:$\infty$}] (v7) at (3,0) {};
+
+\path[arrow] (v1) to (v2);
+\path[arrow] (v1) to (v3);
+\path[arrow] (v1) to (v4);
+\path[arrow] (v2) to (v3);
+\path[arrow] (v3) to (v4);
+\path[arrow] (v2) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow] (v5) to (v6);
+\path[arrow] (v5) to (v7);
+\path[arrow] (v6) to (v7);
+\node[blue,very thick] at (1.5,-2) {$S^{(0)}$};
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}
+\node[vertexpt,label={[blue,very thick]left:0}] (v1) at (0,0) {};
+\node[vertexpt,label={[red,very thick]below:2}] (v2) at (1,-1) {};
+\node[vertexpt,label={[blue,very thick]right:1}] (v3) at (1,0) {};
+\node[vertexpt,label={[red,very thick]above:2}] (v4) at (1,1) {};
+\node[vertexpt,label={[red,very thick]below:$\infty$}] (v5) at (2,-0.5) {};
+\node[vertexpt,label={[red,very thick]above:$\infty$}] (v6) at (2,0.5) {};
+\node[vertexpt,label={[red,very thick]right:$\infty$}] (v7) at (3,0) {};
+
+\path[arrow] (v1) to (v2);
+\path[arrow] (v1) to (v3);
+\path[arrow] (v1) to (v4);
+\path[arrow] (v2) to (v3);
+\path[arrow] (v3) to (v4);
+\path[arrow] (v2) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow] (v5) to (v6);
+\path[arrow] (v5) to (v7);
+\path[arrow] (v6) to (v7);
+\node[blue,very thick] at (1.5,-2) {$S^{(1)}$};
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}
+\node[vertexpt,label={[blue,very thick]left:0}] (v1) at (0,0) {};
+\node[vertexpt,label={[blue,very thick]below:2}] (v2) at (1,-1) {};
+\node[vertexpt,label={[blue,very thick]right:1}] (v3) at (1,0) {};
+\node[vertexpt,label={[red,very thick]above:2}] (v4) at (1,1) {};
+\node[vertexpt,label={[red,very thick]below:3}] (v5) at (2,-0.5) {};
+\node[vertexpt,label={[red,very thick]above:$\infty$}] (v6) at (2,0.5) {};
+\node[vertexpt,label={[red,very thick]right:$\infty$}] (v7) at (3,0) {};
+
+\path[arrow] (v1) to (v2);
+\path[arrow] (v1) to (v3);
+\path[arrow] (v1) to (v4);
+\path[arrow] (v2) to (v3);
+\path[arrow] (v3) to (v4);
+\path[arrow] (v2) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow] (v5) to (v6);
+\path[arrow] (v5) to (v7);
+\path[arrow] (v6) to (v7);
+\node[blue,very thick] at (1.5,-2) {$S^{(2)}$};
+\end{tikzpicture}\\
+\begin{tikzpicture}
+\node[vertexpt,label={[blue,very thick]left:0}] (v1) at (0,0) {};
+\node[vertexpt,label={[blue,very thick]below:2}] (v2) at (1,-1) {};
+\node[vertexpt,label={[blue,very thick]right:1}] (v3) at (1,0) {};
+\node[vertexpt,label={[blue,very thick]above:2}] (v4) at (1,1) {};
+\node[vertexpt,label={[red,very thick]below:3}] (v5) at (2,-0.5) {};
+\node[vertexpt,label={[red,very thick]above:5}] (v6) at (2,0.5) {};
+\node[vertexpt,label={[red,very thick]right:$\infty$}] (v7) at (3,0) {};
+
+\path[arrow] (v1) to (v2);
+\path[arrow] (v1) to (v3);
+\path[arrow] (v1) to (v4);
+\path[arrow] (v2) to (v3);
+\path[arrow] (v3) to (v4);
+\path[arrow] (v2) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow] (v5) to (v6);
+\path[arrow] (v5) to (v7);
+\path[arrow] (v6) to (v7);
+\node[blue,very thick] at (1.5,-2) {$S^{(3)}$};
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}
+\node[vertexpt,label={[blue,very thick]left:0}] (v1) at (0,0) {};
+\node[vertexpt,label={[blue,very thick]below:2}] (v2) at (1,-1) {};
+\node[vertexpt,label={[blue,very thick]right:1}] (v3) at (1,0) {};
+\node[vertexpt,label={[blue,very thick]above:2}] (v4) at (1,1) {};
+\node[vertexpt,label={[blue,very thick]below:3}] (v5) at (2,-0.5) {};
+\node[vertexpt,label={[red,very thick]above:4}] (v6) at (2,0.5) {};
+\node[vertexpt,label={[red,very thick]right:9}] (v7) at (3,0) {};
+
+\path[arrow] (v1) to (v2);
+\path[arrow] (v1) to (v3);
+\path[arrow] (v1) to (v4);
+\path[arrow] (v2) to (v3);
+\path[arrow] (v3) to (v4);
+\path[arrow] (v2) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow] (v5) to (v6);
+\path[arrow] (v5) to (v7);
+\path[arrow] (v6) to (v7);
+\node[blue,very thick] at (1.5,-2) {$S^{(4)}$};
+\end{tikzpicture}\hspace{1cm}
+\begin{tikzpicture}
+\node[vertexpt,label={[blue,very thick]left:0}] (v1) at (0,0) {};
+\node[vertexpt,label={[blue,very thick]below:2}] (v2) at (1,-1) {};
+\node[vertexpt,label={[blue,very thick]right:1}] (v3) at (1,0) {};
+\node[vertexpt,label={[blue,very thick]above:2}] (v4) at (1,1) {};
+\node[vertexpt,label={[blue,very thick]below:3}] (v5) at (2,-0.5) {};
+\node[vertexpt,label={[blue,very thick]above:4}] (v6) at (2,0.5) {};
+\node[vertexpt,label={[red,very thick]right:6}] (v7) at (3,0) {};
+
+\path[arrow] (v1) to (v2);
+\path[arrow] (v1) to (v3);
+\path[arrow] (v1) to (v4);
+\path[arrow] (v2) to (v3);
+\path[arrow] (v3) to (v4);
+\path[arrow] (v2) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow] (v5) to (v6);
+\path[arrow] (v5) to (v7);
+\path[arrow] (v6) to (v7);
+\node[blue,very thick] at (1.5,-2) {$S^{(5)}$};
+\end{tikzpicture}\\
+\begin{tikzpicture}
+\node[vertexpt,label={[blue,very thick]left:0}] (v1) at (0,0) {};
+\node[vertexpt,label={[blue,very thick]below:2}] (v2) at (1,-1) {};
+\node[vertexpt,label={[blue,very thick]right:1}] (v3) at (1,0) {};
+\node[vertexpt,label={[blue,very thick]above:2}] (v4) at (1,1) {};
+\node[vertexpt,label={[blue,very thick]below:3}] (v5) at (2,-0.5) {};
+\node[vertexpt,label={[blue,very thick]above:4}] (v6) at (2,0.5) {};
+\node[vertexpt,label={[blue,very thick]right:6}] (v7) at (3,0) {};
+
+\path[arrow,blue,very thick] (v1) to (v2);
+\path[arrow] (v1) to (v3);
+\path[arrow] (v1) to (v4);
+\path[arrow] (v2) to (v3);
+\path[arrow] (v3) to (v4);
+\path[arrow,blue,very thick] (v2) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow,blue,very thick] (v5) to (v6);
+\path[arrow] (v5) to (v7);
+\path[arrow,blue,very thick] (v6) to (v7);
+\node[blue,very thick] at (1.5,-2) {$S^{(6)}$};
+\end{tikzpicture}\\
+\emph{$\Rightarrow$ Kürzeste $s-v$-Wege für jedes $v$}
+\end{center}
+\subsubsection{Prozedur: Dijkstra-Algorithmus\index{Algorithmus!Dijkstra}}\ssslbl
+\begin{lstlisting}
+INPUT Bewerteter allgemeiner Graph $G=(V,E,\nu,\Phi)$ mit $\Phi\geq0$, $s\in V$
+OUTPUT Länge $\xi(v9$ kürzester $s-v$-Wege für alle von $s$ aus erreichbaren Knoten
+BEGIN $S\leftarrow\{s\}$, $\xi(s)\leftarrow0$
+  FOR ALL $v\in N(G,S)$ DO
+    $\xi(v)\leftarrow\min\bigl\{\Phi(e)\::\:e\in E\:,\:\nu(e)\in\{(s,v),\{s,v\}\bigr\}$
+  WHILE $N(G,S)\neq\emptyset$ DO
+    BEGIN
+      wähle $v^*\in argmin\bigl\{\xi(v)\::\:v\in N(G,S)\bigr\}$
+      FOR ALL $v\in N(G,v^*)\setminus\bigl(S\cup N(G,S)\bigr)$ DO
+        $\xi(v)\leftarrow\xi(v^*)+\min\bigl\{\Phi(e)\::\:e\in E\:\wedge\:\nu(e)\in\{\{v^*,s\},(v^*,s)\}\bigr\}$
+      FOR ALL $v\in N(G,S)\setminus\{v^*\}$ DO
+        $\xi(v)\leftarrow\min\Bigl\{\xi(v),\:\xi(v^*)+\min\bigl\{\Phi(e)\::\:e\in E\:\wedge\:\nu(e)\in\{\{v^*,v\},(v^*,v)\}\bigr\}\Bigr\}$
+      $S\leftarrow S\cup\{v^*\}$
+    END
+  END
+END
+\end{lstlisting}
+\subsubsection{Satz}\ssslbl
+Der Dijkstra-Algorithmus findet für jeden gewichteten allgemeinen Graphen $G=(V,E,\nu,\Phi)$ mit $\Phi\geq0$ in $\mathcal O\bigl(\vert V\vert^2+\vert E\vert\bigr)$ elementaren Operationen die Längen kürzester $s-v$-Wege für alle $v\in V$. Sind Kantengewichte rational, so sind die binären Größen der auftretenden Zahlen durch die Größe des Inputs beschränkt.
+\subsubsection*{Beweis}
+binäre Größe: $\checkmark$, Anzahl elementarer Operationen: $\checkmark$ (in jedem Schritt wird $S$ um einen Knoten vergrößert)\\[1ex]
+Korrektheit: Induktion nach Schrittzahl $k$, $S^{(k)}$ Knotenmenge nach Schritt $k$, $\xi^{(k)}(v)$ Label.\\[1ex]
+Zeige: $v\in S^{(k)}$ $\Rightarrow$ $\xi^{(k)}(v)$ Länge kürzester $s-v$-Wege\\[2ex]
+$k=0$: ($\Phi\geq0$) $\checkmark$\\[1ex]
+Für $N(G,S^{(k)})=\emptyset$ fertig. Sei $v^*\in N(G,S^{(k)})$ minimales Label unter allen solchen. Sei $W$ $s-v^*$-Weg, wo der von $s$ aus erste Knoten auf $W$, der nicht zu $S^{(k)}$ gehört, $v_0$ sein Vorgänger. Wegen $\Phi\geq0$ gilt nach Induktionsvoraussetzung:
+\begin{align*}
+\varphi(W)&\geq\xi^{(k)}(v_0)+\min\Bigl\{\Phi(e)\::\:e\in E\:,\:\nu(e)\in\bigl\{\{v_o,w_0\},(v_0,w_0)\bigr\}\Bigr\}\\
+&\geq\xi^{(k)}\\
+&\geq\xi^{(k)}(v^*)
+\end{align*}
+\subsubsection{Beispiel}\ssslbl
+\begin{center}
+\begin{tikzpicture}
+\node[vertexpt,label=left:$s$] (s1) at (0,0) {};
+\node[vertexpt,label=right:$t$] (t1) at (2,0) {};
+\node[vertexpt] (v1) at (2,-2) {};
+\path[arrow] (s1) to (t1) node[midway,above] {2};
+\path[arrow] (s1) to (v1) node[midway,below] {3};
+\path[arrow] (v1) to (t1) node[midway,right] {-2};
+\begin{scope}[xshift=4cm]
+\node[vertexpt,label={[orange]left:0}] (s2) at (0,0) {};
+\node[vertexpt,label={[orange]right:2}] (t2) at (2,0) {};
+\node[vertexpt,label={[orange]right:3}] (v2) at (2,-2) {};
+\path[arrow] (s2) to (t2);
+\path[arrow] (s2) to (v2);
+\path[arrow] (v2) to (t2);
+
+\begin{scope}[xshift=4cm]
+\node[vertexpt] (s3) at (0,0) {};
+\node[vertexpt] (t3) at (2,0) {};
+\node[vertexpt] (v3) at (2,-2) {};
+\path[arrow] (s3) to (t3);
+\path[arrow,red,very thick] (s3) to (v3) node[midway,below] {3};
+\path[arrow,red,very thick] (v3) to (t3) node[midway,right] {-2};
+\end{scope}
+\end{scope}
+\end{tikzpicture}\\
+\emph{Voraussetzungen für Dijkstra nicht erfüllt: \textcolor{orange}{Dijkstra: 2}, \textcolor{red}{Optimum: 1}}
+\end{center}
 \printindex
 \end{document}
