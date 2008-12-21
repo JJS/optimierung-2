@@ -1946,7 +1946,7 @@ Durch $(G,s,t,\Phi)$ sei Aufgabe kürzester Kantenzüge oder einfacher Kantenzüge 
 \end{enumerate}
 \subsubsection*{Beweis}
 $\checkmark$\\[2ex]
-Für $\Phi\geq0$ Graph vereinfachen schlingenfrei, $\dots$: Dynamsiche Optimierung
+Für $\Phi\geq0$ Graph vereinfachen schlingenfrei, $\dots$: Dynamische Optimierung
 \subsubsection{Beispiel}\ssslbl
 \begin{center}
 \begin{tikzpicture}
@@ -2272,6 +2272,263 @@ Für $N(G,S^{(k)})=\emptyset$ fertig. Sei $v^*\in N(G,S^{(k)})$ minimales Label u
 \end{scope}
 \end{tikzpicture}\\
 \emph{Voraussetzungen für Dijkstra nicht erfüllt: \textcolor{orange}{Dijkstra: 2}, \textcolor{red}{Optimum: 1}}
+\end{center}
+\hfill\textbf{16.12.2008}
+\subsubsection*{Floyd-Warshall-Algorithmus}
+Der \textit{Floyd-Warshall-Algorithmus}\index{Algorithmus!Floyd-Warshall} funktioniert (anders als Dijkstra) auch für gewichtete Digraphen $G=(V,E,\Phi)$ mit $\Phi:E\rightarrow\mathbb R$. Er erkennt, ob $G$ einen Kreis negativer Länge besitzt, andernfalls findet er kürzeste Wege zwischen allen Knotenpaaren.
+\subsubsection{Definition}\ssslbl
+Sei $G=(V,E,\Phi)$ ein gewichteter Graph oder Digraph mit $V=\{v_1,\dots,v_n\}$. Dann heißt die durch
+\[\delta_{i,j}:=\begin{cases}0&\text{falls }i=j\\\Phi(e)&\text{falls }e=\{v_i,v_j\}\in E\text{ bzw. }e=(v_i,v_j)\in E\\\infty&\text{sonst}\end{cases}\]
+definierte Matrix $D_G=\left(\delta_{i,j}\right)_{i,j\in[n]}$ \textit{Distanzmatrix}\index{Distanzmatrix} von $G$. Ist $G$ ein Graph, so ist $D_G$ symmetrisch.\\[1ex]
+Der Floyd-Warshall-Algorithmus beginnt mit $D_G$ und verändert sukzessive die Einträge von $D_G$, bis entweder ein Diagonalelement negativ wird (dh. Kreis negativer Länge) oder bis andernfalls die Einträge außerhalb der Diagonalen jeweils die Entfernungen der entsprechenden Knoten angeben. Analog zum Dijkstra-Algorithmus wird dabei untersucht, ob ein Umweg über einen anderen Knoten einen kürzeren Weg ermöglicht.
+\subsubsection{Prozedur: Floyd-Warshall-Algorithmus}\ssslbl
+\begin{lstlisting}
+INPUT Gewichteter Digraph $G=(V,E,\Phi)$ mit $V=\{v_1,\dots,v_n\}$
+OUTPUT Meldung Kreis negativer Länge oder
+       Matrix $D=\left(\delta_{i,j}\right)_{i,j\in[n]}$ der Längen $\delta_{i,j}$ kürzester Wege von $v_i$ nach $v_j$
+BEGIN $D\leftarrow D_G$
+  FOR $k=1,\dots,n$ DO
+    FOR $i=1,\dots,n$ DO
+      FOR $j=1,\dots,n$ DO
+        $\delta_{i,j}\leftarrow\min\bigl\{\delta_{i,j},\delta_{i,k}+\delta_{k,j}\bigr\}$
+        IF $(i=j)\:\wedge\:(\delta_{ii}<0)$ THEN
+          Meldung: Kreis negativer Länge
+          HALT
+        END
+      END
+    END
+  END
+END
+\end{lstlisting}
+\subsubsection{Bemerkung}\ssslbl
+Da Floyd-Warshall-Algorithmus terminiert nach $\mathcal O\left(\vert V\vert^3\right)$ elementaren Operationen.
+\subsubsection*{Beweis}
+Der Algorithmus durchläuft höchstens drei ineinander verschachtelte Schleifen mit je $\vert V\vert$ Schleifendurchläufen.
+\subsubsection{Notation}\ssslbl
+Sei $n\in\mathbb N$ und $l\in[n]$. Der $l$-te Dreiecksoperator $\triangle_l:\mathbb R^{n\times n}\rightarrow\mathbb R^{n\times n}$ ist definiert durch:
+\[\left(\delta_{i,j}\right)_{i,j\in[n]})D\mapsto\triangle_l(D):=\left(\delta^{(l)}\right)_{i,j\in[n]}\text{ mit }\delta_{i,j}^{(l)}:=\begin{cases}\min\bigl\{\delta_{ij},\delta_{il}+\delta_{lj}\bigr\}&\text{für }i,j\in[n]\setminus\{l\}\\\delta_{i,j}&\text{sonst}\end{cases}\]
+Man sagt auch, dass $\triangle_l(D)$ durch Anwendung von Dreiecksoperationen aus $D$ hervorgeht.\\[1ex]
+Für einen gewichteten Digraphen $G=(V,E,\Phi)$ und $k\in[n]$ sei
+\[D_G^{(0)}:=G_D\:,\:D_G^{(k)}:=(\triangle_k\circ\triangle_{k-1}\circ\dots\circ\triangle_1)(D_G)\]
+In dieser Notation ist der Floyd-Warshall-Algorithmus nichts anderes als die sukzessive Berechnung von $D_G^{(k)}$ (bis auf den möglichen vorzeitigen Abbruch bei einem Kreis negativer Länge)
+\subsubsection{Bemerkung}\ssslbl
+Sind $G=(V,E,\Phi)$ ein gewichteter Digraph und $k\in[n]$, so gilt für alle $i,j\in[n]$:
+\[\delta_{i,j}^{(k)}\leq\delta_{i,j}^{(k-1)}\qquad\text{mit }\left(\delta_{i,j}^{(k)}\right)_{i,j\in[n]}=D_G^{(k)}\]
+\subsubsection*{Beweis}
+Folgt aus Minimumsbildung in Definition \textit{(\ref{6.2.21})}.
+\subsubsection{Beispiel}\ssslbl
+vgl. Digraph aus \textit{(\ref{6.2.14})}
+Distanzmatrix $D_G$:
+\[D_G^{(0)}=\left(\begin{array}{ccccccc}
+0 & 2 & 1 & 3 & \infty & \infty & \infty \\ 
+\infty & 0 & 1 & \infty & 1 & \infty & \infty \\ 
+\infty & \infty & 0 & 1 & \infty & \infty & \infty \\ 
+\infty & \infty & \infty & 0 & \infty & 3 & \infty \\ 
+\infty & \infty & \infty & \infty & 0 & 1 & 6 \\ 
+\infty & \infty & \infty & \infty & \infty & 0 & 2 \\ 
+\infty & \infty & \infty & \infty & \infty & \infty & 0\\
+\end{array}\right)\]
+$D_G^{(1)}=\triangle_1(D_G^{(0)})=D_G^{(0)}$
+\[D_G^{(2)}=\left(\begin{array}{ccccccc}
+0 & 2 & 1 & 3 & 3 & \infty & \infty \\ 
+\infty & 0 & 1 & \infty & 1 & \infty & \infty \\ 
+\infty & \infty & 0 & 1 & \infty & \infty & \infty \\ 
+\infty & \infty & \infty & 0 & \infty & 3 & \infty \\ 
+\infty & \infty & \infty & \infty & 0 & 1 & 6 \\ 
+\infty & \infty & \infty & \infty & \infty & 0 & 2 \\ 
+\infty & \infty & \infty & \infty & \infty & \infty & 0\\
+\end{array} \right)\]
+\[D_G^{(3)}=\left(\begin{array}{ccccccc}
+0 & 2 & 1 & 2 & 3 & \infty & \infty \\ 
+\infty & 0 & 1 & 2 & 1 & \infty & \infty \\ 
+\infty & \infty & 0 & 1 & \infty & \infty & \infty \\ 
+\infty & \infty & \infty & 0 & \infty & 3 & \infty \\ 
+\infty & \infty & \infty & \infty & 0 & 1 & 6 \\ 
+\infty & \infty & \infty & \infty & \infty & 0 & 2 \\ 
+\infty & \infty & \infty & \infty & \infty & \infty & 0\\
+\end{array} \right)\]
+\[D_G^{(4)}=\left(\begin{array}{ccccccc}
+0 & 2 & 1 & 2 & 3 & 5 & \infty \\ 
+\infty & 0 & 1 & 2 & 1 & 5 & \infty \\ 
+\infty & \infty & 0 & 1 & \infty & 4 & \infty \\ 
+\infty & \infty & \infty & 0 & \infty & 3 & \infty \\ 
+\infty & \infty & \infty & \infty & 0 & 1 & 6 \\ 
+\infty & \infty & \infty & \infty & \infty & 0 & 2 \\ 
+\infty & \infty & \infty & \infty & \infty & \infty & 0\\
+\end{array} \right)\]
+\[D_G^{(5)}=\left(\begin{array}{ccccccc}
+0 & 2 & 1 & 2 & 3 & 4 & 9 \\ 
+\infty & 0 & 1 & 2 & 1 & 2 & 7 \\ 
+\infty & \infty & 0 & 1 & \infty & 4 & \infty \\ 
+\infty & \infty & \infty & 0 & \infty & 3 & \infty \\ 
+\infty & \infty & \infty & \infty & 0 & 1 & 6 \\ 
+\infty & \infty & \infty & \infty & \infty & 0 & 2 \\ 
+\infty & \infty & \infty & \infty & \infty & \infty & 0\\
+\end{array} \right)\]
+\[D_G^{(6)}=\left(\begin{array}{ccccccc}
+0 & 2 & 1 & 2 & 3 & 4 & 6 \\ 
+\infty & 0 & 1 & 2 & 1 & 2 & 4 \\ 
+\infty & \infty & 0 & 1 & \infty & 4 & 6 \\ 
+\infty & \infty & \infty & 0 & \infty & 3 & 5 \\ 
+\infty & \infty & \infty & \infty & 0 & 1 & 3 \\ 
+\infty & \infty & \infty & \infty & \infty & 0 & 2 \\ 
+\infty & \infty & \infty & \infty & \infty & \infty & 0\\
+\end{array} \right)\]
+$D_G^{(7)}=D_G^{(6)}$
+\subsubsection{Lemma}\ssslbl
+Seien $G=(V,E,\Phi)$ ein gewichteter Digraph mit $V=\{v_1,\dots,v_n\}$, $k\in\{0,\dots,n\}$ und die Diagonalelemente von $D_G^{(k)}$ seien nicht negativ. Dann ist $\delta_{i,j}^{(k)}$ für jedes Paar $i,j\in[n]$ die Länge eines kürzesten Weges in $G$ von $v_i$, $v_j$, der nur Zwischenknoten in $\{v_1,\dots,v_k\}$ benutzt.
+\subsubsection*{Beweis}
+mit Induktion über $k$
+\begin{itemize}
+\item IA: $k=0$ $\checkmark$ klar nach Definition von $D_G$
+\item IS: $k-1\rightarrow k$: Nach IV geben die Einträge von $D_G^{(k-1)}$ die Länge kürzester Wege mit Zwischenknoten aus $\{v_1,\dots,v_{k-1}\}$ an. Sei $i,j\in[n]\setminus\{k\}$. Jeder kürzeste $v_i$-$v_j$-Weg, der durch $v_k$ verläuft und nur Zwischenkno^^ten aus $\{v_1,\dots,v_k\}$ enthält, zerfällt in einen kürzesten $v_i$-$v_k$-Weg und einen kürzesten $v_k$-$v_j$-Weg, jeweils mit Zwischenknoten aus $\{v_1,\dots,v_{k-1}\}$. Deren Längen sind nach IV $\delta_{i,k}^{(k-1)}$ und $\delta_{k,j}^{(k-1)}$, also gilt:
+\[\delta_{i,j}^{(k)}=\min\Bigl\{\delta_{i,j}^{(k-1)},\delta_{i,k}^{(k-1)}+\delta_{k,j}^{(k-1)}\Bigr\}\]
+$\delta_{i,j}^{(k)}=\delta_{i,j}^{(k-1)}$ falls es bereits einen kürzesten $v_i$-$v_j$-Weg mit Zwischenknoten $\{v_1,\dots,v_k\}$ gibt, da nur Zwischenknoten aus $\{v_1,\dots,v_{k-1}\}$ benutzt werden.\\[1ex]
+Ist aber $\delta_{i,j}^{(k)}=\delta_{i,k}^{(k-1)}+\delta_{k,j}^{(k-1)}$, dann erlaubt $v_k$ eine Abkürzung , zusammengesetzt aus einem $v_i$-$v_k$-Weg der Länge $\delta_{ik}^{(k-1)}$ ($W_1$) und einen $v_k$-$v_j$-Weg der Länge $\delta_{k,j}^{(k-1)}$ ($W_2$). Falls $W_1$ und $W_2$ keine gemeinsamen Knoten haben, folgt die Behauptung. Sonst liegt auf dem durch $W_1$ und $W_2$ erzeugten Kantenzug ein Kreis $\mathcal K$, der $v_k$ enthält.\\[1ex]
+Sei
+\[\delta_{i,jk}^{(k-1)}+\delta_{k,j}^{(k-1)}<\delta_{i,j}^{(k-1)}\]
+Seien $W_1$ bzw. $W_2$ kürzester $v_1$-$v_k$ bzw. $v_k$-$v_j$-Weg mit Zwischenknoten aus $\{v_1,\dots,v_{k-1}\}$. Falls $W_1$, $W_2$, außer $v_k$ (und eventuell $v_i=v_j$)keinen Knoten gemeinsam haben, so addieren sich ihre Längen und es folgt Behauptung. $W_1$, $W_2$ haben noch weitere Knoten gemeinsam. Dann existiert Kreis $K$ durch $v_k$, dessen übrige Knoten in $\{v_1,\dots,v_{k-1}\}$  liegen. Nach Voraussetzung folgt: Länge von $K$ $\geq0$. Also gibt es $v_i$-$v_j$-Kantenzug der Länge $\leq\delta_{i,j}^{(k-1)}+\delta_{k,j}^{(k-1)}$, dessen Kanten zu $W_1$ bzw. $W_2$ gehören, nicht aber zu $K$.\\[1ex]
+Sukzessive Wiederholung: Es existiert $v_i$-$v_j$-Weg mit Zwischenknoten in $\{v_1,\dots,v_{k-1}\}$ Länge $\leq\delta_{i,k}^{(k-1)}+\delta_{k,j}{(k-1)}$. Behauptung nach Induktionsannahme.
+\end{itemize}
+\hfill\textbf{19.12.2008}
+\subsubsection{Korollar}\ssslbl
+Sei $G=(V,E,\Phi)$ gewichteter Digraph $V=\{v_1,\dots,v_n\}$. Die folgenden Aussagen sind äquivalent:
+\begin{enumerate}[(a)]
+\item $G$ besitzt Kreis negativer Länge
+\item $\exists i,j\in[n]$: $\delta_{i,i}^{(k)}<0$
+\end{enumerate}
+\subsubsection*{Beweis}
+\begin{itemize}
+\item $a\Rightarrow b$: Sei $\delta_{i,i}^{(k)}\geq0$ für alle $i,j\in[n]$. Nach \textit{(\ref{6.2.22})} gilt einerseits $\delta_{i,i}^{(n)}=0$. Andererseits nach Lemma \textit{(\ref{6.2.24})}: $\delta_{i,i}^{(n)}$ Länge eines kürzesten Kreises durch $v_i$.
+\item $b\Rightarrow a$: Sei $k_0$ minimal, so dass $i$ existiert mit $\delta_{i,i}^{(k_0)}<0$, $i_0\in[n]$ sei solcher Index. Beachte $\delta_{i,i}^{(0)}=0$ für alle $i$, dh. $k_0\geq1$. Es folgt
+\[0>\delta_{i_0,i_0}^{(k_0)}=\min\Bigl\{\delta_{i_0,i_0}^{(k_0-1)},\delta_{i_0,k_0}^{(k_0-1)}+\delta_{k_0,i_0}^{(k_0-1)}\Bigr\}=\delta_{i_0,k_0}^{(k_0-1)}+\delta_{k_0,i_0}^{(k_0-1)}\]
+Lemma \textit{(\ref{6.2.24})}: $\delta_{i_0,k_0}^{(k_0-1)}$, $\delta_{k_0,i_0}^{(k_0-1)}$ Längen kürzester $v_{i_0}$-$v_{k_0}$- bzw. $v_{k_0}$-$v_{i_0}$-Wege, die nur Zwischenknoten aus $\{v_1,\dots,v_{k_0-1}\}$ enthalten.\\
+Zusammen: geschlossener Kantenzug negativer Länge; enthält Kreis negativer Länge.u
+\end{itemize}
+\subsubsection{Satz}\ssslbl
+Für gegebene gewichtete Digraphen $(V,E,\Phi)$ ($=\mathcal I$) terminiert der Floyd-Warshall-Algorithmus nach höchstens $\mathcal I\bigl(\vert V\vert^3\bigr)$ elementaren Operationen mit korrektem Ergebnis.
+\subsubsection{Beispiel}\ssslbl
+\begin{center}
+\begin{tikzpicture}
+\node[vertex] (v1) at (0,0) {$v_1$};
+\node[vertex] (v2) at (1.5,1.5) {$v_2$};
+\node[vertex] (v3) at (0,3) {$v_3$};
+\node[vertex] (v4) at (3,3) {$v_4$};
+\node[vertex] (v5) at (3,0) {$v_5$};
+
+\path[arrow] (v1) to (v2) node[midway, below] {1};
+\path[arrow] (v2) to (v5) node[midway, above] {2};
+\path[arrow, bend left] (v2) to (v3) node[midway, above] {2};
+\path[arrow, bend left] (v3) to (v2) node[midway, below] {-1};
+\path[arrow, bend left] (v2) to (v4) node[midway, below] {-1};
+\path[arrow, bend left] (v4) to (v2) node[midway, above] {2};
+\path[arrow] (v3) to (v4) node[midway, above] {-5};
+\end{tikzpicture}
+\end{center}
+\begin{align*}D_G^{(0)}&=\left(\begin{array}{ccccc}
+0 & 1 & \infty & \infty & \infty \\ 
+\infty & 0 & 2 & -1 & 2 \\ 
+\infty & -1 & 0 & -5 & \infty \\ 
+\infty & 2 & \infty & 0 & \infty \\ 
+\infty & \infty & \infty & \infty & 0
+\end{array} \right)=D_G^{(1)}\\
+D_G^{(2)}&=\left(\begin{array}{ccccc}
+0 & 1 & 3 & 0 & 3 \\ 
+\infty & 0 & 2 & -1 & 2 \\ 
+\infty & -1 & 0 & -5 & 1 \\ 
+\infty & 2 & 4 & 0 & 4 \\ 
+\infty & \infty & \infty & \infty & 0
+\end{array} \right)
+\\
+D_G^{(3)}&=\left(\begin{array}{ccccc}
+0 & 1 & 3 & -2 & 3 \\ 
+\infty & 0 & 2 & -3 & 2 \\ 
+\infty & -1 & 0 & -5 & 1 \\ 
+\infty & 2 & 4 & -1 & 4 \\ 
+\infty & \infty & \infty & \infty & 0
+\end{array} \right)
+\end{align*}
+Kreis $(v_4,v_2,v_3,v_4)$ Länge -1 $\Rightarrow$ Abbruch\\[1ex]
+Voraussetzung: Digraph, was ist mit Graphen?
+\begin{center}
+\begin{tikzpicture}
+\node[vertexpt] (v1) at (0,0) {};
+\node[vertexpt] (v2) at (2,0) {};
+\path[edge] (v1) to (v2) node[midway, above] {2};
+
+\path[arrow] (3,0) to (4,0) node[midway, above] {\text{wird zu}};
+\node[vertexpt] (v3) at (5,0) {};
+\node[vertexpt] (v4) at (7,0) {};
+\path[arrow, bend left] (v3) to (v4) node[midway,above] {2};
+\path[arrow, bend left] (v4) to (v3) node[midway, below] {2};
+\end{tikzpicture}\\
+\emph{Dijkstra $\checkmark$}\\
+\begin{tikzpicture}
+\node[vertexpt] (v1) at (0,0) {};
+\node[vertexpt] (v2) at (2,0) {};
+\path[edge] (v1) to (v2) node[midway, above] {-2};
+
+\path[arrow] (3,0) to (4,0) node[midway, above] {\text{wird zu}};
+\node[vertexpt] (v3) at (5,0) {};
+\node[vertexpt] (v4) at (7,0) {};
+\path[arrow, bend left] (v3) to (v4) node[midway,above] {-2};
+\path[arrow, bend left] (v4) to (v3) node[midway, below] {-2};
+\end{tikzpicture}\\
+\emph{Kreis negativer Länge}
+\end{center}
+$G$ Graph, kein Kreis negativer Länge, Transformation induziert Kreis negativer Länge, dh. Floyd-Warshall bricht ab. Geht noch in polynomieller Zeit (Minimum weight T-join)
+\subsubsection{Bemerkung}\ssslbl
+Seien $G:=(V,E,\Phi)$ gewichteter Digraph $\Phi\geq0$, $\varphi$ zugehörige Zielfunktion, $s,t\in V$, $\theta=-\Phi$. $W$ ist genau dann längster $s-t$-Weg in $G$, wenn $W$ kürzester $s-t$-Weg in $(V,E,\theta)$. Ist $G$ kreisfrei, so ist jeder kürzeste $s-t$-Kantenzug in $(V,E,\theta)$ ein kürzester $s-t$-Weg
+\subsubsection*{Beweis}
+$\checkmark$\\[2ex]
+Netzplantechnik. kritische (dh. längste $s-t$-Wege)
+\subsubsection{Bemerkung}\ssslbl
+Seien $G=(V,E)$ Graph, $K_V=(V,F)$ vollständiger Graph auf $V$, $s\in V$, $t:=s$. Ferner $\Phi:F\rightarrow\{-1,0\}$ definiert durch
+\[\Phi(e)=\begin{cases}-1&e\in E\\0&e\in F\setminus E\end{cases}\]
+$\varphi$ zugehörige Zielfunktion.\\[1ex]
+Dann besitzt $G$ genau dann einen Hamilton-Kreis, wenn jeder kürzeste $s-t$-Weg in $G$ Länge $-\vert V\vert$ besitzt.
+\subsubsection*{Beweis}
+$\mathcal W$ Menge der $s-t$-Wege, $W\in\mathcal W$. $W$ besitzt höchstens $\vert V\vert$ Kanten, also $\min_{W\in\mathcal W}\varphi(W)\geq-\vert V\vert$. Gleichheit, wenn $G$ hamiltonsch.
+\subsubsection{Bemerkung}\ssslbl
+Das Problem kürzester Wege in gewichteten Digraphen kann polynomiell auf das Problem kürzester einfacher Kantenzüge 
+\subsubsection*{Beweis}
+\begin{center}
+\begin{tikzpicture}
+\node[vertex, red] (vv1) at (0,0) {$s$};
+\node[vertexpt, red] (vv2) at (2,-1.5) {};
+\node[vertexpt, red] (vv3) at (2,1.5) {};
+\node[vertex, red] (vv4) at (4,0) {$t$};
+
+\path[arrow, red, very thick] (vv1) to (vv2) node[midway,above] {4};
+\path[arrow] (vv1) to (vv3) node[midway,above] {1};
+\path[arrow, red, very thick] (vv2) to (vv4) node[midway,above] {1};
+\path[arrow] (vv3) to (vv4) node[midway,above] {5};
+\path[arrow, bend left, red, very thick] (vv2) to (vv3) node[midway, right] {$\tau$};
+\path[arrow, bend left, red, very thick] (vv3) to (vv2) node[midway, left] {1};
+
+\begin{scope}[xshift=6cm]
+\node[vertexpt] (v1) at (0,0) {};
+\node[vertex, red] (v2) at (1,0) {$s$};
+\node[vertexpt] (v3) at (2,-1.5) {};
+\node[vertexpt] (v4) at (2,1.5) {};
+\node[vertexpt, red] (v5) at (3,-1.5) {};
+\node[vertexpt, red] (v6) at (3,1.5) {};
+\node[vertexpt] (v7) at (4,0) {};
+\node[vertex, red] (v8) at (5,0) {$t$};
+
+\path[arrow, blue, very thick] (v1) to (v2);
+\path[arrow, blue, very thick] (v2) to (v3);
+\path[arrow] (v2) to (v4);
+\path[arrow, ->>, blue, very thick] (v3) to (v5);
+\path[arrow] (v4) to (v6);
+\path[arrow, blue, very thick] (v5) to (v4);
+\path[arrow, blue, very thick] (v6) to (v3);
+\path[arrow, blue, very thick] (v5) to (v7);
+\path[arrow] (v6) to (v7);
+\path[arrow, blue, very thick] (v7) to (v8);
+\end{scope}
+\end{tikzpicture}\\
+\emph{\textcolor{red}{einfacher Kantenzug, aber kein Weg}, \textcolor{blue}{kein einfacher Kantenzug}}
 \end{center}
 \printindex
 \end{document}
