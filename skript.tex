@@ -1435,7 +1435,7 @@ Vorsicht: $\size(\mathcal I)n$, $n^{1.000.000.000}$ polynomiell, $n^{\log(\log(\
 Seien $\mathcal A,\mathcal B$ Algorithmen. Ist $\mathcal B$ polynomiell und benötigt $\mathcal A$ polynomiell viele elementare Operationen und zusätzlich polynomiell viele Aufrufe von $\mathcal B$ als Subroutine, so ist $\mathcal A$ polynomiell.
 \subsubsection*{Beweis}
 Polynome unter Komposition abgeschlossen
-\subsubsection{Prozedur: Euklidischer Algorithmus\index{Algorithmus!Euklidischer}}
+\subsubsection{Prozedur: Euklidischer Algorithmus\index{Algorithmus!Euklidischer}}\ssslbl
 \begin{lstlisting}
 INPUT $\mu,\nu\in\mathbb N$
 OUTPUT $\ggT(\mu,\nu)$
@@ -2530,5 +2530,71 @@ Das Problem kürzester Wege in gewichteten Digraphen kann polynomiell auf das Pro
 \end{tikzpicture}\\
 \emph{\textcolor{red}{einfacher Kantenzug, aber kein Weg}, \textcolor{blue}{kein einfacher Kantenzug}}
 \end{center}
+\hfill\textbf{23.12.2008}\\
+$G=(V,E,\Phi)$ Digraph. Konstruiere neuen Digraph $G'=(V',E',\Phi')$. Jeder Knoten $v$ wird zu $v_-$, $v_+$ "`verdoppelt"'. Neue Kanten $(v_-,v_+)$, alte Kante $(v,w)$ wird zu $(v_+,w_-)$. Insgesamt $\vert E\vert+\vert V\vert=\vert E'\vert$. Gewichte $\Phi'(v_-,w_+)=0$, $\Phi'(v_+,w_-)=\Phi(v,w)$ $( (v,w) \in E)$. Sei $W$ $s_-$-$t_+$-Kantenzug in $G'$. Es gilt: $\deg_\text{aus}(v_-)=1$, $\deg_\text{in}(v_+)=1$. $W$ ist daher genau dann einfacher Kantenzug, wenn $W$ Weg ist. Rückkontraktion liefert $s$-$t$-Weg in $G$.
+\subsubsection{Korollar}\ssslbl
+Hamiltonkreis kann polynomiell auf Problem kürzester einfacher Kantenzüge in gewichteten Digraphen reduziert werden.
+
+\section{Ganzzahlige lineare Optimierungsprobleme}
+\subsubsection*{Vorschau}
+$P=\{x:Ax\leq b\} \not= \varnothing$ Polytop, $\max_{x\in P,x\in\mathbb Z^n} c^Tx$ wird an Ecke angenommen. Frage: sind alle Ecken von $P$ ganzzahlig? Erkennen: $\mathcal{NP}$-schwierig.\\
+7.2: $P(b) = \{x:Ax\leq b\}$ ganzzahlige Ecken für \textit{jedes} $b\in\mathbb Z^m$ $\rightarrow$ Charakterisierung.\\
+7.3: Schnittebenenverfahren: Idee: nutze LP-Techniken $\rightarrow$ funktioniert für beliebige ILP.
+\subsection{Gitter, unimodulare Transformationen und lineare diophantische Gleichungssysteme}
+\subsubsection{Definition}\ssslbl
+Sei $L\subset\mathbb R^n$. $L$ heißt \textit{Gitter}\index{Gitter} des $\mathbb R^n$, wenn es Basis $\{v_1,\dots,v_n\}$ des $\mathbb R^n$ gibt mit
+\[L=\left\{\sum_{i=1}^n \lambda_i v_i : \lambda_1,\dots,\lambda_n \in\mathbb Z\right\}\]
+$\{v_1,\dots,v_n\}$ \textit{Basis}\index{Basis!eines Gitters} von $L$. $\mathbb Z^n$: \textit{Standard-}/\textit{Zahlengitter}\index{Gitter!Standard} des $\mathbb R^n$.\\
+Sei $L$ Gitter, $S\subset L$. $S$ heißt \textit{Teilgitter}\index{Gitter!Teil-}, wenn $L=\{0\}$ ist oder $k\in\mathbb N$, $s_1,\dots,s_k\in L$ existieren mit
+\[L=\left\{\sum_{i=1}^k \lambda_i s_i : \lambda_1,\dots,\lambda_k \in\mathbb Z\right\}\]
+\subsubsection{Beispiel}\ssslbl
+$\{u_1,u_2\}$ Basis von $\mathbb Z^2$.\\
+$L$ aufgespannt von $v_1$, $v_2$.\\
+ladida
+\subsubsection{Bemerkung}\ssslbl
+Sei $L$ Gitter des $\mathbb R^n$. Dann existiert reguläre Matrix $M\in\mathbb R^{n\times n}$ mit $L=M(\mathbb Z^n)$.
+\subsubsection*{Beweis}
+Sei $\{v_1,\dots,v_n\}$ Basis von $L$, $M:=(v_1,\dots,v_n)$. Dann $M(\mathbb Z^n)=L$.
+\subsubsection{Beispiel}\ssslbl
+$v_1=\begin{pmatrix}3\\1\end{pmatrix}$, $v_2=\begin{pmatrix}2\\1\end{pmatrix}$ (linear unabhängig). $L:=\{\lambda_1v_1+\lambda_2v_2:\lambda_1,\lambda_2\in\mathbb Z\}\subset\mathbb Z^2$. $\begin{pmatrix}\beta_1\\\beta_2\end{pmatrix}\in\mathbb Z^2$. Es gilt:
+\[(\beta_1-2\beta_2)\begin{pmatrix}3\\1\end{pmatrix} + (-\beta_1+3\beta_2)\begin{pmatrix}2\\1\end{pmatrix}=\begin{pmatrix}\beta_1\\\beta_2\end{pmatrix}\]
+Also $L=\mathbb Z^2$, d.h. $\{v_1,v_2\}$ Basis von $\mathbb Z^2$.\\
+Sei $A=(v_1,v_2)=\begin{pmatrix}3&2\\1&1\end{pmatrix}$, $x=\begin{pmatrix}\xi_1\\\xi_2\end{pmatrix}$, $b=\begin{pmatrix}\beta_1\\\beta_2\end{pmatrix}$. Löse $Ax=b$, $x\in\mathbb Z^2$. $A^{-1}=\begin{pmatrix}1&-2\\-1&3\end{pmatrix}$, $x=A^{-1}b$.
+\subsubsection{Bezeichnung}\ssslbl
+Seien $A\in\mathbb Z^{m\times n}$, $b\in\mathbb Z^m$. Dann heißt $Ax=b$, $x\in\mathbb Z^n$ \textit{lineares diophantisches Gleichungssystem}\index{Gleichungssystem!lineares diophantisches}.
+\subsubsection*{Problem:}
+\begin{itemize}
+\item Gegeben: $n,m\in\mathbb N$, $A\in\mathbb Z^{m\times n}$, $b\in\mathbb Z^m$
+\item Auftrag: Bestimme $x^*\in\mathbb Z^n$ mit $Ax^*=b$ oder entscheide, dass kein solches existiert.
+\end{itemize}
+\subsubsection{Lemma}\ssslbl
+Seien $\alpha_1,\dots,\alpha_n,\beta\in\mathbb Z$ und $\kappa:=\ggT(\alpha_1,\dots,\alpha_n)$. Die lineare diophantische Gleichung
+\[a_1\xi_1+\cdots+a_n\xi_n=\beta,\quad\xi_1,\dots,\xi_n\in\mathbb Z\]
+ist genau dann lösbar, wenn $\kappa$ Teiler von $\beta$ ist.
+\subsubsection*{Beweis}
+Sind alle $\alpha_i=0$, so ist die Behauptung trivial. O.B.d.A. sei $\alpha_1\not=0$. Sei
+\[\sigma^*=\min\left\{\sigma\in\mathbb N,\exists(\xi_1,\dots,\xi_n\in\mathbb Z):\sigma=\alpha_1\xi_1+\cdots+\alpha_n\xi_n\right\}.\]
+$\sigma^*$ existiert, da $\vert\alpha_1\vert$ entsprechend darstellbar ist. Seien $\xi_1^*,\dots,\xi_n^*\in\mathbb Z$ mit $\sigma^*=\alpha_1\xi_1^*+\cdots+\alpha_n\xi_n^*$.\\
+$\kappa\vert\alpha_1,\dots,\alpha_n \Rightarrow \kappa\vert\sigma^*$, also $\kappa\leq\sigma^*$. Seien $i\in[n]$, $\gamma_i,\rho_i\in\mathbb Z$ mit $0\leq\rho_i\leq\sigma^*-1$, $\alpha_i=\sigma^*\gamma_i+\rho_i$. Dann $\rho_i=\alpha_i-\sigma^*\gamma_i=\alpha_i-\alpha_1\xi_1^*\gamma_i-\cdots-\alpha_n\xi_n^*\gamma_i$, d.h. $\rho_i$ ist ganzzahlige Kombination von $\alpha_1,\dots,\alpha_n$, also $\rho_i=0$. Daher $\sigma^*\vert\alpha_i$, also $\sigma^*\vert\kappa$. Insgesamt: $\sigma^*=\kappa$.
+\subsubsection{Bemerkung}\ssslbl
+Seien $n\geq3$, $\alpha_1,\dots,\alpha_n\in\mathbb Z$. Dann $\ggT(\alpha_1,\dots,\alpha_n) = \ggT(\ggT(\alpha_1,\alpha_2),\alpha_3,\dots,\alpha_n)$.
+\subsubsection*{Beweis}
+Übung.
+\subsubsection{Lemma}\ssslbl
+In polynomieller Zeit kann entschieden werden, ob lineare diophantische Gleichung lösbar ist.
+\subsubsection*{Beweis}
+Seien $\alpha_1,\dots,\alpha_n,\beta\in\mathbb Z$. O.B.d.A. sei $\alpha_i>0$. Wende Euklidischen Algorithmus an auf $\alpha_1,\alpha_2$. \textit{(\ref{6.1.9})} liefert $\kappa_2:=\ggT(\alpha_1,\alpha_2)$. Dann $\ggT(\alpha_1,\dots,\alpha_n)=\ggT(\kappa_2,\alpha_3,\dots,\alpha_n)$. Analog nach $k$ Schritten:\[\kappa_{k+1}=\ggT(\kappa_k,\alpha_{k+1})=\ggT(\alpha_1,\dots,\alpha_{k+1}).\] Binäre Größe der Komponenten nimmt nicht zu. Nach $n-1$ Schritten $\kappa_n=\ggT(\alpha_1,\dots,\alpha_n)$. Test $\kappa_n\vert\beta$.
+\subsubsection{Beispiel}\ssslbl
+$\ggT(10,4,7)$ mit Euklidischem Algorithmus. \textit{(\ref{7.1.8})} inklusive Transformationsmatrix.
+\begin{align*}
+(10, 4, 7)\begin{pmatrix}1&0&0\\-2&1&0\\0&0&1\end{pmatrix}&=(2, 4, 7)\\
+(2, 4, 7)\begin{pmatrix}1&-2&0\\0&1&0\\0&0&1\end{pmatrix}&=(2, 0, 7)\\
+(2, 0, 7)\begin{pmatrix}1&0&-3\\0&1&0\\0&0&1\end{pmatrix}&=(2, 0, 1)\\
+(2, 0, 1)\begin{pmatrix}1&0&0\\0&1&0\\-2&0&1\end{pmatrix}&=(0, 0, 1)
+\end{align*}
+Produkt der Matrizen:
+\[C=\begin{pmatrix}7&-2&-3\\-14&5&6\\-2&0&1\end{pmatrix}\]
+$(10,4,7)C=(0,0,1)$ (Auflösung mittels Spaltenoperationen).
 \printindex
 \end{document}
+
