@@ -2594,7 +2594,143 @@ $\ggT(10,4,7)$ mit Euklidischem Algorithmus. \textit{(\ref{7.1.8})} inklusive Tr
 \end{align*}
 Produkt der Matrizen:
 \[C=\begin{pmatrix}7&-2&-3\\-14&5&6\\-2&0&1\end{pmatrix}\]
-$(10,4,7)C=(0,0,1)$ (Auflösung mittels Spaltenoperationen).
+$(10,4,7)C=(0,0,1)$ (Auflösung mittels Spaltenoperationen).\hfill\textit{08.01.2009}\\[1ex]
+Lemma \textit{(\ref{7.1.6})} $\Rightarrow$ $10\xi_1+4\xi_2+7\xi2=\beta$ lösbar für jedes $\beta\in\mathbb Z$\\[1ex]
+$\vert\det(C)\vert=1$, $y=\left(\begin{array}{c}\eta_1\\\eta_2\\\eta_3\end{array}\right):=C^{-1}x$, dann
+\[\beta=(10,4,7)x=(10,3,7)Cy=(0,0,1)y=\eta_3\]
+\[x=Cy=\left(\begin{array}{c}7\\-14\\-2\end{array}\right)\eta_1+\left(\begin{array}{c}-2\\5\\0\end{array}\right)\eta_2+\left(\begin{array}{c}-3\\6\\1\end{array}\right)\beta,\qquad\eta_1,\eta_2\in\mathbb Z\]
+Menge aller Lösungen
+\subsubsection{Definition}\ssslbl
+Sei $C\in\mathbb Z^{n\times n}$ mit $\vert\det(C)\vert=1$. Dann heißt $C$ \textit{unimodular}\index{unimodular}. Abbildung $\Psi$ mit $\Psi(x)=Cx$ \textit{unimodulare Transformation}\index{Transformation!unimodulare}.
+\subsubsection{Lemma}\ssslbl
+Sei $C\in\mathbb Z^{n\times n}$ regulär. Dann ist äquivalent:
+\begin{enumerate}[(a)]
+\item $C$ ist unimodular
+\item Für jedes $b\in\mathbb Z^n$ gilt $c^{-1}b\in\mathbb Z^n$
+\item Für jedes $b\in\mathbb Z^n$ ist $Cx=b$ lösbar über $\mathbb Z$
+\item $C^{-1}\in\mathbb Z^{n\times n}$
+\end{enumerate}
+\subsubsection*{Beweis}
+(a) $\Rightarrow$ (b): Cramersche Regel, $C=(\gamma_{ij})_{i,j\in[n]}$, $C^{-1}=\frac1{\det(C)}adj(C)$. Wegen $\vert\det(C)\vert=1$ folgt für $b\in\mathbb Z$
+\[C^{-1}b=\frac1{\det(C)}adj(C)b\in\mathbb Z^n\]
+(b) $\Rightarrow$ (c): $\checkmark$\\[1ex]
+(c) $\Rightarrow$ (d): $C^{-1}u_i$ $i$-ter Spaltenvektor von $C^{-1}$. Nach Voraussetzung für $b=u_i$: $C^{-1}u_i\in\mathbb Z^n$, also $C^{-1}\in\mathbb Z^{n\times n}$\\[1ex]
+(d) $\Rightarrow$ (a): $\det(C),\det C^{-1}\in\mathbb Z$, $\det C^{-1}=\frac1{\det(C)}\in\mathbb Z$, also $\vert\det(C)\vert=1$
+\subsubsection*{Interpretation}
+Spaltenvektoren unimodularer $n\times n$ Matrizen sind genau Basen des Gitters $\mathbb Z^n$.
+\subsubsection{Bemerkung}\ssslbl
+Sei $C\in\mathbb R^{n\times n}$, $\Psi:\mathbb R^n\rightarrow\mathbb R^n$ definiert durch $x\mapsto Cx$ $\Psi\bigl\vert\bigr._{\mathbb Z^n}$ ist genau dann Gruppenhomomorphismus von $(\mathbb Z^n,+)$, wenn $C$ unimodular ist.
+\subsubsection*{Beweis}
+Übung.
+\subsubsection{Bemerkung}\ssslbl
+Bez. Matrixmultiplikation bilden unimodularen Matrizen des $\mathbb R^n$ eine Gruppe.
+\subsubsection{Satz}\ssslbl
+Lineare diophantische Gleichung ist in polynomieller Zeit lösbar
+\subsubsection*{Beweis}
+Durch $\mathcal I=(n,\alpha_1,\dots,\alpha_n,\beta)$ sei Aufgabe spezifiziert. Alle $\alpha_i=0$ trivial. Also: nicht alle $\alpha_i$ gleich 0, oBdA. $\alpha_1,\dots,\alpha_n\geq0$ (sonst unimodulare Transformation des Typs ($\pm u_1$, $\pm u_2$, $\dots$, $\pm u_n$))\\[1ex]
+Wende euklidischen Algorithmus an (analog zu \textit{(\ref{7.1.8})}, hier beliebige Reihenfolge erlaubt)\\[1ex]
+Operationen: $\mu\leftarrow\mu-\left\lfloor\frac{\mu}{\nu}\right\rfloor\nu$, $\mu$ i-te, $\nu$ j-te Komponente des aktuellen Koeffizienten. zugehörige Transformation:
+\[C_k=E_n-\left\lfloor\frac{\mu}{\nu}\right\rfloor u_ju_i^T\qquad\text{(Schritt k)}\]
+Es gilt $\det C_k=1$, $\size(C_k)\leq\size(\mathcal I)$.\\[1ex]
+Sei $\alpha^*=\max\left\{\alpha_i\::\:i\in[n]\right\}$\\[1ex]
+Einträge des aktuellen Koeffizientenvektors bleiben $\geq0$, $\leq\alpha^*$. Nach $p\in\mathcal O(n\log(\alpha^*))$ Operationen (Lemma \textit{(\ref{6.1.10})}) haben wir $\ggT$ gefunden sowieso $C=C_0C_1\dots C_p$. Sei $\kappa=\ggT(\alpha_1,\dots,\alpha_n)$. Dann existiert $i_0\in[n]$ mit $(\alpha_1,\dots,\alpha_n)C=\kappa u_{i_0}$. Gilt $\kappa\not\vert\beta$ dann Gleichung über $\mathbb Z$ unlösbar. Andernfalls Lösungsmenge
+\[\Bigl\{C\left(\eta_1,\dots,\eta_{i_0-1},\frac{\beta}{\kappa},\eta_{i_0+1},\dots,\eta_n\right)^T\::\:\eta_1,\dots,\eta_{i_0-1},\eta_{i_0+1},\dots,\eta_n\in\mathbb Z\Bigr\}\]
+Noch zz.: $\size(C)$ polynomiell in $\size(\mathcal I)$\\[1ex]
+Jedes $C_k$ hat Form $C_k=E_n+\delta_ku_iu_j^T$, $\vert\delta_k\vert\leq\alpha^*$, $i,j$ geeignet.\\[1ex]
+$\beta_k$ Maximum der Beträge der Koeffizienten von $C_0\dots C_k$. Dann $\beta_0=1$ für $C_0=(\pm u_1,\dots,\pm u_n)$, $\beta_k\leq\beta_{k-1}+\alpha^Ü\beta_{k-1}$. Somit
+\[\beta_p\leq(1+\alpha^*)^p\]
+Es gilt
+\[\log(1+\beta_p)\leq\log(2\beta_p)\leq\log2rp\lod(1+\alpha^*)\leq1+p\size(\alpha^*)\in\mathcal O(n\size(\mathcal I)^2)\]
+Ziel: Löse $Ax=b$, $x\in\mathbb Z^n$
+\subsubsection{Beispiel}\ssslbl
+vgl. \textit{(\ref{7.1.9})}
+\[C_1=\left(\begin{array}{ccc}
+7 & -2 & -3 \\ 
+-14 & 5 & 6 \\ 
+-2 & 0 & 1
+\end{array} \right)\:,\qquad C_2=\left(\begin{array}{ccc}
+0 & 1 & 0 \\ 
+0 & 0 & 1 \\ 
+1 & 0 & 0
+\end{array} \right)\]
+Dann:
+\[(10,4,7)C_1C_2=(1,0,0)\]
+Beachte
+\[C=C_1C_2=\left(\begin{array}{ccc}
+-3 & -7 & -2 \\ 
+6 & -14 & 5 \\ 
+1 & -2 & 0
+\end{array} \right)\neq\left(\begin{array}{ccc}
+0 & 1 & -1 \\ 
+2 & -6 & -1 \\ 
+-1 & 2 & 2
+\end{array} \right)=C'\]
+aber $(10,4,7)C'=(1,0,0)$
+\subsubsection{Bezeichnung}\ssslbl
+Seien $A\in\mathbb Z^{m\times n}$. Die folgenden Operationen heißen \textit{elementare (unimodulare)}\index{Spaltenoperation!elementare} Spaltenoperationen:
+\begin{enumerate}[(a)]
+\item Vertauschung von zwei Spalten von $A$
+\item Multiplikation einer Spalte von $A$ mit $-1$
+\item Addition eines positiven ganzzahligen Vielfachen einer Spalte zu einer anderen
+\end{enumerate}
+\subsubsection*{Ziel}
+$A\rightarrow AC_1=A\left(\begin{array}{cccc}
+\star & 0 & \dots & 0 \\ 
+\star & \star & \star & \star \\ 
+\vdots & \star & \star & \vdots \\ 
+\star & \star & \dots & \star
+\end{array} \right)\rightarrow AC_1C_2=AC_1\left(\right)\rightarrow\dots\rightarrow\left(\right)$
+\subsubsection{Definition}\ssslbl
+Sei $A=\left(\alpha_{ij}\right)_{\substack{i\in[m]\\j\in[n]}}\in\mathbb Z^{m\times n}$ mit $\rang(A)=m$. $A$ heißt \textit{Hermite Normalform}\index{Hermite Normalform}, wenn für $i,j\in[m]\times[n]$ gilt:
+\begin{enumerate}[(a)]
+\item $\alpha_{ij}\geq0$
+\item $\alpha_{ij}=0$ für $j>i$
+\item $\alpha_{ij}<\alpha_{ii}$ für $j<i$
+\end{enumerate}
+\subsubsection{Korollar}\ssslbl
+Seien $a=(\alpha_1,\dots,\alpha_n)^T\in\mathbb Z^n\setminus\{0\}$. Dann gibt es unimodulare Matrix $C$, so dass $a^TC$ Hermite NF ist:
+\[a^TC=\ggT(\alpha_1,\dots,\alpha_n)u_i^T\]
+\subsubsection*{Beweis}
+\textit{(\ref{7.1.14})} (und ggf. Permutation)
+\subsubsection{Beispiel}\ssslbl
+$A=\left(\begin{array}{ccc}10&4&7\\16&4&1\end{array}\right)$
+\begin{align*}
+A\left(\begin{array}{ccc}
+0 & 1 & -1 \\ 
+2 & -6 & -1 \\ 
+-1 & 2 & 2
+\end{array} \right)&=\left(\begin{array}{ccc}
+1 & 0 & 0 \\ 
+7 & -6 & -18
+\end{array} \right)=:B\\
+B\left(\begin{array}{ccc}
+1 & 0 & 0 \\ 
+0 & -1 & 3 \\ 
+0 & 0 & -1
+\end{array} \right)&=\left(\begin{array}{ccc}
+1 & 0 & 0 \\ 
+7 & 6 & 0
+\end{array} \right)
+\end{align*}
+insgesamt
+\[C=\left(\begin{array}{ccc}
+1 & -1 & 4 \\ 
+-4 & 6 & -17 \\ 
+1 & -2 & 4
+\end{array} \right)\:,\quad AC=\left(\begin{array}{ccc}
+1 & 0 & 0 \\ 
+1 & 6 & 0
+\end{array} \right)\]
+\subsubsection*{Frage}
+Ist $AC$ eindeutig?. Sei $AC'=\left(\begin{array}{ccc}
+\alpha & 0 & 0 \\ 
+\beta & \gamma & 0
+\end{array} \right)$, $\alpha,\gamma\in\mathbb N$, $\beta\in\mathbb N_0$, $\beta<\gamma$. Seien
+\[v_1=11\:,\quad v_2=06\:,\quad w_1=\alpha\beta\:,\quad w_2=0\gamma\]
+Da $C,C'$ unimodular sind, erzeugen $v_1,v_2$ bzw. $w_1,w_2$ dassselbe Teilgitter. Insbesondere
+\[\left(\begin{array}{c}0\\6\end{array}\right)=v_2=\lambda_1w_1+\lambda_2w_2=\left(\begin{array}{c}\lambda_1\alpha\\\lambda_1\beta+\lambda_2\gamma\end{array}\right)\qquad\lambda_1,\lambda_2\in\mathbb Z\]
+Also $\lambda_1=0$ und $\gamma\vert 6$, analog $6\vert\gamma$, also $\gamma=6$. Aus
+\[\left(\begin{array}{c}1\\1\end{array}\right)=\left(\begin{array}{c}\lambda_1\alpha\\\lambda_1\beta+\lambda_26\end{array}\right)\qquad\lambda_1,\lambda_2\in\mathbb Z\]
+folgt $\lambda=1$, $\alpha_1=1$, $1=\beta+6\lambda_2$, also $\beta=1$ $\Rightarrow$ HF existiert und ist eindeutig.
 \printindex
 \end{document}
-
