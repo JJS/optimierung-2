@@ -2637,10 +2637,10 @@ Einträge des aktuellen Koeffizientenvektors bleiben $\geq0$, $\leq\alpha^*$. Nac
 \[\Bigl\{C\left(\eta_1,\dots,\eta_{i_0-1},\frac{\beta}{\kappa},\eta_{i_0+1},\dots,\eta_n\right)^T\::\:\eta_1,\dots,\eta_{i_0-1},\eta_{i_0+1},\dots,\eta_n\in\mathbb Z\Bigr\}\]
 Noch zz.: $\size(C)$ polynomiell in $\size(\mathcal I)$\\[1ex]
 Jedes $C_k$ hat Form $C_k=E_n+\delta_ku_iu_j^T$, $\vert\delta_k\vert\leq\alpha^*$, $i,j$ geeignet.\\[1ex]
-$\beta_k$ Maximum der Beträge der Koeffizienten von $C_0\dots C_k$. Dann $\beta_0=1$ für $C_0=(\pm u_1,\dots,\pm u_n)$, $\beta_k\leq\beta_{k-1}+\alpha^Ü\beta_{k-1}$. Somit
+$\beta_k$ Maximum der Beträge der Koeffizienten von $C_0\dots C_k$. Dann $\beta_0=1$ für $C_0=(\pm u_1,\dots,\pm u_n)$, $\beta_k\leq\beta_{k-1}+\alpha^*\beta_{k-1}$. Somit
 \[\beta_p\leq(1+\alpha^*)^p\]
 Es gilt
-\[\log(1+\beta_p)\leq\log(2\beta_p)\leq\log2rp\lod(1+\alpha^*)\leq1+p\size(\alpha^*)\in\mathcal O(n\size(\mathcal I)^2)\]
+\[\log(1+\beta_p)\leq\log(2\beta_p)\leq\log2rp\log(1+\alpha^*)\leq1+p\size(\alpha^*)\in\mathcal O(n\size(\mathcal I)^2)\]
 Ziel: Löse $Ax=b$, $x\in\mathbb Z^n$
 \subsubsection{Beispiel}\ssslbl
 vgl. \textit{(\ref{7.1.9})}
@@ -2731,6 +2731,72 @@ Da $C,C'$ unimodular sind, erzeugen $v_1,v_2$ bzw. $w_1,w_2$ dassselbe Teilgitte
 \[\left(\begin{array}{c}0\\6\end{array}\right)=v_2=\lambda_1w_1+\lambda_2w_2=\left(\begin{array}{c}\lambda_1\alpha\\\lambda_1\beta+\lambda_2\gamma\end{array}\right)\qquad\lambda_1,\lambda_2\in\mathbb Z\]
 Also $\lambda_1=0$ und $\gamma\vert 6$, analog $6\vert\gamma$, also $\gamma=6$. Aus
 \[\left(\begin{array}{c}1\\1\end{array}\right)=\left(\begin{array}{c}\lambda_1\alpha\\\lambda_1\beta+\lambda_26\end{array}\right)\qquad\lambda_1,\lambda_2\in\mathbb Z\]
-folgt $\lambda=1$, $\alpha_1=1$, $1=\beta+6\lambda_2$, also $\beta=1$ $\Rightarrow$ HF existiert und ist eindeutig.
+folgt $\lambda=1$, $\alpha_1=1$, $1=\beta+6\lambda_2$, also $\beta=1$ $\Rightarrow$ HF existiert und ist eindeutig.\hfill\textit{13.01.2009}\\
+\subsubsection{Satz}\ssslbl
+Sei $A\in\mathbb Z^{m\times n}$ mit $\rang A=m$
+\begin{enumerate}[(a)]
+\item Es gibt eine unimodulare Matrix $C$, so dass $AC$ Hermit NF ist.
+\item Seien $C_1$, $C_2$ unimodulare Matrizen, so dass $AC_1$ und $AC_2$ Hermit NF sind. Dann gilt $AC_1=AC_2$
+\end{enumerate}
+\subsubsection*{Beweis}
+\begin{enumerate}[(a)]
+\item vollständige Induktion nach $m$. Für $m=1$ gilt die Aussage nach Korollar \textit{(\ref{7.1.18})}. Seien nun $m\geq2$ und $A\in\mathbb Z^{m\times n}$. Ferner sein $A_{m-1}\in\mathbb Z^{(m-1)\times n}$ $\wedge$ $a_m\in\mathbb Z^n$ $\wedge$ $A:=\left(\begin{array}{c}A_{m-1}\\a_m^T\end{array}\right)$.\\[1ex]
+Nach Induktionsannahme gibt es eine unimodulare Matric $C_{m-1}\in\mathbb Z^{n\times n}$, so dass $A_{m-1}C_{m-1}$ Hermit NF ist.
+\[\Rightarrow\:AC_{m-1}=\left(\begin{array}{c}A_{m-1}C_{m-1}\\a_m^TC_{m-1}\end{array}\right)=\left(\begin{array}{ccccccc}
+\beta_{1,1} & 0 & \dots & \dots & \dots & \dots & 0 \\ 
+\beta_{2,1} & \beta_{2,2} & 0 & \dots & \dots & \dots & 0 \\ 
+\vdots &  & \ddots &  &  &  & \vdots \\ 
+\beta_{m-1,1} & \dots & \dots & \beta_{m-1,m-1} & 0 & \dots & 0 \\ 
+\eta_1 & \eta_2 & \dots & \eta_{m-1} & \eta_n & \dots & \eta_n
+\end{array} \right)\]
+Auf die $\eta_n$ wenden wir Korollar \textit{(\ref{7.1.18})} an. Wegen $\rang(A)=m$ ist er nicht der Nullvektor.\\[1ex]
+Seien also $C'\in\mathbb Z^{(n-m+1)\times(n-m+1)}$ unimodular und $\beta_{m,m}=ggT(\eta_m,\dots,\eta_n)$ mit
+\[(\eta_m,\dots,\eta_n)C'=(\beta_{m,m},0,\dots,0)\]
+Ferner sei
+\[C_m':=C_{m-1}\left(\begin{array}{cc}E_{m-1}&0\\0&C'\end{array}\right)\]
+Dann erfüllt $AC_m'$ die Definition \textit{(\ref{7.1.17})} für die ersten $m-1$ Zeilen. Ferner gilt \textit{(\ref{7.1.17}b)} auch für die $m$-te Zeile und es ist $\beta_{m,m}>0$. Wir müssen nur noch eine weitere Koordinatentransformation durchführen, die $\eta_1,\dots,\eta_{m-1}$ in $\beta_{m,1},\dots,\beta_{m,m-1}$ überführt mit $0\leq\beta_{m,1},\dots,\beta_{m,m-1}<\beta_{m,m}$ den Rest aber invariant lässt.\\[1ex]
+Sei also $j\in[m-1]$. Dann gilt $0\leq\beta_{m,j}:=\eta_j-\left\lfloor\frac{\eta_j}{\beta_{m,m}}\right\rfloor\beta_{m,m}<\beta_{m,m}$\\[1ex]
+$\Rightarrow$ unimodulare Transformation $C''=E_n-\sum_{j=1}^{m-1}\left\lfloor\frac{\eta_j}{\beta_{m,m}}\right\rfloor u_mu_j^T$\\[1ex]
+$\Rightarrow$ $C_m=C_m'\cdot C''$ überführt $A$ in Hermite NF.
+\item Für $k=1,2$ seien $C_k$ unimodular,
+\[AC_k=:\left(b_1^{(k)},\dots,b_n^{(k)}\right)=\left(\beta_{i,j}^{(k)}\right)-{i\in[m],j\in[n]}\]
+Hermit NF und es gelte $AC_1\neq AC_2$.\\[1ex]
+Sei $i_0\in[m]$ minimal, so dass $j\in[i_0]$ mit $\beta_{i,j}^{(1)}\neq\beta_{i,j}^{(2)}$. Sei $j_0$ ein solches. oBdA. sei $\beta_{i_0,i_0}^{(1)}\leq\beta_{i_0,i_0}^{(2)}$. Da $b_1^{(1)},\dots,b_m^{(1)}$ und $b_1^{(2)},\dots,b_m^{(2)}$ dasselbe Teilgitter von $\mathbb Z^n$ erzeugen, gibt es $\lambda_1,\dots,\lambda_m\in\mathbb Z$ mit
+\[d:=\left(\begin{array}{c}\delta_1\\\vdots\\\delta_m\end{array}\right)=b_{j_0}^{(2)}-b_{j_0}^{(1)}=\sum_{j=1}^m\lambda_jb_j^{(2)}\]
+Nach der Wahl von $i_0$ gilt $\delta_1=\dots=\delta_{i_0-1}=0$\\[1ex]
+$\Rightarrow$ (\textit{(\ref{7.1.17}b)}) $\lambda_1=\dots=\lambda_{i_0-1}=0$. Somit ist $\delta_{i_0}=\lambda_{i_0}\beta_{i_0,i_0}^{(2)}$\\[1ex]
+Nun gilt für $j_0=i_0$: $0<\delta_{i_0}<\beta_{i_0,i_0}^{(2)}$ sowie für $j_0<i_0$: $0<\vert\delta_{i_0}\vert\leq\max\left\{\beta_{i_0,j_0}^{(1)},\beta_{i_0,j_0}^{(2)}\right\}$\\[1ex]
+$\Rightarrow$ Widerspruch durch $0<\vert\delta_{i_0}\vert=\underbrace{\vert\lambda_{i_0}\beta_{i_0,i_0}^{(2)}\vert}_{\lambda_{i_0}=0}<\beta_{i_0,i_0}^{(2)}$ $\Rightarrow$ Behauptung
+\end{enumerate}
+\subsubsection{Bezeichnung}\ssslbl
+Seien $A\in\mathbb Z^{m\times n}$ mit $\rang(A)=m$ und $C\in\mathbb Z^{n\times n}$ unimodular, so dass $AC$ Hermit NF ist. Dann heißt $AC$ die \textit{Hermite Normalform} vom $A$\index{Hermite!Normalform}\index{Normalform!Hermite}.\\[1ex]
+Das Problem
+\begin{center}
+Gegeben: $m,n\in\mathbb N$, $A\in\mathbb Z^{m\times n}$ mit $\rang(A)=m$\\
+Auftrag: Bestimme die Hermite NF von $A$
+\end{center}
+wird mit \textsc{Hermite Normalform} bezeichnet.
+\subsubsection{Bemerkung}\ssslbl
+Seien $A\in\mathbb Z^{m\times m}$ regulär und $C_1,C_2\in\mathbb Z^{m\times n}$ unimodular, so dass $AC_1$ und $AC_2$ Hermite NF ist. Dann gilt $C_1=C_2$.
+\subsubsection*{Beweis}
+Nach \textit{(\ref{7.1.20}b)} gilt $C_1=A^{-1}AC_1=A^{-1}AC_2=C_2$
+\subsubsection{Korollar}\ssslbl
+Sei $C\in\mathbb Z^{n\times n}$. $C$ ist genau dann unimodular, wenn $c$ aus $E_n$ mittels einer endlichen Sequenz elementarer (unimodularer) Spaltenoperationen entsteht.
+\subsubsection*{Beweis}
+\begin{itemize}
+\item[$\Leftarrow$] Jede derart aus $E_n$ konstruierte Matrix ist ganzzahlig und es gilt $\vert\det(C)\vert=1$ $\Rightarrow$ $C$ ist unimodular
+\item[$\Rightarrow$] Sei $C$ unimodular. Nach Satz \textit{(\ref{7.1.20})} und Bemerkung \textit{(\ref{7.1.22})} existiert genau eine unimodulare Matrix $C'$, so dass $CC'$ Hermite NF von $C$ ist. Nach dem Beweis von \textit{(\ref{7.1.20})} ist $C'$ durch eine endliche Sequenz von elementaren Spaltenoperationen aus $E_n$ hervorgegangen. Das gilt auch für $(C')^{-1}$.\\[1ex]
+Nun ist $CC'$ eine ganzzahlige untere Dreiecksmatrix, $\det(CC')$ ist das Produkt der Diagonaleinträge. Außerdem gilt aber $\vert\delta(CC')\vert=\vert\det(C)\det(C')\vert=1$ $\Rightarrow$ (\textit{(\ref{7.1.17})}) $CC'=E_n$, also $C=C'^{-1}$ $\Rightarrow$ Behauptung
+\end{itemize}
+\subsubsection{Korollar}\ssslbl
+Seien $v_1,\dots,v_n\in\mathbb Z^m$ und $L:=\left\{\sum_{j=1}^n\lambda_jv_j\::\:\lambda_1,\dots,\lambda_n\in\mathbb Z\right\}$. Dann ist $L$ ein Teilgitter von $\mathbb Z^m$ und es gibt eine Basis $b_1,\dots,b_k$ mit $u_i^Tb_j=0$ $\forall i\in[m],j\in[k]$ mit $i<j$
+\subsubsection*{Beweis}
+Seien $A=(v_1,\dots,v_n)$ und $k:=\rang(A)$. $k=0$ $\Rightarrow$ $L=\{0\}$, Aussage korrekt. Seien nun $k\in\mathbb N$ und $A_1\in\mathbb Z^{k\times k}$ $\wedge$ $A_2\in\mathbb Z^{k\times(n-k)}$ $\wedge$ $A_3\in\mathbb Z^{(m-k)\times k}$ $\wedge$ $A_4\in\mathbb Z^{(m-k)\times(n-k)}$ so dass $\rang(A_1)=k$ $\wedge$ $A=\left(\begin{array}{cc}A_1&A_2\\A_3&A_4\end{array}\right)$ gilt.\\[1ex]
+\textit{(\ref{7.1.20})} $\Rightarrow$ es existiert eine unimodulare Matrix $C\in\mathbb Z^{n\times n}$, so dass $(A_1\:A_2)C$ die hermite NF $(B_1\:0)$ von $(A_1,A_2)$ ist. $\rang(A)=k$ $\Rightarrow$ $AC$ hat die Gstalt
+\[AC=\left(\begin{array}{cc}B_1&0\\B_3&0\end{array}\right)\]
+mit $B_3\in\mathbb Z^{(m-k)\times k}$. \textit{(\ref{7.1.12})} $\Rightarrow$ $L=A(\mathbb Z^n)=AC(\mathbb Z^n)=\left(\begin{array}{c}B_1\\B_3\end{array}\right)(\mathbb Z^m)$.\\[1ex]
+$B_1$ ist untere Dreiecksmatrix mit positiver Diagonale $\Rightarrow$ Spalten von $\left(\begin{array}{c}B_1\\B_3\end{array}\right)$ linear unabhängig und haben die behauptete Form.
+\subsubsection{Bezeichnung}\ssslbl
+Seien $v_1,\dots,v_n\in\mathbb Z^m$ und $L=\left\{\sum_{j=1}^n\lambda_jv_j\::\:\lambda_1,\dots,\lambda_n\in\mathbb Z\right\}$. Dann heißt $L$ das durch $v_1,\dots,v_n$ erzeugte Teilgitter von $\mathbb Z^m$.
 \printindex
 \end{document}
